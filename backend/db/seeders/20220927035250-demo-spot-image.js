@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('SpotImages', [
+  up: async (queryInterface, Sequelize) =>{
+    return queryInterface.bulkInsert('SpotImages',[
       {
         spotId: 1,
         url: 'https://static8.depositphotos.com/1392258/871/i/600/depositphotos_8716836-stock-photo-modern-gray-brick-home.jpg',
@@ -40,8 +40,7 @@ module.exports = {
     */
   },
 
-  down: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('SpotImages')
+  down: async (queryInterface, Sequelize) =>{
     /**
      * Add commands to revert seed here.
      *
