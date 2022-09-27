@@ -5,6 +5,8 @@ const cors = require('cors');
 const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
+const routes = require('./routes');
+const {ValidationError} = require('sequelize');
 const { environment } = require('./config');
 const isProduction = environment === 'production';
 const app = express();
@@ -12,7 +14,6 @@ const app = express();
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.json());
-const {ValidationError} = require('sequelize');
 
 // Security Middleware
 if (!isProduction) {
@@ -38,8 +39,6 @@ app.use(
   })
 );
 
-// backend/app.js
-const routes = require('./routes');
 
 // ...
 
@@ -54,7 +53,6 @@ app.use((_req, _res, next) => {
   next(err);
 });
 
-
 // Process sequelize errors
 app.use((err, _req, _res, next) => {
   // check if error is a Sequelize error:
@@ -64,6 +62,7 @@ app.use((err, _req, _res, next) => {
   }
   next(err);
 });
+
 
 // Error formatter
 app.use((err, _req, res, _next) => {

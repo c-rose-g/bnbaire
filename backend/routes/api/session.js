@@ -7,21 +7,21 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const validateLogin = [
-  check('credential')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage('Please provide a valid email or username.'),
-  check('password')
-    .exists({ checkFalsy: true })
-    .withMessage('Please provide a password.'),
-  handleValidationErrors
+	check('credential')
+		.exists({ checkFalsy: true })
+		.notEmpty()
+		.withMessage('Please provide a valid email or username.'),
+	check('password')
+		.exists({ checkFalsy: true })
+		.withMessage('Please provide a password.'),
+	handleValidationErrors,
 ];
 
 // POST Log in
 router.post('/', validateLogin, async (req, res, next) => {
 	const { credential, password } = req.body;
 
-	const user = await User.login({ credential, password });
+	let user = await User.login({ credential, password });
 
 	if (!user) {
 		const err = new Error('Login failed');
@@ -31,11 +31,10 @@ router.post('/', validateLogin, async (req, res, next) => {
 		return next(err);
 	}
 
-	await setTokenCookie(res, user);
-
-	return res.json({
-		user,
-	});
+	const token = await setTokenCookie(res, user);
+	user = user.toJSON();
+	user.token = token;
+	return res.json(user);
 });
 
 // DELETE Log out
@@ -53,6 +52,5 @@ router.get('/', restoreUser, (req, res) => {
 		});
 	} else return res.json({});
 });
-
 
 module.exports = router;
