@@ -246,7 +246,7 @@ router.get('/', async (req, res) => {
 			attributes: [[sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']],
 		});
 
-		spot.avgRating = rating[0].toJSON().avgRating;
+		spot.avgRating = Number(rating[0].toJSON().avgRating);
 		spot.previewImage = spot.SpotImages[0].url;
 		delete spot.SpotImages;
 		Spots.push(spot);
