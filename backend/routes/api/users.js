@@ -36,6 +36,12 @@ router.post('/', validateSignup, async (req, res, next) => {
 			email: email,
 		},
 	});
+	const usernameExists = await User.findOne({
+		where: {
+			username: username,
+		},
+	});
+
 	if (emailExists) {
 		res.status(403);
 		return res.json({
@@ -46,11 +52,6 @@ router.post('/', validateSignup, async (req, res, next) => {
 			},
 		});
 	}
-	const usernameExists = await User.findOne({
-		where: {
-			username: username,
-		},
-	});
 
 	if (usernameExists) {
 		res.status(403);
