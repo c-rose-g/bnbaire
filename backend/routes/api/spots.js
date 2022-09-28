@@ -172,6 +172,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
 	res.status(200).json({ spots });
 });
+
 //GET DETAILS OF A SPOT FROM AN ID (no auth)
 router.get('/:spotId', async (req, res) => {
 	const { spotId } = req.params;
@@ -235,7 +236,7 @@ router.get('/', async (req, res) => {
 	});
 
 	// toJSON on each spot, key into review and spotimage, test on spot w/o reviews/stars
-	let spots = [];
+	let Spots = [];
 	for (let spot of allSpots) {
 		spot = spot.toJSON();
 		const rating = await Review.findAll({
@@ -248,10 +249,10 @@ router.get('/', async (req, res) => {
 		spot.avgRating = rating[0].toJSON().avgRating;
 		spot.previewImage = spot.SpotImages[0].url;
 		delete spot.SpotImages;
-		spots.push(spot);
+		Spots.push(spot);
 	}
 
-	res.status(200).json(spots);
+	res.status(200).json({Spots});
 });
 
 module.exports = router;
