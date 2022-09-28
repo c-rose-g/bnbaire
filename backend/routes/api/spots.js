@@ -135,7 +135,7 @@ router.get('/:spotId/reviews', async (req, res) => {
 						preview: true,
 					},
 				},
-				{ model: User, as:'Owners'}
+				{ model: User, as: 'Owners' },
 			],
 			where: {
 				ownerId: req.user.id,
@@ -153,7 +153,7 @@ router.get('/:spotId/reviews', async (req, res) => {
 // GET ALL SPOTS OWNED BY THE CURRENT USER (yes auth)
 router.get('/current', requireAuth, async (req, res) => {
 	const allSpots = await Spot.findAll({
-		include: {model: SpotImage,where: {preview: true,},},
+		include: { model: SpotImage, where: { preview: true } },
 		where: {
 			ownerId: req.user.id,
 		},
@@ -165,12 +165,10 @@ router.get('/current', requireAuth, async (req, res) => {
 			where: {
 				userId: req.user.id,
 			},
-			attributes: [
-				[sequelize.fn('AVG', sequelize.col('stars')), 'avgRating'],
-			],
+			attributes: [[sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']],
 		});
 
-		spot.avgRating = rating[0].toJSON().avgRating;
+		spot.avgRating = Number(rating[0].toJSON().avgRating);
 		spot.previewImage = spot.SpotImages[0].url;
 		delete spot.SpotImages;
 		// console.log('rating', rating[0].toJSON().avgRating);
@@ -185,7 +183,7 @@ router.get('/:spotId', async (req, res) => {
 	const { spotId } = req.params;
 	const getAllSpots = await Spot.findAll();
 	// console.log('get all spots',getAllSpots)
-	if (getAllSpots.includes(spotId)) {
+	if (spotId) {
 		const allSpots = await Spot.findAll({
 			include: [
 				{
@@ -213,11 +211,14 @@ router.get('/:spotId', async (req, res) => {
 				},
 				attributes: [
 					[sequelize.fn('COUNT', sequelize.col('review')), 'numReviews'],
+					[sequelize.fn('AVG', sequelize.col('stars')), 'avgStarRating'],
 				],
 			});
 			// console.log('rating',rating[0].toJSON().numReviews)
 			let reviews = rating[0].toJSON().numReviews;
 			spotObj.numReviews = reviews;
+
+			spotObj.avgStarRating = Number(rating[0].toJSON().avgStarRating)
 			spot.push(spotObj);
 			// console.log('spotObj',spotObj)
 			// spotObj.numReviews = rating[0].toJSON().numReviews
@@ -259,7 +260,7 @@ router.get('/', async (req, res) => {
 		Spots.push(spot);
 	}
 
-	res.status(200).json({Spots});
+	res.status(200).json({ Spots });
 });
 
 module.exports = router;
