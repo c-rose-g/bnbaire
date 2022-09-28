@@ -127,7 +127,20 @@ router.post('/', requireAuth, async (req, res) => {
 router.get('/:spotId/reviews', async (req, res) => {
 	const { spotId } = req.params;
 	if (spotId) {
-		const Reviews = await Review.findAll();
+		const Reviews = await Review.findAll({
+			include: [
+				{
+					model: SpotImage,
+					where: {
+						preview: true,
+					},
+				},
+				{ model: User, as:'Owners'}
+			],
+			where: {
+				ownerId: req.user.id,
+			},
+		});
 		res.status(200).json({ Reviews });
 	} else {
 		res.status(404).json({
@@ -140,15 +153,7 @@ router.get('/:spotId/reviews', async (req, res) => {
 // GET ALL SPOTS OWNED BY THE CURRENT USER (yes auth)
 router.get('/current', requireAuth, async (req, res) => {
 	const allSpots = await Spot.findAll({
-		include: [
-			{
-				model: SpotImage,
-				where: {
-					preview: true,
-				},
-			},
-      { model: User, as:'Owners'}
-		],
+		include: {model: SpotImage,where: {preview: true,},},
 		where: {
 			ownerId: req.user.id,
 		},
@@ -161,11 +166,13 @@ router.get('/current', requireAuth, async (req, res) => {
 				userId: req.user.id,
 			},
 			attributes: [
-				[sequelize.fn('AVG', sequelize.col('stars')), 'avgStarRating'],
+				[sequelize.fn('AVG', sequelize.col('stars')), 'avgRating'],
 			],
 		});
 
-		spot.avgStarRating = rating[0].toJSON().avgStarRating;
+		spot.avgRating = rating[0].toJSON().avgRating;
+		spot.previewImage = spot.SpotImages[0].url;
+		delete spot.SpotImages;
 		// console.log('rating', rating[0].toJSON().avgRating);
 		spots.push(spot);
 	}
