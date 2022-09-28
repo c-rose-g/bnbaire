@@ -51,10 +51,11 @@ const restoreUser = (req, res, next) => {
 // If there is no current user, return an error
 const requireAuth = function (req, res, next) {
 	if (req.user) return next();
-
+	
+// if(!req.user)
 	res.status(401);
 	return res.json({
-		message: 'Authentication required',
+		message: 'Invalid credentials',
 		statusCode: 401,
 	});
 	// const err = new Error('Unauthorized');
