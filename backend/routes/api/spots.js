@@ -140,12 +140,15 @@ router.get('/:spotId/reviews', async (req, res) => {
 // GET ALL SPOTS OWNED BY THE CURRENT USER (yes auth)
 router.get('/current', requireAuth, async (req, res) => {
 	const allSpots = await Spot.findAll({
-		include: {
-			model: SpotImage,
-			where: {
-				preview: true,
+		include: [
+			{
+				model: SpotImage,
+				where: {
+					preview: true,
+				},
 			},
-		},
+      { model: User, as:'Owners'}
+		],
 		where: {
 			ownerId: req.user.id,
 		},
@@ -157,9 +160,11 @@ router.get('/current', requireAuth, async (req, res) => {
 			where: {
 				userId: req.user.id,
 			},
-			attributes: [[sequelize.fn('AVG', sequelize.col('stars')), 'avgStarRating']],
+			attributes: [
+				[sequelize.fn('AVG', sequelize.col('stars')), 'avgStarRating'],
+			],
 		});
-		
+
 		spot.avgStarRating = rating[0].toJSON().avgStarRating;
 		// console.log('rating', rating[0].toJSON().avgRating);
 		spots.push(spot);
@@ -170,9 +175,9 @@ router.get('/current', requireAuth, async (req, res) => {
 //GET DETAILS OF A SPOT FROM AN ID (no auth)
 router.get('/:spotId', async (req, res) => {
 	const { spotId } = req.params;
-  const getAllSpots = await Spot.findAll()
-  // console.log('get all spots',getAllSpots)
-	if (getAllSpots.includes(spotId) ) {
+	const getAllSpots = await Spot.findAll();
+	// console.log('get all spots',getAllSpots)
+	if (getAllSpots.includes(spotId)) {
 		const allSpots = await Spot.findAll({
 			include: [
 				{
@@ -186,28 +191,29 @@ router.get('/:spotId', async (req, res) => {
 					as: 'Owners',
 					attributes: ['id', 'firstName', 'lastName'],
 				},
-
 			],
 			where: {
 				id: spotId,
 			},
 		});
-    let spot = []
-    for(let spotObj of allSpots){
-      spotObj = spotObj.toJSON()
-      const rating = await Review.findAll({
-        where: {
-          spotId: spotObj.id,
-        },
-        attributes: [[sequelize.fn('COUNT', sequelize.col('review')), 'numReviews']],
-      });
-      // console.log('rating',rating[0].toJSON().numReviews)
-      let reviews = rating[0].toJSON().numReviews
-      spotObj.numReviews = reviews
-      spot.push(spotObj)
-      // console.log('spotObj',spotObj)
-      // spotObj.numReviews = rating[0].toJSON().numReviews
-    }
+		let spot = [];
+		for (let spotObj of allSpots) {
+			spotObj = spotObj.toJSON();
+			const rating = await Review.findAll({
+				where: {
+					spotId: spotObj.id,
+				},
+				attributes: [
+					[sequelize.fn('COUNT', sequelize.col('review')), 'numReviews'],
+				],
+			});
+			// console.log('rating',rating[0].toJSON().numReviews)
+			let reviews = rating[0].toJSON().numReviews;
+			spotObj.numReviews = reviews;
+			spot.push(spotObj);
+			// console.log('spotObj',spotObj)
+			// spotObj.numReviews = rating[0].toJSON().numReviews
+		}
 		res.status(200).json(...spot);
 	} else {
 		res.status(404).json({
@@ -216,8 +222,6 @@ router.get('/:spotId', async (req, res) => {
 		});
 	}
 });
-
-
 
 // GET ALL SPOTS (no auth)
 router.get('/', async (req, res) => {
