@@ -215,7 +215,7 @@ router.get('/:spotId', async (req, res) => {
 				],
 			});
 			// console.log('rating',rating[0].toJSON().numReviews)
-			let reviews = rating[0].toJSON().numReviews;
+			let reviews = Number(rating[0].toJSON().numReviews);
 			spotObj.numReviews = reviews;
 
 			spotObj.avgStarRating = Number(rating[0].toJSON().avgStarRating)
