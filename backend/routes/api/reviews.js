@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { requireAuth } = require('../../utils/auth');
-const { Review, User, ReviewImage } = require('../../db/models');
+const { Review, User } = require('../../db/models');
 
 
 
@@ -13,5 +13,18 @@ router.get('/current', requireAuth, async (req, res) => {
 	res.status(200).json({ Reviews });
 });
 
+// EDIT A REVIEW
+router.put('/:reviewId', requireAuth, async(req,res) =>{
+
+})
+
+// DELETE A REVIEW
+router.delete('/:reviewId', requireAuth, async(req,res) >{
+
+})
+// ADD AN IMAGE TO A REVIEW BASED ON THE REVIEW'S ID
+router.post('/:reviewsId/images', requireAuth, async(req,res)=>[
+
+])
 
 module.exports = router;

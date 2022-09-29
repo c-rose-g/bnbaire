@@ -13,10 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Review.belongsTo(models.User, {foreignKey:'userId'});
       Review.belongsTo(models.Spot, {foreignKey:'spotId'});
-      Review.hasMany(models.ReviewImage,{foreignKey:'reviewId', as:'ReviewImages'});
+      Review.hasMany(models.ReviewImage,{foreignKey:'reviewId', as:'ReviewImages'});  //remove alias?
     }
   }
   Review.init({
+    id:{
+      type:DataTypes.INTEGER,
+      autoIncrement:true,
+      primaryKey:true
+    },
     spotId: {
       type:DataTypes.INTEGER,
       allowNull:false
