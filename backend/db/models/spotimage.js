@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association
-      SpotImage.belongsTo(models.Spot, {foreignKey:'spotId', as:'PreviewImage'}) //remove aliasing?
+      SpotImage.belongsTo(models.Spot, {foreignKey:'spotId'}) //remove aliasing?
     }
   }
   SpotImage.init({
@@ -34,6 +34,11 @@ module.exports = (sequelize, DataTypes) => {
     defaultScope:{
       attributes:{
         exclude:['spotId', 'createdAt','updatedAt']
+      }
+    },
+    scopes:{
+      addPreview:{
+        attributes:['url']
       }
     }
   });

@@ -245,6 +245,7 @@ router.get('/:spotId', async (req, res) => {
 		for (let spotObj of allSpots) {
 			spotObj = spotObj.toJSON();
 			const rating = await Review.findAll({
+				raw:true, //turns it into a POJO ONLY LAZY LOADING
 				where: {
 					spotId: spotObj.id,
 				},
@@ -254,10 +255,10 @@ router.get('/:spotId', async (req, res) => {
 				],
 			});
 			// console.log('rating',rating[0].toJSON().numReviews)
-			let reviews = Number(rating[0].toJSON().numReviews);
+			let reviews = +rating[0].numReviews;
 			spotObj.numReviews = reviews;
-			spotObj.price = Number(spotObj.price);
-			spotObj.avgStarRating = Number(rating[0].toJSON().avgStarRating);
+			spotObj.price = +spotObj.price;
+			spotObj.avgStarRating = +rating[0].avgStarRating;
 			spot.push(spotObj);
 			// console.log('spotObj',spotObj)
 			// spotObj.numReviews = rating[0].toJSON().numReviews
