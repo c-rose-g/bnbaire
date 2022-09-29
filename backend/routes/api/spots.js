@@ -181,9 +181,14 @@ router.get('/current', requireAuth, async (req, res) => {
 //GET DETAILS OF A SPOT FROM AN ID (no auth)
 router.get('/:spotId', async (req, res) => {
 	const { spotId } = req.params;
-	const getAllSpots = await Spot.findAll();
+	const existingSpot = await Spot.findByPk(spotId);
 	// console.log('get all spots',getAllSpots)
-	if (spotId) {
+	if(!existingSpot){
+		res.status(404).json({
+			message: "Spot couldn't be found",
+			statusCode: 404,
+		});
+	} else {
 		const allSpots = await Spot.findAll({
 			include: [
 				{
@@ -224,11 +229,6 @@ router.get('/:spotId', async (req, res) => {
 			// spotObj.numReviews = rating[0].toJSON().numReviews
 		}
 		res.status(200).json(...spot);
-	} else {
-		res.status(404).json({
-			message: "Spot couldn't be found",
-			statusCode: 404,
-		});
 	}
 });
 
