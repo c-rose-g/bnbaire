@@ -59,6 +59,54 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
 	}
 });
 
+// CREATE A BOOKING FROM A SPOT BASED ON THE SPOT'S ID
+router.post('/:spotId/bookings', requireAuth, async (req, res) => {
+	const { spotId } = req.params;
+	const { startDate, endDate } = req.body;
+	const spot = await Spot.findByPk(spotId);
+	if (!spot) {
+		return res.status(404).json({
+			message: "Spot couldn't be found",
+			statusCode: 404,
+		});
+	}
+	const spotBooking = await Booking.findAll({
+		spotId: spot.id,
+	});
+	// console.log(spotBooking);
+	for(let booking of spotBooking){
+		// let bookingJSON = booking.toJSON();
+
+		if ((booking.startDate >= startDate && booking.endDate <= endDate) || (booking.startDate <= startDate && booking.endDate >= endDate)) {
+			return res.status(403).json({
+				message: 'Sorry, this spot is already booked for the specified dates',
+				statusCode: 403,
+				errors: {
+					startDate: 'Start date conflicts with an existing booking',
+					endDate: 'End date conflicts with an existing booking',
+				},
+			});
+		}
+	}
+	// if (endDate <= startDate) {
+	// 	return res.status(400).json({
+	// 		message: 'Validation error',
+	// 		statusCode: 400,
+	// 		errors: {
+	// 			endDate: 'endDate cannot be on or before startDate',
+	// 		},
+	// 	});
+	// } else {
+		const newBooking = await Booking.create({
+			spotId: spot.id,
+			userId: req.user.id,
+			startDate,
+			endDate,
+		});
+		return res.status(200).json(newBooking);
+	// }
+});
+
 // ADD AN IMAGE TO A SPOT BASED ON THE SPOT'S ID (yes auth(logged in), yes authorization(user role/set of user permissions))
 router.post('/:spotId/images', requireAuth, async (req, res) => {
 	const { url, preview } = req.body;
@@ -164,7 +212,7 @@ router.get('/:spotId/reviews', async (req, res) => {
 			statusCode: 404,
 		});
 	}
-	const review = await Review.findAll( {
+	const review = await Review.findAll({
 		include: [
 			{
 				model: User,
@@ -175,11 +223,10 @@ router.get('/:spotId/reviews', async (req, res) => {
 				attributes: ['id', 'url'],
 			},
 		],
-		where:{
-			spotId:req.params.spotId,
-		}
-	}
-	);
+		where: {
+			spotId: req.params.spotId,
+		},
+	});
 
 	res.status(200).json(review);
 });
@@ -212,6 +259,29 @@ router.get('/current', requireAuth, async (req, res) => {
 	res.status(200).json({ spots });
 });
 
+// GET ALL BOOKINGS FOR A SPOT BASED ON THE SPOT'S ID
+router.get('/:spotId/bookings', requireAuth, async (req, res) => {
+	const { spotId } = spotId;
+
+	if (!spotId) {
+		return res.status(404).json({
+			message: "Spot couldn't be found",
+			statusCode: 404,
+		});
+	}
+	const ownerBookings = await Booking.findAll({
+		where: {
+			spotId: spotId,
+			ownerId: req.user.id,
+		},
+	});
+
+	console.log(ownerBookings);
+	res.status(200).json(ownerBookings);
+	// if(spotId !== ownerId){
+
+	// }
+});
 //GET DETAILS OF A SPOT FROM AN ID (no auth)
 router.get('/:spotId', async (req, res) => {
 	const { spotId } = req.params;
@@ -245,7 +315,7 @@ router.get('/:spotId', async (req, res) => {
 		for (let spotObj of allSpots) {
 			spotObj = spotObj.toJSON();
 			const rating = await Review.findAll({
-				raw:true, //turns it into a POJO ONLY LAZY LOADING
+				raw: true, //turns it into a POJO ONLY LAZY LOADING
 				where: {
 					spotId: spotObj.id,
 				},
@@ -295,7 +365,7 @@ router.get('/', async (req, res) => {
 		spots.push(spot);
 	}
 
-	res.status(200).json({ Spots:spots });
+	res.status(200).json({ spots });
 });
 
 module.exports = router;
