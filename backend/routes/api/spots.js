@@ -256,7 +256,7 @@ router.get('/:spotId', async (req, res) => {
 			// console.log('rating',rating[0].toJSON().numReviews)
 			let reviews = Number(rating[0].toJSON().numReviews);
 			spotObj.numReviews = reviews;
-
+			spotObj.price = Number(spotObj.price);
 			spotObj.avgStarRating = Number(rating[0].toJSON().avgStarRating);
 			spot.push(spotObj);
 			// console.log('spotObj',spotObj)
@@ -278,7 +278,7 @@ router.get('/', async (req, res) => {
 	});
 
 	// toJSON on each spot, key into review and spotimage, test on spot w/o reviews/stars
-	let Spots = [];
+	let spots = [];
 	for (let spot of allSpots) {
 		spot = spot.toJSON();
 		const rating = await Review.findAll({
@@ -291,10 +291,10 @@ router.get('/', async (req, res) => {
 		spot.avgRating = Number(rating[0].toJSON().avgRating);
 		spot.previewImage = spot.SpotImages[0].url;
 		delete spot.SpotImages;
-		Spots.push(spot);
+		spots.push(spot);
 	}
 
-	res.status(200).json({ Spots });
+	res.status(200).json({ Spots:spots });
 });
 
 module.exports = router;
