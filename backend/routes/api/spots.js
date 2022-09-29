@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const { requireAuth } = require('../../utils/auth');
-const sequelize = require('sequelize')
+const sequelize = require('sequelize');
 const {
 	Spot,
 	Review,
 	SpotImage,
 	User,
 	Booking,
-
+	ReviewImage,
 } = require('../../db/models');
 
 // const { check } = require('express-validator');
@@ -153,36 +153,35 @@ router.post('/', requireAuth, async (req, res) => {
 // GET ALL BOOKINGS FOR A SPOT BASED ON THE SPOT'S ID
 
 router.get('/:spotId/bookings', requireAuth, async (req, res) => {});
+
 // GET ALL REVIEWS BY A SPOT'S ID
 router.get('/:spotId/reviews', async (req, res) => {
-	const { spotId } = req.params;
-	const reviewExists = await Review.findAll({
-		where: {
-			spotId: spotId,
-		},
-	});
-	if (reviewExists) {
-		const Reviews = await Review.findAll({
-			include: [
-				{
-					model: SpotImage,
-					where: {
-						preview: true,
-					},
-				},
-				{ model: User, as: 'Owners' },
-			],
-			where: {
-				ownerId: req.user.id,
-			},
-		});
-		res.status(200).json({ Reviews });
-	} else {
-		res.status(404).json({
+	// const { spotId } = req.params;
+	const spot = await Spot.findByPk(req.params.spotId);
+	if (!spot) {
+		return res.status(404).json({
 			message: "Spot couldn't be found",
 			statusCode: 404,
 		});
 	}
+	const review = await Review.findAll( {
+		include: [
+			{
+				model: User,
+				attributes: ['id', 'firstName', 'lastName'],
+			},
+			{
+				model: ReviewImage,
+				attributes: ['id', 'url'],
+			},
+		],
+		where:{
+			spotId:req.params.spotId,
+		}
+	}
+	);
+
+	res.status(200).json(review);
 });
 
 // GET ALL SPOTS OWNED BY THE CURRENT USER (yes auth)
