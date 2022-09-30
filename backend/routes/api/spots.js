@@ -167,7 +167,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 		// try {
 			if (spot.ownerId === req.user.id) {
 				let spotImage = await SpotImage.create({
-					spotId: spotId,
+					spotId: spot.id,
 					url,
 					preview,
 				});
