@@ -316,7 +316,7 @@ router.get('/:spotId/reviews', async (req, res) => {
 			statusCode: 404,
 		});
 	}
-	const review = await Review.findAll({
+	const allReviews = await Review.findAll({
 		include: [
 			{
 				model: User,
@@ -332,7 +332,14 @@ router.get('/:spotId/reviews', async (req, res) => {
 		},
 	});
 
-	res.status(200).json({ Reviews: review });
+	let array = []
+	for(let review of allReviews){
+		let reviewJSON = review.toJSON()
+		reviewJSON.stars = +reviewJSON.stars
+		array.push(reviewJSON)
+	}
+
+	res.status(200).json({ Reviews: array });
 });
 
 // GET ALL SPOTS OWNED BY THE CURRENT USER (yes auth)
