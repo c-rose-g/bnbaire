@@ -332,16 +332,16 @@ router.get('/:spotId/reviews', async (req, res) => {
 		},
 	});
 
-	let array = []
-	for(let review of allReviews){
-		let reviewJSON = review.toJSON()
-		console.log(reviewJSON)
-		let star = parseFloat(reviewJSON.stars.toFixed(0))
-		reviewJSON.stars = star;
-		array.push(reviewJSON)
-	}
+	// let array = []
+	// for(let review of allReviews){
+	// 	let reviewJSON = review.toJSON()
+	// 	console.log(reviewJSON)
+	// 	let star = parseFloat(reviewJSON.stars.toFixed(0))
+	// 	reviewJSON.stars = star;
+	// 	array.push(reviewJSON)
+	// }
 
-	res.status(200).json({ Reviews: array });
+	res.status(200).json({ Reviews: allReviews });
 });
 
 // GET ALL SPOTS OWNED BY THE CURRENT USER (yes auth)
