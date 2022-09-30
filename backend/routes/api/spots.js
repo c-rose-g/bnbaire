@@ -169,7 +169,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 				let spotImage = await SpotImage.create({
 					spotId: spot.id,
 					url,
-					preview,
+					preview:true,
 				});
 
 				let image = spotImage.toJSON();
@@ -371,7 +371,7 @@ router.get('/current', requireAuth, async (req, res) => {
 		spot = spot.toJSON();
 		const rating = await Review.findAll({
 			where: {
-				userId: req.user.id,
+				spotId:spot.id 
 			},
 			attributes: [[sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']],
 		});
