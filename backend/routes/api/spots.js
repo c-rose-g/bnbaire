@@ -117,7 +117,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 	}
 
 	// try {
-	if (req.user.id !== spot.ownerId) {
+	// if (req.user.id === spot.ownerId) {
 		const newBooking = await Booking.create({
 			spotId: spot.id,
 			userId: req.user.id,
@@ -125,12 +125,12 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 			endDate,
 		});
 		return res.status(200).json(newBooking);
-	} else {
-		return res.status(403).json({
-			message: 'Forbidden',
-			statusCode: 403,
-		});
-	}
+	// } else {
+	// 	return res.status(403).json({
+	// 		message: 'Forbidden',
+	// 		statusCode: 403,
+	// 	});
+	// }
 	// } catch {
 
 	// }
@@ -371,7 +371,7 @@ router.get('/current', requireAuth, async (req, res) => {
 		spot = spot.toJSON();
 		const rating = await Review.findAll({
 			where: {
-				spotId:spot.id 
+				spotId:spot.id
 			},
 			attributes: [[sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']],
 		});
