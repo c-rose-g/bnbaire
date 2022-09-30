@@ -335,7 +335,9 @@ router.get('/:spotId/reviews', async (req, res) => {
 	let array = []
 	for(let review of allReviews){
 		let reviewJSON = review.toJSON()
-		reviewJSON.stars = +reviewJSON.stars
+		console.log(reviewJSON)
+		let star = +reviewJSON.stars.toFixed(0)
+		reviewJSON.stars = star;
 		array.push(reviewJSON)
 	}
 
