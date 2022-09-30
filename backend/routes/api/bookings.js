@@ -24,7 +24,7 @@ router.get('/current', requireAuth, async (req, res) => {
 		const spotImage = await SpotImage.findByPk(booking.id, {
 			where: {
 				preview: true,
-				attributes: ['url'],
+				attributes: {include:['url']},
 			},
 		});
 		bookingJSON.Spot.previewImage = spotImage.url;
