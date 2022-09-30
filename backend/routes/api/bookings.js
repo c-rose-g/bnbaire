@@ -92,7 +92,7 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
 
 	if (!bookingByPk) {
 		return res.status(404).json({
-			message: "Review Image couldn't be found",
+			message: "Booking couldn't be found",
 			statusCode: 404,
 		});
 	}
