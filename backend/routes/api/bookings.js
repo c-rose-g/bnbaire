@@ -24,10 +24,14 @@ router.get('/current', requireAuth, async (req, res) => {
 		const spotImage = await SpotImage.findByPk(booking.id, {
 			where: {
 				preview: true,
-				attributes: {include:['url']},
 			},
 		});
-		bookingJSON.Spot.previewImage = spotImage.url;
+		if (spotImage !== null) {
+			let spotImageJSON = spotImage.toJSON();
+
+			bookingJSON['Spot'].previewImage = spotImageJSON.url;
+			bookings.push(bookingJSON);
+		}
 		bookings.push(bookingJSON);
 	}
 	return res.status(200).json({ Bookings: bookings });
@@ -66,20 +70,20 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
 			});
 		}
 		// try {
-			if (req.user.id === bookingByPk.userId) {
-				await bookingByPk.update({
-					startDate: startDate,
-					endDate: endDate,
-				});
-				return res.status(200).json(bookingByPk);
-			}
+		if (req.user.id === bookingByPk.userId) {
+			await bookingByPk.update({
+				startDate: startDate,
+				endDate: endDate,
+			});
+			return res.status(200).json(bookingByPk);
+		}
 		// } catch {
-			else {
-				res.status(403).json({
-					message: 'Forbidden',
-					statusCode: 403,
-				});
-			}
+		else {
+			res.status(403).json({
+				message: 'Forbidden',
+				statusCode: 403,
+			});
+		}
 		// }
 	}
 });
