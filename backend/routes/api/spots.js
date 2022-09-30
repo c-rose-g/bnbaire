@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { requireAuth } = require('../../utils/auth');
-const sequelize = require('sequelize');
+const { Op, sequelize } = require('sequelize');
 const {
 	Spot,
 	Review,
@@ -87,15 +87,24 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 		});
 	}
 	const spotBooking = await Booking.findOne({
-		where:{
-			spotId: spot.id
-		}
+		where: {
+			spotId: spot.id,
+			[Op.or]: [
+				{
+					startDate: {
+						[Op.between]: [startDate, endDate],
+					},
+					endDate: {
+						[Op.between]: [startDate, endDate],
+					},
+				},
+			],
+		},
 	});
 	// booking conflict
-	if (
-		(spotBooking.startDate >= startDate && spotBooking.endDate <= endDate) ||
-		(spotBooking.startDate <= startDate && spotBooking.endDate >= endDate)
-	) {
+	// (spotBooking.startDate >= startDate && spotBooking.endDate <= endDate) ||
+	// (spotBooking.startDate <= startDate && spotBooking.endDate >= endDate)
+	if (spotBooking && spot) {
 		return res.status(403).json({
 			message: 'Sorry, this spot is already booked for the specified dates',
 			statusCode: 403,
