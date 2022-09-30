@@ -448,7 +448,7 @@ router.get('/', async (req, res) => {
 	page =
 		page === undefined ? 1 : page < 0 ? 1 : page > 10 ? 10 : parseInt(page);
 	size =
-		size === undefined ? 2 : size < 0 ? 1 : size > 20 ? 20 : parseInt(size);
+		size === undefined ? 20 : size < 0 ? 1 : size > 20 ? 20 : parseInt(size);
 
 	const allSpots = await Spot.findAll({
 		include: {
