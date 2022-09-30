@@ -164,7 +164,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 				statusCode: 403,
 			});
 		}
-		try {
+		// try {
 			if (spot.ownerId === req.user.id) {
 				let spotImage = await SpotImage.create({
 					spotId: spotId,
@@ -178,10 +178,10 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 				delete image.createdAt;
 				delete image.updatedAt;
 
-				res.status(200).json(image);
-			}
-		} catch {
-			res.status(403).json({
+				return res.status(200).json(image);
+			} else {
+		// } catch {
+			return res.status(403).json({
 				message: 'Forbidden',
 				statusCode: 403,
 			});
