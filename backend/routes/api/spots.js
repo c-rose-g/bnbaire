@@ -87,7 +87,9 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 		});
 	}
 	const spotBooking = await Booking.findOne({
-		spotId: spot.id,
+		where:{
+			spotId: spot.id
+		}
 	});
 	// booking conflict
 	if (
