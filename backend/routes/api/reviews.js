@@ -10,7 +10,9 @@ const {
 } = require('../../db/models');
 const sequelize = require('sequelize');
 
-// GET ALL REVIEWS OF THE CURRENT USER
+// GET ALL reviews OF THE CURRENT USER
+// NOTE do i need to change stars to single digits?
+// NOTE should i change LAT/LNG/PRICE to numbers
 router.get('/current', requireAuth, async (req, res) => {
 	const getReviews = await Review.findAll({
 		where: {
@@ -18,7 +20,7 @@ router.get('/current', requireAuth, async (req, res) => {
 		},
 		include: [
 			{ model: User, attributes: ['id', 'firstName', 'lastName'] },
-			{ model: Spot, attributes: { exclude: ['createdAt', 'updatedAt'] } },
+			{ model: Spot, attributes: { exclude: ['createdAt', 'updatedAt','description'] } },
 			{ model: ReviewImage },
 		],
 	});
@@ -33,6 +35,7 @@ router.get('/current', requireAuth, async (req, res) => {
 				attributes: ['url'],
 			},
 		});
+		// delete reviewJSON.description
 		reviewJSON.Spot.previewImage = spotImage.url;
 		reviews.push(reviewJSON);
 	}

@@ -17,6 +17,7 @@ const {
 // add express validator here
 
 // EDIT A SPOT (yes auth)
+// NOTE add error validator (400)
 router.put('/:spotId', async (req, res) => {
 	const { spotId } = req.params;
 	const { address, city, state, country, lat, lng, name, description, price } =
@@ -89,51 +90,69 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 		spotId: spot.id,
 	});
 	// booking conflict
-		if (
-			(spotBooking.startDate >= startDate && spotBooking.endDate <= endDate) ||
-			(spotBooking.startDate <= startDate && spotBooking.endDate >= endDate)
-		) {
-			return res.status(403).json({
-				message: 'Sorry, this spot is already booked for the specified dates',
-				statusCode: 403,
-				errors: {
-					startDate: 'Start date conflicts with an existing booking',
-					endDate: 'End date conflicts with an existing booking',
-				},
-			});
-		}
+	if (
+		(spotBooking.startDate >= startDate && spotBooking.endDate <= endDate) ||
+		(spotBooking.startDate <= startDate && spotBooking.endDate >= endDate)
+	) {
+		return res.status(403).json({
+			message: 'Sorry, this spot is already booked for the specified dates',
+			statusCode: 403,
+			errors: {
+				startDate: 'Start date conflicts with an existing booking',
+				endDate: 'End date conflicts with an existing booking',
+			},
+		});
+	}
 
-	try {
-		if (req.user.id !== spot.ownerId) {
-			const newBooking = await Booking.create({
-				spotId: spot.id,
-				userId: req.user.id,
-				startDate,
-				endDate,
-			});
-			return res.status(200).json(newBooking);
-		}
-	} catch {
+	// try {
+	if (req.user.id !== spot.ownerId) {
+		const newBooking = await Booking.create({
+			spotId: spot.id,
+			userId: req.user.id,
+			startDate,
+			endDate,
+		});
+		return res.status(200).json(newBooking);
+	} else {
 		return res.status(403).json({
 			message: 'Forbidden',
 			statusCode: 403,
 		});
 	}
+	// } catch {
+
+	// }
 });
 
 // ADD AN IMAGE TO A SPOT BASED ON THE SPOT'S ID (yes auth(logged in), yes authorization(user role/set of user permissions))
+// NOTE double check error validation
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 	const { url, preview } = req.body;
 	const { spotId } = req.params;
-	if (spotId) {
-		const spot = await Spot.findByPk(spotId);
-		if (!spot) {
-			res.status(404);
-			return res.json({
-				message: "Spot couldn't be found",
-				statusCode: 404,
+	const spot = await Spot.findByPk(spotId);
+
+	if (!spot) {
+		return res.status(404).json({
+			message: "Spot couldn't be found",
+			statusCode: 404,
+		});
+	} else {
+		const spotImages = await SpotImage.findAll({
+			where: {
+				spotId: spot.id,
+			},
+			attributes: [
+				[sequelize.fn('COUNT', sequelize.col('id')), 'spotImagesCount'],
+			],
+		});
+
+		if (spotImages.spotImagesCount === 10) {
+			return res.status(403).json({
+				message: 'Maximum number of images for this resource was reached',
+				statusCode: 403,
 			});
-		} else {
+		}
+		try {
 			if (spot.ownerId === req.user.id) {
 				let spotImage = await SpotImage.create({
 					spotId: spotId,
@@ -143,22 +162,33 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 
 				let image = spotImage.toJSON();
 				delete image.spotId;
-				delete image.preview;
+				// delete image.preview;
 				delete image.createdAt;
 				delete image.updatedAt;
 
 				res.status(200).json(image);
-			} else {
-				res.status(403).json({
-					message: 'Forbidden',
-					statusCode: 403,
-				});
 			}
+		} catch {
+			res.status(403).json({
+				message: 'Forbidden',
+				statusCode: 403,
+			});
 		}
 	}
+	// }
 });
 
-// CREATE A REVIEW FOR A SPOT BASED ON THE SPOT'S ID
+// NOTE double check after deleting db
+// FIXME add error validator (400)
+// {
+//   "message": "Validation error",
+//   "statusCode": 400,
+//   "errors": {
+//     "review": "Review text is required",
+//     "stars": "Stars must be an integer from 1 to 5",
+//   }
+// }
+// CREATE A review FOR A SPOT BASED ON THE SPOT'S ID
 router.post('/:spotId/reviews', requireAuth, async (req, res) => {
 	const { spotId } = req.params;
 	const { review, stars } = req.body;
@@ -189,7 +219,7 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
 			review,
 			stars,
 		});
-		return res.json(newReview);
+		return res.status(201).json(newReview);
 	} catch {
 		res.json({
 			message: 'validatorError',
@@ -198,25 +228,46 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
 	}
 });
 
+// NOTE do i need to change LAT/LNGto numbers?
+// FIXME error validation
 // CREATE A SPOT (yes auth)
 router.post('/', requireAuth, async (req, res) => {
 	const { address, city, state, country, lat, lng, name, description, price } =
 		req.body;
 
-	const newSpot = await Spot.create({
-		ownerId: req.user.id,
-		address,
-		city,
-		state,
-		country,
-		lat,
-		lng,
-		name,
-		description,
-		price,
-	});
-
-	res.status(201).json(newSpot);
+	// try {
+	if (req.body) {
+		const newSpot = await Spot.create({
+			ownerId: req.user.id,
+			address,
+			city,
+			state,
+			country,
+			lat,
+			lng,
+			name,
+			description,
+			price,
+		});
+		return res.status(201).json(newSpot);
+	}
+	// } catch {
+	// 	return res.status(400).json({
+	// 		message: 'Validation Error',
+	// 		statusCode: 400,
+	// 		errors: {
+	// 			address: 'Street address is required',
+	// 			city: 'City is required',
+	// 			state: 'State is required',
+	// 			country: 'Country is required',
+	// 			lat: 'Latitude is not valid',
+	// 			lng: 'Longitude is not valid',
+	// 			name: 'Name must be less than 50 characters',
+	// 			description: 'Description is required',
+	// 			price: 'Price per day is required',
+	// 		},
+	// });
+	// }
 });
 
 // GET ALL BOOKINGS FOR A SPOT BASED ON THE SPOT'S ID
@@ -253,7 +304,9 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
 		return res.status(200).json({ Bookings: currUserBookings });
 	}
 });
-// REVIEW GET ALL reviews BY A SPOT'S ID
+
+//  GET ALL reviews BY A SPOT'S ID
+// NOTE should i change stars to single digits?
 router.get('/:spotId/reviews', async (req, res) => {
 	// const { spotId } = req.params;
 	const spot = await Spot.findByPk(req.params.spotId);
@@ -282,7 +335,8 @@ router.get('/:spotId/reviews', async (req, res) => {
 	res.status(200).json({ Reviews: review });
 });
 
-// REVIEW GET ALL SPOTS OWNED BY THE CURRENT USER (yes auth)
+// GET ALL SPOTS OWNED BY THE CURRENT USER (yes auth)
+// NOTE do I need to change LAT/LNG/PRICE ?
 router.get('/current', requireAuth, async (req, res) => {
 	const allSpots = await Spot.findAll({
 		include: { model: SpotImage, where: { preview: true } },
@@ -365,14 +419,15 @@ router.get('/:spotId', async (req, res) => {
 	}
 });
 
-//  GET ALL SPOTS (no auth) 
+// NOTE do I need to test on a spot w/o reviews / stars ?
+// NOTE do i need to change LAT/LNG/PRICE to numbers, and do I need to remove the decimals from price?
+//  GET ALL SPOTS (no auth)
 router.get('/', async (req, res) => {
-	let {page, size } = req.query;
+	let { page, size } = req.query;
 	page =
 		page === undefined ? 1 : page < 0 ? 1 : page > 10 ? 10 : parseInt(page);
 	size =
 		size === undefined ? 2 : size < 0 ? 1 : size > 20 ? 20 : parseInt(size);
-// change size and page to 10 and 20
 
 	const allSpots = await Spot.findAll({
 		include: {
@@ -382,10 +437,10 @@ router.get('/', async (req, res) => {
 			},
 		},
 		limit: size,
-		offset: size * (page - 1)
+		offset: size * (page - 1),
 	});
 
-	// toJSON on each spot, key into review and spotimage, test on spot w/o reviews/stars
+	//  toJSON on each spot, key into review and spotimage, test on spot w/o reviews/stars
 	let spots = [];
 	for (let spot of allSpots) {
 		spot = spot.toJSON();

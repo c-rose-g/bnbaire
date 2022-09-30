@@ -33,7 +33,8 @@ router.get('/current', requireAuth, async (req, res) => {
 	return res.status(200).json({ Bookings: bookings });
 });
 //
-// FIXME EDIT A BOOKING - check with a different login
+// NOTE EDIT A BOOKING - check with a different login
+// REVIEW submit to heroku and try again
 router.put('/:bookingId', requireAuth, async (req, res) => {
 	const { bookingId } = req.params;
 	let { startDate, endDate } = req.body;
@@ -64,7 +65,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
 				statusCode: 403,
 			});
 		}
-		try {
+		// try {
 			if (req.user.id === bookingByPk.userId) {
 				await bookingByPk.update({
 					startDate: startDate,
@@ -72,16 +73,19 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
 				});
 				return res.status(200).json(bookingByPk);
 			}
-		} catch {
-			res.status(403).json({
-				message: 'Forbidden',
-				statusCode: 403,
-			});
-		}
+		// } catch {
+			else {
+				res.status(403).json({
+					message: 'Forbidden',
+					statusCode: 403,
+				});
+			}
+		// }
 	}
 });
 
-// FIXME DELETE A BOOKING, must belong to current user or spot must belong to current user
+// NOTE DELETE A BOOKING, must belong to current user or spot must belong to current user
+// FIXME add to heroku and try again.
 router.delete('/:bookingId', requireAuth, async (req, res) => {
 	const { bookingId } = req.params;
 	const bookingByPk = await Booking.findByPk(bookingId);

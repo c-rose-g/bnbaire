@@ -27,7 +27,7 @@ const validateSignup = [
 		.withMessage('Password must be 6 characters or more.'),
 	handleValidationErrors,
 ];
-// Sign up
+// FIXME Sign up - add Body validation errors
 router.post('/', validateSignup, async (req, res, next) => {
 	const { firstName, lastName, email, password, username } = req.body;
 
