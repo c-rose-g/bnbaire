@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     preview: {
       type:DataTypes.BOOLEAN,
-      allowNull:false
+
     }
   }, {
     sequelize,
@@ -34,11 +34,6 @@ module.exports = (sequelize, DataTypes) => {
     defaultScope:{
       attributes:{
         exclude:['spotId', 'createdAt','updatedAt']
-      }
-    },
-    scopes:{
-      addPreview:{
-        attributes:['url']
       }
     }
   });
