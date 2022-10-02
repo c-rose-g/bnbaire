@@ -406,7 +406,7 @@ router.get('/:spotId', async (req, res) => {
 				},
 				{
 					model: User,
-					as: 'Owners',
+					as: 'Owner',
 					attributes: ['id', 'firstName', 'lastName'],
 				},
 			],
