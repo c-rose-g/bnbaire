@@ -10,10 +10,10 @@ module.exports = {
         stars: 5
       },
       {
-        spotId: 2,
+        spotId: 1,
         userId: 2,
         review: 'It was alright. The lady kept texting me nonstop about the amentities. We get it, you have nice towels.',
-        stars: 2
+        stars: 4
       },
       {
         spotId: 3,
