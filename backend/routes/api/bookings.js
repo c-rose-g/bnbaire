@@ -30,7 +30,6 @@ router.get('/current', requireAuth, async (req, res) => {
 			let spotImageJSON = spotImage.toJSON();
 
 			bookingJSON['Spot'].previewImage = spotImageJSON.url;
-			bookings.push(bookingJSON);
 		}
 		bookings.push(bookingJSON);
 	}
