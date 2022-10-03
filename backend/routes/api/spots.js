@@ -48,7 +48,7 @@ router.put('/:spotId', async (req, res) => {
 	}
 });
 
-// FIXME  DELETE A SPOT (yes auth, yes authorization) - spot must belong to current user
+// NOTE  DELETE A SPOT (yes auth, yes authorization) - spot must belong to current user
 router.delete('/:spotId', requireAuth, async (req, res) => {
 	const { spotId } = req.params;
 	const spotByPk = await Spot.findByPk(spotId);
