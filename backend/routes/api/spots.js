@@ -90,7 +90,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 	const spotBooking = await Booking.findOne({
 		where: {
 			spotId: spot.id,
-			[Op.or]: [
+			[Op.and]: [
 				{
 					startDate: {
 						[Op.between]: [startDate, endDate],
@@ -102,6 +102,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 			],
 		},
 	});
+	console.log(spot)
 	// booking conflict
 	// (spotBooking.startDate >= startDate && spotBooking.endDate <= endDate) ||
 	// (spotBooking.startDate <= startDate && spotBooking.endDate >= endDate)
@@ -118,13 +119,15 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 
 	// try {
 	// if (req.user.id === spot.ownerId) {
-		const newBooking = await Booking.create({
-			spotId: spot.id,
-			userId: req.user.id,
-			startDate,
-			endDate,
-		});
-		return res.status(200).json(newBooking);
+		else {
+			const newBooking = await Booking.create({
+				spotId: spot.id,
+				userId: req.user.id,
+				startDate,
+				endDate,
+			});
+			return res.status(200).json(newBooking);
+		}
 	// } else {
 	// 	return res.status(403).json({
 	// 		message: 'Forbidden',
