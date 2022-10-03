@@ -89,7 +89,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 	}
 	const spotBooking = await Booking.findOne({
 		where: {
-			spotId: req.params.id,
+			spotId: spot.id,
 			[Op.or]:[{
 				startDate:{
 					[Op.between]:[startDate,endDate]
@@ -117,11 +117,11 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 				},
 			});
 		}
-	
+
 	// ((booking.startDate<=newStart && booking.endDate<=newEnd)||(booking.startDate<=newStart)||(booking.endDate>=newEnd))
 	// else {
 	const newBooking = await Booking.create({
-		spotId: req.params.id,
+		spotId: spot.id,
 		userId: req.user.id,
 		startDate,
 		endDate,
