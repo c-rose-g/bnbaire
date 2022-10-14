@@ -25,9 +25,10 @@
   </ol>
 </details> -->
 
-<p align="center">
+<h1 align="center"style="margin-top: 0px;" >
+
 Bnbaire
-</p>
+</h1>
 <div align='center' >
 
 [Bnbaire live link](https://github.com/c-rose-g/Bnbaire)
@@ -37,10 +38,11 @@ Bnbaire
 Bnbaire is a website clone, inspired by Airbnb. Bnbaire provides an online marketplace for lodging, primarily homestays for vacation rentals, and tourism activities.
 
 ## Please see below links to project Wiki:
-* [Feature List]()
-* [Database Schema]()
-* [Frontend Routes]()
-* [Redux Store State Shape]()
+* [Backend Routes](https://github.com/c-rose-g/Bnbaire/wiki/Backend-Routes)
+* [Feature List](https://github.com/c-rose-g/Bnbaire/wiki/Features-List)
+* [Database Schema](https://github.com/c-rose-g/Bnbaire/wiki/Database-Schema)
+* [Frontend Routes](https://github.com/c-rose-g/Bnbaire/wiki/Frontend-Routes)
+* [Redux Store State Shape](https://github.com/c-rose-g/Bnbaire/wiki/Redux-Store-State-Shape)
 ## Built With
 - [React](React-url)
 - [JavaScript](JavaScript-url)
