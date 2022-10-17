@@ -30,4 +30,7 @@ form {
 .submit-button button{
   width: 100%;
   box-sizing: border-box;
+  border: none;
+  padding: 5px;
+  background: linear-gradient(90deg, rgba(205,52,99,1) 25%, rgba(244,91,106,1) 50%, rgba(205,52,99,1) 75%);
 }
