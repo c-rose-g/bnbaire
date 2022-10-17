@@ -1,0 +1,17 @@
+#logo {
+  background-image: url(../../../public/Bnbaire-logo.png);
+  height: 25px;
+  width: 100px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+a.active {
+  /* display: inline; */
+  /* grid-template-columns: repeat(3, 100px); */
+}
+
+
+#navLinks {
+  display: flex;
+}
