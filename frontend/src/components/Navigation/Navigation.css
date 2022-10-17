@@ -14,4 +14,11 @@ a.active {
 
 #navLinks {
   display: flex;
+
+}
+#navLinks button {
+  color:white;
+  background: rgb(205,52,99);
+  border-radius: 5px;
+  background: linear-gradient(90deg, rgba(205,52,99,1) 25%, rgba(244,91,106,1) 50%, rgba(205,52,99,1) 75%);
 }

@@ -1,7 +1,9 @@
 .spots-container {
   /* border: 5px blue solid; */
   display:grid;
-  grid-template-columns: repeat(3, 1fr)
+  grid-template-columns: repeat(3, 300px);
+  grid-gap: 20px;
+
   /* width: 100vh;
   height: 100vh; */
 
@@ -19,8 +21,13 @@ a {
 }
 .spot-text{
   color:#484848;
-
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+
+.top-spot-text {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
 }
 .img-card img{
   border-radius: 15px;
