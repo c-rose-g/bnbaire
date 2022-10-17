@@ -31,7 +31,7 @@ function AllSpots() {
             </div>
               <div className='spot-text'>
                 <h2>{spot.city},{spot.state}</h2>
-                <h2> {spot.avgRating} {starEmoji(spot.avgRating) }
+                <h2> 🌟{spot.avgRating}
                 </h2>
                 <h2>{spot.price} </h2>
               </div>
