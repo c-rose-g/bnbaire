@@ -13,33 +13,35 @@ function AllSpots() {
 		dispatch(thunkLoadSpots());
 	}, [dispatch]);
 
-  const starEmoji = (num) => {
-    let stars= '';
-    for(let i = 0; i < Math.floor(num); i++) {
-      stars += '🌟'
-    }
-    return stars
-  }
+	const starEmoji = (num) => {
+		let stars = '';
+		for (let i = 0; i < Math.floor(num); i++) {
+			stars += '🌟';
+		}
+		return stars;
+	};
 	return (
 		<div className="spots-container">
 			{spotsSelector.map((spot) => {
 				return (
 					<NavLink key={spot.name} to={`/api/spots/${spot.id}`}>
-						<div className='spot-card'>
-            <div className='img-card'>
-							<img src={spot.previewImage} alt="spot image"></img>
-            </div>
-              <div className='spot-text'>
-                <h2>{spot.city},{spot.state}</h2>
-                <h2> 🌟{spot.avgRating}
-                </h2>
-                <h2>{spot.price} </h2>
-              </div>
+						<div className="spot-card">
+							<div className="img-card">
+								<img src={spot.previewImage} alt="spot image"></img>
+							</div>
+							<div className="spot-text">
+								<div className="top-spot-text">
+									<h2>
+										{spot.city}, {spot.state}
+									</h2>
+									<h2>★{spot.avgRating}</h2>
+								</div>
+								<h2>${spot.price} </h2>
+							</div>
 						</div>
 					</NavLink>
 				);
 			})}
-
 		</div>
 	);
 }
