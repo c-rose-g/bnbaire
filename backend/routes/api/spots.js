@@ -473,9 +473,14 @@ router.get('/', async (req, res) => {
 		});
 
 		spot.avgRating = Number(rating[0].toJSON().avgRating);
-		spot.previewImage = spot.SpotImages[0].url;
-		delete spot.SpotImages;
-		spots.push(spot);
+		// TODO add conditoina;
+		if(!spot.previewImage.length){
+			spot.previewImage = null
+		}else {
+			spot.previewImage = spot.SpotImages[0].url;
+			delete spot.SpotImages;
+			spots.push(spot);
+		}
 	}
 
 	res.status(200).json({ Spots: spots, page, size });

@@ -1,28 +1,73 @@
 //  store for all spots
 import { csrfFetch } from './csrf';
-const LOAD_SPOTS = 'allSpots/loadSpots'
-
+// TODO define types
+const LOAD_SPOTS = 'allSpots/actionLoadSpots'
+const LOAD_SINGLE_SPOT = 'allSpots/actionLoadSingleSpot'
+const CREATE_SPOT = 'allSpots/actionCreateSpot'
+// TODO define action creator function
 // action creators
-const loadSpots = (spots) =>{
-  return{
+// all spots
+export const actionLoadSpots = (spots) =>({
+
     type: LOAD_SPOTS,
     payload: spots
+})
+
+// single spot
+export const actionLoadSingleSpot = (spots, id) => (
+  {
+    type:LOAD_SINGLE_SPOT,
+    spots,
+    id
+  }
+)
+
+export const actionCreateSpot = (spot) =>(
+  {
+    type: CREATE_SPOT,
+    spot
+  }
+)
+// TODO define thunks
+// CREATE
+export const createSingleSpot = (spot) => async (dispatch) =>{
+  // const {address, city, state, country, lat, lng, name, description, price} = spot;
+
+  const response = await csrfFetch('/api/spots/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      spot
+      // address, city, state, country, lat, lng, name, description, price
+    })
+  })
+  if(response.ok){
+    const data = await response.json()
+    dispatch(createSingleSpot(data))
   }
 }
-// thunk action creators
+
 
 export const thunkLoadSpots = () => async(dispatch) =>{
   const response = await csrfFetch('/api/spots')
-
-
   if(response.ok){
     const data = await response.json()
-    dispatch(loadSpots(data))
+    dispatch(actionLoadSpots(data))
     // console.log(data.Spots)
     return response;
   }
 }
+export const thunkLoadSingleSpot = (id) => async(dispatch) =>{
+  const response = await csrfFetch(`/api/spots/${id}`)
 
+  if(response.ok){
+    const data = await response.json();
+    dispatch(actionLoadSingleSpot(data))
+    return response
+  }
+}
 // normalize array
 
 function normalizeArray(dataArray) {
@@ -43,8 +88,8 @@ function normalizeArray(dataArray) {
 	return obj;
 }
 
-// reducer
-const initialState = {}
+//  TODO reducer
+const initialState = {allSpots:{}, singleSpot:{}}
 const allSpotsReducer = (state = initialState, action) =>{
   let newState;
   switch (action.type) {
@@ -52,6 +97,16 @@ const allSpotsReducer = (state = initialState, action) =>{
       newState = normalizeArray(action.payload.Spots)
       // newState[action.payload.spot.id] = action.spots
       return newState
+    }
+    case LOAD_SINGLE_SPOT:{
+      newState = normalizeArray(action.payload.Spots)
+      return newState
+    }
+    case CREATE_SPOT:{
+      newState = {...state}
+      newState.singleSpot[action.spot.id] = action.spot
+      // newState = normalizeArray(action.spot)
+      return newState;
     }
     default:
       return state;
