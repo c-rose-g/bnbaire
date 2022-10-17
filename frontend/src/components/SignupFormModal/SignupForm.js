@@ -34,6 +34,9 @@ function SignupForm() {
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
+      <div id="signup-modal" >
+
+      <div>
       <label>
         First Name
         <input
@@ -43,6 +46,9 @@ function SignupForm() {
           required
         />
       </label>
+      </div>
+      <div>
+
       <label>
         Last Name
         <input
@@ -52,6 +58,9 @@ function SignupForm() {
           required
         />
       </label>
+      </div>
+      <div>
+
       <label>
         Email
         <input
@@ -61,6 +70,9 @@ function SignupForm() {
           required
         />
       </label>
+      </div>
+      <div>
+
       <label>
         Username
         <input
@@ -70,6 +82,9 @@ function SignupForm() {
           required
         />
       </label>
+      </div>
+      <div>
+
       <label>
         Password
         <input
@@ -79,6 +94,9 @@ function SignupForm() {
           required
         />
       </label>
+      </div>
+      <div>
+
       <label>
         Confirm Password
         <input
@@ -88,7 +106,12 @@ function SignupForm() {
           required
         />
       </label>
+      </div>
+      <div>
+
       <button type="submit">Sign Up</button>
+      </div>
+      </div>
     </form>
   );
 }
