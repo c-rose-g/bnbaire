@@ -33,7 +33,7 @@ export const actionCreateSpot = (spot) =>(
 export const createSingleSpot = (spot) => async (dispatch) =>{
   // const {address, city, state, country, lat, lng, name, description, price} = spot;
 
-  const response = await csrfFetch('/api/spots/', {
+  const response = await csrfFetch('/api/spots', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
