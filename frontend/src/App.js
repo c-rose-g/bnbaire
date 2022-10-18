@@ -27,12 +27,12 @@ function App() {
           <Route exact path='/'>
           <AllSpots />
            </Route>
+          <Route exact path='/create-spot'>
+            <CreateSpot/>
+          </Route>
           <Route path={`/spots/:spotId`} >
             <SingleSpot />
           </Route>
-          {/* <Route path='/spots'>
-            <CreateSpot/> */}
-          {/* </Route> */}
         </Switch>
       )}
     </>

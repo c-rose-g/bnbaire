@@ -33,7 +33,7 @@ export const actionCreateSpot = (spot) =>(
 export const createSingleSpot = (spot) => async (dispatch) =>{
   // const {address, city, state, country, lat, lng, name, description, price} = spot;
 
-  const response = await csrfFetch('/api/spots', {
+  const response = await csrfFetch('/api/spots/new', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -43,6 +43,10 @@ export const createSingleSpot = (spot) => async (dispatch) =>{
       // address, city, state, country, lat, lng, name, description, price
     })
   })
+  // fetch new image
+  // const image = await csrfFetch('/api/spots',{
+
+  // })
   if(response.ok){
     const data = await response.json()
     dispatch(createSingleSpot(data))
