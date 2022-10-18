@@ -13,24 +13,23 @@ function SingleSpot() {
 	console.log('this is the spot id', spotId);
 	// const spot = spotsSelector.find((spot) => spot.id === +spotId);
 	useEffect(() => {
-		
+
 		dispatch(thunkLoadSingleSpot(spotId));
 	}, [dispatch]);
 	// should this be a validation error or optional chaining?
 	// what to do when its loading stuff from the thunk?
 	// added chaining in the return
-	if(!spot.id) {
+	if(!spot?.id) {
 		return 'not here'
 	}
 	return (
+		<>
+		<NavLink to='/spots/update-spot'></NavLink>
 		<div className="spots-container">
 
 			<h1>
         {spot?.name}
       </h1>
-
-
-
 				<div className="spot-card">
 					<div className="img-card">
 						<img src={spot.SpotImages[0]?.url} alt="spot image"></img>
@@ -47,6 +46,7 @@ function SingleSpot() {
 				</div>
 
 		</div>
+		</>
 	);
 }
 

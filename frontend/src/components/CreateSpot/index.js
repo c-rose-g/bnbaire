@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
-import { createSingleSpot, thunkLoadSpots } from '../../store/allSpots';
+import { createSingleSpot, thunkCreateSpotImage, thunkLoadSpots } from '../../store/allSpots';
 import './CreateSpot.css';
 
 function CreateSpot() {
@@ -16,10 +16,11 @@ function CreateSpot() {
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
 	const [price, setPrice] = useState('');
-	const [lat, setLAT] = useState('');
-	const [lng, setLNG] = useState('');
+	const [lat, setLAT] = useState(0);
+	const [lng, setLNG] = useState(0);
 	const [image, setImage] = useState('');
 	const userSelector = useSelector((state) => state.session.user);
+
 
 	const updateAddress = (e) => setAddress(e.target.value);
 	const updateName = (e) => setName(e.target.value);
@@ -54,11 +55,14 @@ function CreateSpot() {
 			name,
 			description,
 			price,
+			image
 		};
     console.log('this is the payload',payload)
 		let spotForm = { ...payload };
 
 		const newSpot = await dispatch(createSingleSpot(spotForm));
+		const arr = {id: newSpot.id, image}
+		const newImage = await dispatch(thunkCreateSpotImage(arr))
 		history.push(`/spots/${newSpot.id}`);
 	};
 	return (
@@ -109,14 +113,18 @@ function CreateSpot() {
 					onChange={updateDescription}
 				/>
 				<input
-					type="text"
+					inputMode="decimal"
 					placeholder="Latitude"
+					min='-90'
+					max='90'
 					value={lat}
 					onChange={updateLAT}
 				/>
 				<input
-					type="text"
+					inputMode="decimal"
 					placeholder="Longitude"
+					min='-180'
+					max='180'
 					value={lng}
 					onChange={updateLNG}
 				/>
