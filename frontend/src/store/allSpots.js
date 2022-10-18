@@ -4,6 +4,7 @@ import { csrfFetch } from './csrf';
 const LOAD_SPOTS = 'allSpots/actionLoadSpots'
 const LOAD_SINGLE_SPOT = 'allSpots/actionLoadSingleSpot'
 const CREATE_SPOT = 'allSpots/actionCreateSpot'
+const UPDATE_SPOT = 'allSpots/actionUpdateSpot'
 // TODO define action creator function
 // action creators
 // all spots
@@ -14,11 +15,10 @@ export const actionLoadSpots = (spots) =>({
 })
 
 // single spot
-export const actionLoadSingleSpot = (spots, id) => (
+export const actionLoadSingleSpot = (spot) => (
   {
     type:LOAD_SINGLE_SPOT,
-    spots,
-    id
+    spot
   }
 )
 
@@ -28,19 +28,25 @@ export const actionCreateSpot = (spot) =>(
     spot
   }
 )
+export const actionUpdateSpot = (spot) =>(
+  {
+    type: UPDATE_SPOT,
+    spot,
+  }
+)
 // TODO define thunks
 // CREATE
 export const createSingleSpot = (spot) => async (dispatch) =>{
-  // const {address, city, state, country, lat, lng, name, description, price} = spot;
+  const {address, city, state, country, lat, lng, name, description, price} = spot;
 
-  const response = await csrfFetch('/api/spots/new', {
+  const response = await csrfFetch('/api/spots', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      spot
-      // address, city, state, country, lat, lng, name, description, price
+      // ...spot
+      address, city, state, country, lat, lng, name, description, price
     })
   })
   // fetch new image
@@ -49,11 +55,11 @@ export const createSingleSpot = (spot) => async (dispatch) =>{
   // })
   if(response.ok){
     const data = await response.json()
-    dispatch(createSingleSpot(data))
+    dispatch(actionCreateSpot(data))
+    return data;
   }
 }
-
-
+// READ
 export const thunkLoadSpots = () => async(dispatch) =>{
   const response = await csrfFetch('/api/spots')
   if(response.ok){
@@ -71,6 +77,28 @@ export const thunkLoadSingleSpot = (id) => async(dispatch) =>{
     dispatch(actionLoadSingleSpot(data))
     return response
   }
+}
+// update
+export const thunkUpdateSingleSpot = (spot) => async(dispath) =>{
+  const {address, city, state, country, lat, lng, name, description, price} = spot;
+
+  const response = await csrfFetch('/api/spots', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      // ...spot
+      address, city, state, country, lat, lng, name, description, price
+    })
+  })
+
+  if(response.ok){
+    const data = await response.json()
+    dispath(actionUpdateSpot(data))
+    return response
+  }
+
 }
 // normalize array
 
@@ -98,12 +126,14 @@ const allSpotsReducer = (state = initialState, action) =>{
   let newState;
   switch (action.type) {
     case LOAD_SPOTS:{
-      newState = normalizeArray(action.payload.Spots)
+      newState = {...state}
+      newState.allSpots = normalizeArray(action.payload.Spots)
       // newState[action.payload.spot.id] = action.spots
       return newState
     }
     case LOAD_SINGLE_SPOT:{
-      newState = normalizeArray(action.payload.Spots)
+      newState = {...state}
+      newState.singleSpot = action.spot
       return newState
     }
     case CREATE_SPOT:{
@@ -111,6 +141,11 @@ const allSpotsReducer = (state = initialState, action) =>{
       newState.singleSpot[action.spot.id] = action.spot
       // newState = normalizeArray(action.spot)
       return newState;
+    }
+    case UPDATE_SPOT:{
+      newState = {...state}
+      newState.singleSpot[action.spot.id] = action.spot
+      return newState
     }
     default:
       return state;

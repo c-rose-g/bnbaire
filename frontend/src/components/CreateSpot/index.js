@@ -55,10 +55,11 @@ function CreateSpot() {
 			description,
 			price,
 		};
-
+    console.log('this is the payload',payload)
 		let spotForm = { ...payload };
-		dispatch(createSingleSpot(spotForm));
-		history.push(`/spots/${spotId}`);
+
+		const newSpot = await dispatch(createSingleSpot(spotForm));
+		history.push(`/spots/${newSpot.id}`);
 	};
 	return (
 		<div className="spot-form-container">
