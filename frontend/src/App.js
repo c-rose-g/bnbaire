@@ -10,6 +10,7 @@ import * as SpotActions from './store/allSpots'
 import SingleSpot from './components/SpotDetails'
 import CreateSpot from "./components/CreateSpot";
 import SpotsByUser from "./components/SpotsByUser";
+import UpdateSpot from "./components/UpdateSpot";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -34,8 +35,11 @@ function App() {
           <Route path={`/spots/:spotId`} >
             <SingleSpot />
           </Route>
-          <Route path='/my-spots/current'>
+          <Route exact path='/my-spots/current'>
             <SpotsByUser />
+          </Route>
+          <Route path='/my-spots/update/:spotId'>
+            <UpdateSpot />
           </Route>
         </Switch>
       )}

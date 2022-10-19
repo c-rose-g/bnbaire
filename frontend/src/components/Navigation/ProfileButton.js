@@ -9,7 +9,7 @@ import {thunkLoadSpotsByUser} from '../../store/allSpots'
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
-  console.log('this is the user in profile button',user)
+  // console.log('this is the user in profile button',user)
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -32,7 +32,7 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
   };
 
-  
+
 
   return (
     <>

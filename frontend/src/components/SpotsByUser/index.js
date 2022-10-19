@@ -1,20 +1,55 @@
-import React,{useState} from 'react'
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { NavLink, useParams } from 'react-router-dom';
+import { thunkLoadSpotsByUser } from '../../store/allSpots';
+import './SpotsByUser.css';
 
-import './SpotsByUser.css'
+function SpotsByUser() {
+	const dispatch = useDispatch();
+	const userId = useSelector((state) => state.session.user.id);
+	// console.log('this is user in SpotsByUser comp',userId)
+	const spots = useSelector((state) => Object.values(state.spots.allSpots));
+	console.log('this is spots USESELECTOR in SpotByUser comp', spots);
+	// const spots = useSelector(state => state.session.allSpots)
+	// console.log('spots in spot details',spots)
+	// const manageSpots = (e) =>{
+	//   e.preventDefault();
 
-function SpotsByUser(){
-// const manageSpots = (e) =>{
-  //   e.preventDefault();
+	//   dispatch(thunkLoadSpotsByUser())
 
-  //   dispatch(thunkLoadSpotsByUser())
-
-  // }
-  return(
-    <div>
-      <h1>butt cheeks</h1>
-
-    </div>
-  )
+	// }
+	useEffect(() => {
+		dispatch(thunkLoadSpotsByUser());
+	}, [dispatch]);
+	// if(!spots?.id){
+	//   return null;
+	// }
+	return (
+		<div>
+			<h1> {spots.name}</h1>
+			{spots.map((spot) => {
+				return (
+					<NavLink key={spot.name} to={`/spots/${spot.id}`}>
+						<div id="user-spot-card">
+							<div id="user-img-card">
+								<img src={spot?.previewImage} alt="spot image"></img>
+							</div>
+							<div id="user-spot-text">
+								<div id="user-top-spot-text">
+									<h2>
+										{spot.city}, {spot.state}
+									</h2>
+									<h2>★{spot.avgRating}</h2>
+								</div>
+								<h2>${spot.price} </h2>
+								
+							</div>
+						</div>
+					</NavLink>
+				);
+			})}
+		</div>
+	);
 }
 
-export default SpotsByUser
+export default SpotsByUser;
