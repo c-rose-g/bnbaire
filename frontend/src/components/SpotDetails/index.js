@@ -1,65 +1,91 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import { thunkLoadSingleSpot, thunkLoadSpots } from '../../store/allSpots';
+import { deleteSpot, thunkLoadSingleSpot, thunkLoadSpots } from '../../store/allSpots';
 import './SpotDetails.css';
+// import DeleteWarningModal from '../DeleteSpotModal';
+// import { Modal } from '../../context/Modal';
+import '../DeleteSpotModal/DeleteSpotModal.css'
 
 function SingleSpot() {
 	const { spotId } = useParams();
+	const history = useHistory()
 	const dispatch = useDispatch();
 	const spot = useSelector((state) => state.spots.singleSpot);
+	console.log('this is spot use selector in SINGLE SPOT', spot)
 	const userSelector = useSelector((state) => state.session.user);
+  // const [showModal, setShowModal] = useState(false);
 
+  // const openModal = () =>{
+  //   setShowModal(true)
+  // }
+	// const warningSubmit = (e) => {
+	// 	e.preventDefault()
+	// 	return (
+	// 		<>
+
+	// 		<DeleteWarningModal />
+
+	// 		</>
+	// 	)
+	// };
 	let spotUpdateButton;
-	if(userSelector && userSelector.id === spot.ownerId){
-		spotUpdateButton = <NavLink to={`/my-spots/update/${spotId}`}>
-									<button>Update Spot</button>
-								</NavLink>
-	}
+	// let spotDeleteButton;
+	// if (userSelector && userSelector.id === spot.ownerId) {
+		spotUpdateButton = (
+			<NavLink to={`/my-spots/update/${spotId}`}>
+				<button>Update Spot</button>
+			</NavLink>
+		);
+	// }
 
-	console.log('this is spot in SingleSpot', spot)
-
+	// console.log('this is spot in SingleSpot', spot);
 	// console.log('this is the spot id', spotId);
 	// const spot = spotsSelector.find((spot) => spot.id === +spotId);
 	useEffect(() => {
-
 		dispatch(thunkLoadSingleSpot(spotId));
-		console.log('this is state inSingleSpot', spot)
+		console.log('this is state inSingleSpot', spot);
 	}, [dispatch]);
 	// should this be a validation error or optional chaining?
 	// what to do when its loading stuff from the thunk?
 	// added chaining in the return
-	if(!spot?.id) {
-		return <div className='not loaded'> NOT LOADED</div>;
+	if (!spot?.id) {
+		return null;
+	}
+
+	const handleCancel = (e) =>{
+		e.preventDefault()
+		dispatch(deleteSpot(spotId))
+		console.log('before the push')
+		history.push('/')
+		console.log('after the')
 	}
 	return (
 		// <NavLink to='/spots/update-spot'></NavLink>
 		<div id="current-spot-container">
+			<h1>{spot.name}</h1>
 
-			<h1>
-        {spot.name}
-      </h1>
-
-				<div className="spot-card">
-					<div className="img-card">
-						{spot.SpotImages && spot.SpotImages.length && <img src={spot.SpotImages[0].url} alt='preview'></img>}
-					</div>
-					<div className="spot-text">
-						<div className="top-spot-text">
-							<h2>
-								{spot.city}, {spot.state}
-							</h2>
-							<h2>★{spot.avgRating}</h2>
-						</div>
-							<h2>{spot.description}</h2>
-						<h2>${spot.price} </h2>
-						{spotUpdateButton}
-					</div>
+			<div className="spot-card">
+				<div className="img-card">
+					{spot.SpotImages && spot.SpotImages.length && (
+						<img src={spot.SpotImages[0].url} alt="preview"></img>
+					)}
 				</div>
-
+				<div className="spot-text">
+					<div className="top-spot-text">
+						<h2>
+							{spot.city}, {spot.state}
+						</h2>
+						<h2>★{spot.avgRating}</h2>
+					</div>
+					<h2>{spot.description}</h2>
+					<h2>${spot.price} </h2>
+					{spotUpdateButton}
+					<button onClick={handleCancel}>Delete a spot</button>
+				</div>
+			</div>
 		</div>
-
 	);
 }
 

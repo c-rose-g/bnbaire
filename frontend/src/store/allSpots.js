@@ -7,15 +7,15 @@ const CREATE_SPOT = 'allSpots/actionCreateSpot'
 const UPDATE_SPOT = 'allSpots/actionUpdateSpot'
 const LOAD_SPOT_BY_USER = 'allSpots/actionLoadSpotByUser'
 const CREATE_IMAGE = 'allSpots/actionCreateSpotImage'
+const DELETE_SPOT = 'allSpots/actionDeleteSpot'
 // TODO define action creator function
-// action creators
 // all spots
 export const actionLoadSpots = (spots) =>({
 
     type: LOAD_SPOTS,
     payload: spots
 })
-
+// spots by user
 export const actionsLoadSpotsByUser = (spots) =>({
   type:LOAD_SPOT_BY_USER,
   spots,
@@ -28,26 +28,34 @@ export const actionLoadSingleSpot = (spot) => (
     spot
   }
 )
-
+// create a spot
 export const actionCreateSpot = (spot) =>(
   {
     type: CREATE_SPOT,
     spot
   }
 )
+// update a spot
 export const actionUpdateSpot = (spot) =>(
   {
     type: UPDATE_SPOT,
     spot,
   }
 )
-
+// create a spot image
 export const actionCreateSpotImage = (spot) =>({
   type: CREATE_IMAGE,
   spot,
 })
+
+// delete a spot
+
+export const actionDeleteSpot = (id) =>({
+  type: DELETE_SPOT,
+  id
+})
 // TODO define thunks
-// ************************************************************CREATE************************************************************
+// ****CREATE********************************************************************************************************************
 export const createSingleSpot = (spot) => async (dispatch) =>{
   const {address, city, state, country, lat, lng, name, description, price, url, SpotImages} = spot;
   console.log('this destructures spot in createSingleSpot, url', url)
@@ -91,7 +99,7 @@ export const CreateSpotImage = (spot, url) => async(dispatch)=>{
     return spot;
   }
 }
-// ************************************************************READ************************************************************
+// ****READ********************************************************************************************************************
 export const thunkLoadSpots = () => async(dispatch) =>{
   const response = await csrfFetch('/api/spots')
   if(response.ok){
@@ -123,7 +131,7 @@ export const thunkLoadSpotsByUser = () => async(dispatch) =>{
     return response;
   }
 }
-// ************************************************************update************************************************************
+// ****UPDATE********************************************************************************************************************
 export const thunkUpdateSingleSpot = (spot, spotId) => async(dispath) =>{
   const { address, city, state, country, lat, lng, name, description, price } = spot;
   console.log('spots id in thunkUpdateSingleSpot', spotId)
@@ -144,9 +152,20 @@ export const thunkUpdateSingleSpot = (spot, spotId) => async(dispath) =>{
     return data
   }
 }
-// ************************************************************delete************************************************************
-// normalize array
+// ****DELETE********************************************************************************************************************
 
+export const deleteSpot = (id) => async(dispatch) =>{
+  const response = await csrfFetch(`/api/spots/${id}`,{
+    method:'DELETE'
+  })
+
+  if(response.ok){
+    const data = await response.json()
+    dispatch(actionDeleteSpot(data, id))
+    return data
+  }
+}
+// normalize array
 function normalizeArray(dataArray) {
 	// professional way to write a short circuit:
 	// check the opposite of thing you want, and return early
@@ -206,6 +225,11 @@ const allSpotsReducer = (state = initialState, action) =>{
       newState.allSpots = normalizeArray(action.spots.Spots)
       // newState.allSpots[action.spots.ownerId] = action.spots
       return newState
+    }
+    case DELETE_SPOT:{
+      newState = {...newState};
+      delete newState[action.id];
+      return newState;
     }
     default:
       return state;

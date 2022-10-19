@@ -11,7 +11,6 @@ import './Navigation.css';
 function Navigation({ isLoaded }) {
 	const history = useHistory()
 	const sessionUser = useSelector((state) => state.session.user);
-	const [validate, setValidate] = useState([])
 	let sessionLinks;
 	if (sessionUser) {
 		sessionLinks = <ProfileButton user={sessionUser} />;
@@ -32,6 +31,7 @@ function Navigation({ isLoaded }) {
 			history.push('/create-spot')
 		}else {
 			alert('Please sign in to become a host')
+			// return(<button className='test'>teset</button>)
 		}
 	}
 	return (

@@ -11,8 +11,10 @@
 .profile-dropdown{
   list-style:none;
   /* display: block; */
-  position: fixed;
-  background-color: white;
+  position: absolute;
+  /* opacity: 100%; */
+
+  /* background-color: currentColor; */
 }
 
 /* airbnb logo */
