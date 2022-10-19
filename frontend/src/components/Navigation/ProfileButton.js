@@ -50,7 +50,7 @@ function ProfileButton({ user }) {
     <div id='top-nav-buttons'>
 
       <button className='chimney' onClick={openMenu}>
-        <i class="fa-solid fa-house-chimney-user" />
+        <i className="fa-solid fa-house-chimney-user" />
       </button>
       {showMenu && (
         <div className="profile-dropdown">

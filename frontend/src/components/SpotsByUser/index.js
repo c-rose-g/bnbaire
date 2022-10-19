@@ -24,6 +24,13 @@ function SpotsByUser() {
 	// if(!spots?.id){
 	//   return null;
 	// }
+	if(spots.length < 1){
+		return(
+			<>
+				<h1 className='no-spots-message'>you have no spots</h1>
+			</>
+		)
+	}
 	return (
 		<div>
 			<h1> {spots.name}</h1>
@@ -42,7 +49,7 @@ function SpotsByUser() {
 									<h2>★{spot.avgRating}</h2>
 								</div>
 								<h2>${spot.price} </h2>
-								
+
 							</div>
 						</div>
 					</NavLink>

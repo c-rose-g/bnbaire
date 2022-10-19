@@ -26,7 +26,7 @@ function AllSpots() {
 	// 	}
 	// 	return stars;
 	// };
-	console.log('spot images in allSpots comp',spotsSelector)
+	// console.log('spot images in allSpots comp',spotsSelector)
 	return (
 		<div className="spots-container">
 			{spotsSelector.map((spot) => {

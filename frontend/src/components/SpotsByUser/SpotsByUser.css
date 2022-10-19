@@ -1,0 +1,7 @@
+.no-spots-message{
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+
+  display: flex;
+  justify-content: center;
+  padding-top: 25%;
+}

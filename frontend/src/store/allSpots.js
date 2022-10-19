@@ -58,7 +58,7 @@ export const actionDeleteSpot = (id) =>({
 // ****CREATE********************************************************************************************************************
 export const createSingleSpot = (spot) => async (dispatch) =>{
   const {address, city, state, country, lat, lng, name, description, price, url, SpotImages} = spot;
-  console.log('this destructures spot in createSingleSpot, url', url)
+  // console.log('this destructures spot in createSingleSpot, url', url)
   const response = await csrfFetch('/api/spots', {
     method: 'POST',
     headers: {
@@ -92,8 +92,8 @@ export const CreateSpotImage = (spot, url) => async(dispatch)=>{
 
   if(response.ok){
     const data = await response.json();
-    console.log('this is data in createSpotImage thunk', data)
-    console.log('createImageThunk, spot', spot)
+    // console.log('this is data in createSpotImage thunk', data)
+    // console.log('createImageThunk, spot', spot)
     spot.SpotImages = [data]
     dispatch(actionCreateSpot(spot))
     return spot;
@@ -114,7 +114,7 @@ export const thunkLoadSingleSpot = (id) => async(dispatch) =>{
   // console.log('this is reponse in thunk',response)
   if(response.ok){
     const data = await response.json();
-    console.log('data in thunk',data)
+    // console.log('data in thunk',data)
     dispatch(actionLoadSingleSpot(data))
     return response
   }
@@ -126,7 +126,7 @@ export const thunkLoadSpotsByUser = () => async(dispatch) =>{
   // console.log('this is response from thunkLoadSpotsByUser, response', response)
   if(response.ok){
     const data = await response.json();
-    console.log('data by user in allSpots',data)
+    // console.log('data by user in allSpots',data)
     dispatch(actionsLoadSpotsByUser(data));
     return response;
   }
@@ -134,7 +134,7 @@ export const thunkLoadSpotsByUser = () => async(dispatch) =>{
 // ****UPDATE********************************************************************************************************************
 export const thunkUpdateSingleSpot = (spot, spotId) => async(dispath) =>{
   const { address, city, state, country, lat, lng, name, description, price } = spot;
-  console.log('spots id in thunkUpdateSingleSpot', spotId)
+  // console.log('spots id in thunkUpdateSingleSpot', spotId)
   const response = await csrfFetch(`/api/spots/${spotId}`, {
     method: 'PUT',
     headers: {
@@ -199,7 +199,7 @@ const allSpotsReducer = (state = initialState, action) =>{
       newState = {...state}
       // const imageUrl = action.
       newState.singleSpot = action.spot
-      console.log('newState in single spot reducer', newState)
+      // console.log('newState in single spot reducer', newState)
       return newState
     }
     case CREATE_SPOT:{
@@ -212,7 +212,7 @@ const allSpotsReducer = (state = initialState, action) =>{
       newState = {...state}
       // removed [action.spot.id]
       newState.singleSpot = action.spot
-      console.log('this is newState in UPDATE SPOT USER reducer', newState)
+      // console.log('this is newState in UPDATE SPOT USER reducer', newState)
       return newState
     }
     case CREATE_IMAGE:{
