@@ -53,7 +53,7 @@ function Navigation({ isLoaded }) {
 				</NavLink>
 
     </div>
-				<hr className='someClass' />
+				<hr className='line' />
 		</>
 	);
 }

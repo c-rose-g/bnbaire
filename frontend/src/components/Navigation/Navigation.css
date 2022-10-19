@@ -4,12 +4,15 @@
   width: 100%;
   justify-content: center;
   grid-auto-flow:column;
-  padding-top: 22px;
-  padding-bottom: 22px;
+  margin-top: 22px;
+  margin-bottom: 22px;
 }
 
 .profile-dropdown{
   list-style:none;
+  /* display: block; */
+  position: fixed;
+  background-color: white;
 }
 
 /* airbnb logo */
@@ -20,7 +23,7 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
-hr.someClass {
+hr.line {
   border-top: 1px solid black;
   /* background-color: purple; */
   width: 100%;
