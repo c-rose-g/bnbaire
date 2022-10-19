@@ -1,3 +1,18 @@
+/* navBar container */
+#navLinks {
+  display:grid;
+  width: 100%;
+  justify-content: center;
+  grid-auto-flow:column;
+  padding-top: 22px;
+  padding-bottom: 22px;
+}
+
+.profile-dropdown{
+  list-style:none
+}
+
+/* airbnb logo */
 #logo {
   background-image: url(../../../public/Bnbaire-logo.png);
   height: 25px;
@@ -5,17 +20,19 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
-
-a.active {
-  /* display: inline; */
-  /* grid-template-columns: repeat(3, 100px); */
+hr.someClass {
+  border-top: 1px solid black;
+  /* background-color: purple; */
+  width: 100%;
+  /* height: 12px */
 }
+/* wtf was this? */
+/* a.active {
+  display: inline;
+  grid-template-columns: repeat(3, 100px);
+} */
 
-
-#navLinks {
-  display: flex;
-
-}
+/* button colors */
 #navLinks button {
 
   color:white;
@@ -24,7 +41,4 @@ a.active {
   border: none;
   padding: 5px;
   background: linear-gradient(90deg, rgba(205,52,99,1) 25%, rgba(244,91,106,1) 50%, rgba(205,52,99,1) 75%);
-}
-.profile-dropdown{
-  list-style:none
 }

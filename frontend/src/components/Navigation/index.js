@@ -35,9 +35,11 @@ function Navigation({ isLoaded }) {
 		}
 	}
 	return (
+		<>
 		<div id='navLinks'>
 
 				<NavLink exact to="/">
+
           <div id='logo'>
           </div>
         </NavLink>
@@ -49,7 +51,10 @@ function Navigation({ isLoaded }) {
 					</button>
 
 				</NavLink>
+
     </div>
+				<hr className='someClass' />
+		</>
 	);
 }
 
