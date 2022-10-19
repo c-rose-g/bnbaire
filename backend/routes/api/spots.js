@@ -372,7 +372,7 @@ router.get('/current', requireAuth, async (req, res) => {
 		},
 	});
 	let spots = [];
-
+	// console.log('this is spots by current user in the backend route', allSpots)
 	for (let spot of allSpots) {
 		spot = spot.toJSON();
 		const rating = await Review.findAll({
@@ -387,63 +387,90 @@ router.get('/current', requireAuth, async (req, res) => {
 		delete spot.SpotImages;
 		spots.push(spot);
 	}
-
+	// console.log('this is spots array in backend route', spots)
 	res.status(200).json({ Spots: spots });
 });
 
+// const findAllSpots = await Spot.findAll()
+// console.log('this is all spots in backend', findAllSpots)
+// const existingSpot = await Spot.findByPk(spotId, {
+// 	include: [
+// 		{model: SpotImage,where: {preview: true,
+// 			},
+// 		},
+// 		{
+// 			model: User,
+// 			as: 'Owner',
+// 			attributes: ['id', 'firstName', 'lastName'],
+// 		},
+// 	],
+// });
+// } else {
+// 	const allSpots = await Spot.findAll({
+		// include: [
+		// 	{
+		// 		model: SpotImage,
+		// 		where: {
+		// 			preview: true,
+		// 		},
+		// 	},
+		// 	{
+		// 		model: User,
+		// 		as: 'Owner',
+		// 		attributes: ['id', 'firstName', 'lastName'],
+		// 	},
+		// ],
+// 		where: {
+// 			id: +spotId,
+// 		},
+// 	});
+	// let spotArray = [];
 //GET DETAILS OF A SPOT FROM AN ID (no auth)
 router.get('/:spotId', async (req, res) => {
-	const { spotId } = req.params;
-	const existingSpot = await Spot.findByPk(spotId);
-	// console.log('get all spots',getAllSpots)
-	if (!existingSpot) {
+	// const { spotId } = req.params;
+	let spot = await Spot.findByPk(req.params.spotId, {
+		include: [{
+				model: SpotImage,
+				attributes: ['id', 'url', 'preview']
+		},{
+				model: User,
+				as: 'Owner',
+				attributes: ['id', 'firstName', 'lastName']
+		}]
+});
+	// console.log('get existing spots',spot.toJSON())
+	if (!spot) {
 		res.status(404).json({
 			message: "Spot couldn't be found",
 			statusCode: 404,
 		});
-	} else {
-		const allSpots = await Spot.findAll({
-			include: [
-				{
-					model: SpotImage,
-					where: {
-						preview: true,
-					},
-				},
-				{
-					model: User,
-					as: 'Owner',
-					attributes: ['id', 'firstName', 'lastName'],
-				},
-			],
-			where: {
-				id: spotId,
-			},
-		});
-		let spot = [];
-		for (let spotObj of allSpots) {
-			spotObj = spotObj.toJSON();
-			const rating = await Review.findAll({
+	}
+		// for (let spotObj of spot) {
+			spot = spot.toJSON();
+			// console.log('spots json', spot)
+			let rating = await Review.findAll({
 				raw: true, //turns it into a POJO ONLY LAZY LOADING
 				where: {
-					spotId: spotObj.id,
+					spotId: spot.id,
 				},
 				attributes: [
 					[sequelize.fn('COUNT', sequelize.col('review')), 'numReviews'],
 					[sequelize.fn('AVG', sequelize.col('stars')), 'avgStarRating'],
 				],
 			});
+
 			// console.log('rating',rating[0].toJSON().numReviews)
 			let reviews = +rating[0].numReviews;
-			spotObj.numReviews = reviews;
-			spotObj.price = +spotObj.price;
-			spotObj.avgStarRating = +rating[0].avgStarRating;
-			spot.push(spotObj);
+			spot.numReviews = reviews;
+			spot.price = +spot.price;
+			spot.avgStarRating = +rating[0].avgStarRating;
+			// spot.push(spotObj);
 			// console.log('spotObj',spotObj)
 			// spotObj.numReviews = rating[0].toJSON().numReviews
-		}
-		res.status(200).json(...spot);
-	}
+
+		console.log('this is spots in backend route',spot)
+		res.status(200).json(spot);
+	// }
 });
 
 // NOTE do I need to test on a spot w/o reviews / stars ?
@@ -456,17 +483,17 @@ router.get('/', async (req, res) => {
 	size =
 		size === undefined ? 20 : size < 0 ? 1 : size > 20 ? 20 : parseInt(size);
 
-	const allSpots = await Spot.findAll({
-		include: {
+	let allSpots = await Spot.findAll({
+		include: [{
 			model: SpotImage,
-			where: {
-				preview: true,
-			},
-		},
+			attributes: ['id', 'url', 'preview']
+		}],
 		limit: size,
 		offset: size * (page - 1),
 	});
 
+	// console.log('this is all spots', allSpots[0].SpotImages)
+	// console.log('this is size', page)
 	//  toJSON on each spot, key into review and spotimage, test on spot w/o reviews/stars
 	let spots = [];
 	for (let spot of allSpots) {
@@ -477,13 +504,18 @@ router.get('/', async (req, res) => {
 			},
 			attributes: [[sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']],
 		});
-
+		// console.log('this is rating',rating)
 		spot.avgRating = Number(rating[0].toJSON().avgRating);
-		spot.previewImage = spot.SpotImages[0].url;
-		delete spot.SpotImages;
-		spots.push(spot);
+		// TODO add conditional;
+		// if(!spot.previewImage){
+		// 	spot.previewImage = null
+		// }else {
+			// spot.previewImage = spot.SpotImages[0].url;
+			// delete spot.SpotImages;
+			spots.push(spot);
+		// }
 	}
-
+	// console.log('spots ', spots)
 	res.status(200).json({ Spots: spots, page, size });
 });
 

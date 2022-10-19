@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import {Redirect} from 'react-router-dom'
+import './SignupFormModal.css'
 function SignupForm() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
@@ -23,7 +24,7 @@ function SignupForm() {
       return dispatch(sessionActions.signup({ firstName, lastName, email, username, password }))
         .catch(async (res) => {
           const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
+          if (data && data.errors) setErrors(Object.values(data.errors));
         });
     }
     return setErrors(['Confirm Password field must be the same as the Password field']);
@@ -31,9 +32,13 @@ function SignupForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-      </ul>
+    <div className="errors">
+        {errors.map((error, idx) => <div key={idx}>{error}</div>)}
+    </div>
+
+      <div id="signup-modal" >
+
+      <div>
       <label>
         First Name
         <input
@@ -43,6 +48,9 @@ function SignupForm() {
           required
         />
       </label>
+      </div>
+      <div>
+
       <label>
         Last Name
         <input
@@ -52,6 +60,9 @@ function SignupForm() {
           required
         />
       </label>
+      </div>
+      <div>
+
       <label>
         Email
         <input
@@ -61,6 +72,9 @@ function SignupForm() {
           required
         />
       </label>
+      </div>
+      <div>
+
       <label>
         Username
         <input
@@ -70,6 +84,9 @@ function SignupForm() {
           required
         />
       </label>
+      </div>
+      <div>
+
       <label>
         Password
         <input
@@ -79,6 +96,9 @@ function SignupForm() {
           required
         />
       </label>
+      </div>
+      <div>
+
       <label>
         Confirm Password
         <input
@@ -88,7 +108,12 @@ function SignupForm() {
           required
         />
       </label>
+      </div>
+      <div>
+
       <button type="submit">Sign Up</button>
+      </div>
+      </div>
     </form>
   );
 }
