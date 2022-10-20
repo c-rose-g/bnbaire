@@ -59,25 +59,25 @@ export const createReviewBySpotId = (newReview, spotId) => async(dispatch) => {
   })
   if(response.ok){
     const data = await response.json()
-    dispatch(addReviewImageByReviewId(data, url))
+    dispatch(actionCreateReviewBySpotId(data))
     return data
   }
 }
 export const addReviewImageByReviewId = (newReview, url) => async(dispatch) => {
-  const response = await csrfFetch(`/api/reviews/${newReview.id}`,{
+  const response = await csrfFetch(`/api/reviews/${newReview.id}/images`,{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      preview:true, url:url
+      url:url
     })
   })
   if(response.ok){
     const data = await response.json()
     newReview.ReviewImages = [data]
-    dispatch(createReviewBySpotId(newReview))
-    return 
+    dispatch(actionAddReviewImageByReviewId(data))
+    return data
   }
 }
 // ****READ********************************************************************************************************************
@@ -122,6 +122,16 @@ const reviewsReducer = (state = initialState, action) =>{
       newState = {...state}
       // console.log('newState in review reducer'. newState)
       newState.spot = normalizeArray(action.reviews.Reviews)
+      return newState
+    }
+    case CREATE_REVIEW_BY_SPOT_ID:{
+      newState = {...state}
+      newState.spot[action.newReview.id] = action.newReview
+      return newState
+    }
+    case ADD_REVIEW_IMAGE_BY_REVIEW_ID:{
+      newState = {...state}
+      newState.spot[action.newReview.ReviewImages] = action.newReview
       return newState
     }
     default:

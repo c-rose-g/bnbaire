@@ -391,40 +391,6 @@ router.get('/current', requireAuth, async (req, res) => {
 	res.status(200).json({ Spots: spots });
 });
 
-// const findAllSpots = await Spot.findAll()
-// console.log('this is all spots in backend', findAllSpots)
-// const existingSpot = await Spot.findByPk(spotId, {
-// 	include: [
-// 		{model: SpotImage,where: {preview: true,
-// 			},
-// 		},
-// 		{
-// 			model: User,
-// 			as: 'Owner',
-// 			attributes: ['id', 'firstName', 'lastName'],
-// 		},
-// 	],
-// });
-// } else {
-// 	const allSpots = await Spot.findAll({
-		// include: [
-		// 	{
-		// 		model: SpotImage,
-		// 		where: {
-		// 			preview: true,
-		// 		},
-		// 	},
-		// 	{
-		// 		model: User,
-		// 		as: 'Owner',
-		// 		attributes: ['id', 'firstName', 'lastName'],
-		// 	},
-		// ],
-// 		where: {
-// 			id: +spotId,
-// 		},
-// 	});
-	// let spotArray = [];
 //GET DETAILS OF A SPOT FROM AN ID (no auth)
 router.get('/:spotId', async (req, res) => {
 	// const { spotId } = req.params;
