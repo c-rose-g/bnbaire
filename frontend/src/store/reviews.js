@@ -16,17 +16,17 @@ export const actionAddReviewImageToNewReview = (review) =>({
   review
 })
 
-export const actionLoadReviewsByUser = (reviews)=>({
-  type: LOAD_REVIEWS_BY_USER,
-  reviews
-})
+// export const actionLoadReviewsByUser = (reviews)=>({
+//   type: LOAD_REVIEWS_BY_USER,
+//   reviews
+// })
 export const actionLoadReviewsBySpotId = (reviews) =>({
   type: LOAD_REVIEWS_BY_SPOT_ID,
   reviews
 })
-export const actionEditReviewByReviewId =(review) =>({
+export const actionEditReviewByReviewId =(reviews) =>({
   type: EDIT_REVIEW_BY_REVIEW_ID,
-  review
+  reviews
 })
 // use id or spot?
 export const actionDeleteReviewBySpotId = (id) =>({
@@ -53,12 +53,22 @@ export const addReviewImage = () => async(dispatch) => {
 
 }
 // ****READ********************************************************************************************************************
-export const loadReviewsByUserThunk = () => async(dispatch) =>{
-  const response = await csrfFetch(`/api/current`)
+// export const loadReviewsByUserThunk = () => async(dispatch) =>{
+//   const response = await csrfFetch(`/api/reviews/current`)
+//   if(response.ok){
+//     const data = await response.json()
+//     dispatch(actionLoadReviewsByUser(data))
+//     return response
+//   }
+// }
+
+export const loadReviewsBySpotThunk = (spotId) => async(dispatch) =>{
+  const response = await csrfFetch(`/api/spots/${spotId}/reviews`)
+  // console.log('response from review by spot id', response)
   if(response.ok){
     const data = await response.json()
-    dispatch(actionLoadReviewsByUser(data))
-    return response
+    dispatch(actionLoadReviewsBySpotId(data))
+    return response;
   }
 }
 // ****UPDATE********************************************************************************************************************
@@ -77,12 +87,17 @@ const reviewsReducer = (state = initialState, action) =>{
   switch (action.type) {
     case LOAD_REVIEWS_BY_USER:{
       newState = {...state}
-
-      // newState.spot = normalizeArray(action.spots)
+      newState.spot = normalizeArray(action.reviews)
+      return newState
     }
-
-
+    case LOAD_REVIEWS_BY_SPOT_ID:{
+      newState = {...state}
+      // console.log('newState in review reducer'. newState)
+      newState.spot = normalizeArray(action.reviews.Reviews)
+      return newState
+    }
     default:
       return state;
   }
 }
+export default reviewsReducer

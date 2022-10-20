@@ -41,6 +41,9 @@ function App() {
           <Route path='/my-spots/update/:spotId'>
             <UpdateSpot />
           </Route>
+          {/* <Route path='/spots/:spotId/reviews'>
+
+          </Route> */}
         </Switch>
       )}
     </>

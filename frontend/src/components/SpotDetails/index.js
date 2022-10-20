@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { deleteSpot, thunkLoadSingleSpot, thunkLoadSpots } from '../../store/allSpots';
+import { loadReviewsBySpotThunk } from '../../store/reviews';
 import './SpotDetails.css';
 // import DeleteWarningModal from '../DeleteSpotModal';
 // import { Modal } from '../../context/Modal';
@@ -13,8 +14,10 @@ function SingleSpot() {
 	const history = useHistory()
 	const dispatch = useDispatch();
 	const spot = useSelector((state) => state.spots.singleSpot);
-	console.log('this is spot use selector in SINGLE SPOT', spot)
+	// console.log('this is spot use selector in SINGLE SPOT', spot)
 	const userSelector = useSelector((state) => state.session.user);
+	const reviews = useSelector(state => Object.values(state.reviews.spot))
+	// console.log('this is reviews state in SINGLE SPOT', reviews)
   // const [showModal, setShowModal] = useState(false);
   // const openModal = () =>{setShowModal(true)}
 	// const warningSubmit = (e) => {e.preventDefault()return (<><DeleteWarningModal /></>)};
@@ -22,8 +25,17 @@ function SingleSpot() {
 	let spotDeleteButton;
 	useEffect(() => {
 		dispatch(thunkLoadSingleSpot(spotId));
+		dispatch(loadReviewsBySpotThunk(spotId));
 		// console.log('this is state inSingleSpot', spot);
 	}, [dispatch]);
+
+	const handleCancel = (e) =>{
+		e.preventDefault()
+		dispatch(deleteSpot(spotId))
+
+		history.push('/')
+
+	}
 	if (userSelector && userSelector.id === spot.ownerId) {
 		spotUpdateButton = (
 			<NavLink to={`/my-spots/update/${spotId}`}>
@@ -57,15 +69,11 @@ function SingleSpot() {
 		return null;
 	}
 
-	const handleCancel = (e) =>{
-		e.preventDefault()
-		dispatch(deleteSpot(spotId))
 
-		history.push('/')
-
-	}
 	return (
 		// <NavLink to='/spots/update-spot'></NavLink>
+		<>
+
 		<div id="current-spot-container">
 			<h1>{spot.name}</h1>
 
@@ -89,6 +97,20 @@ function SingleSpot() {
 				</div>
 			</div>
 		</div>
+		<div className='reviews-container'>
+		<div className='reviews-card'>
+			<h2> this is where the reviews will go</h2>
+			{reviews.map(review => {
+
+				return(
+					<div className='review' key={review.id}>
+						{review.review}
+					</div>
+				)
+			})}
+		</div>
+		</div>
+		</>
 	);
 }
 

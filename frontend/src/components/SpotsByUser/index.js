@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, Redirect, useParams } from 'react-router-dom';
 import { thunkLoadSpotsByUser } from '../../store/allSpots';
 import './SpotsByUser.css';
 
 function SpotsByUser() {
 	const dispatch = useDispatch();
-	const userId = useSelector((state) => state.session.user.id);
+	const user = useSelector((state) => state.session.user);
+
 	// console.log('this is user in SpotsByUser comp',userId)
 	const spots = useSelector((state) => Object.values(state.spots.allSpots));
 	console.log('this is spots USESELECTOR in SpotByUser comp', spots);
@@ -21,6 +22,12 @@ function SpotsByUser() {
 	useEffect(() => {
 		dispatch(thunkLoadSpotsByUser());
 	}, [dispatch]);
+
+	if(!user){
+		return(
+			<Redirect to='/' />
+		)
+	}
 	// if(!spots?.id){
 	//   return null;
 	// }
