@@ -17,9 +17,15 @@
   object-fit: cover;
   /* border: 3px black solid */
 }
-.spot-text{
-  color:#484848;
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+
+*/
+.page-container{
+  border: 1px pink solid;
+  display: flex;
+  flex-direction: row;
+}
+.img-card{
+  /* border: 5px pink solid; */
 }
 button {
   color:white;
