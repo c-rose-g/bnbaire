@@ -36,11 +36,11 @@ function Navigation({ isLoaded }) {
 	}
 	return (
 		<>
-		<div id='navLinks'>
+		<div className='navLinks'>
 
 				<NavLink exact to="/">
 
-          <div id='logo'>
+          <div className='logo'>
           </div>
         </NavLink>
 				{isLoaded && sessionLinks}

@@ -32,16 +32,19 @@ function SpotsByUser() {
 		)
 	}
 	return (
-		<div>
+		<>
+
+		<div className='spots-container'>
 			<h1> {spots.name}</h1>
 			{spots.map((spot) => {
 				return (
 					<NavLink key={spot.name} to={`/spots/${spot.id}`}>
 						<div id="user-spot-card">
-							<div id="user-img-card">
+							<div className="img-card">
 								<img src={spot?.previewImage} alt="spot image"></img>
 							</div>
-							<div id="user-spot-text">
+							<div className="spot-text">
+							{spot.description}
 								<div id="user-top-spot-text">
 									<h2>
 										{spot.city}, {spot.state}
@@ -52,10 +55,12 @@ function SpotsByUser() {
 
 							</div>
 						</div>
+
 					</NavLink>
 				);
 			})}
 		</div>
+		</>
 	);
 }
 

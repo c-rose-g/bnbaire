@@ -19,14 +19,7 @@ function AllSpots() {
 		dispatch(thunkLoadSpots());
 	}, [dispatch]);
 
-	// const starEmoji = (num) => {
-	// 	let stars = '';
-	// 	for (let i = 0; i < Math.floor(num); i++) {
-	// 		stars += '🌟';
-	// 	}
-	// 	return stars;
-	// };
-	// console.log('spot images in allSpots comp',spotsSelector)
+
 	return (
 		<div className="spots-container">
 			{spotsSelector.map((spot) => {
@@ -37,7 +30,7 @@ function AllSpots() {
 					<NavLink key={spot.name} to={`/spots/${spot.id}`}>
 						<div className="spot-card" >
 							<div className="img-card">
-								<img src={spot?.SpotImages[0]?.url} alt="spot image"></img>
+								<img src={spot?.previewImage} alt="spot image"></img>
 							</div>
 							<div className="spot-text">
 								<div className="top-spot-text">
