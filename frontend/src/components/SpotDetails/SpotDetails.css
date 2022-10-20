@@ -11,7 +11,13 @@
   height: 10px;
   justify-content: center;
 }
+
 */
+.page-container{
+  border: 1px pink solid;
+  display: flex;
+  flex-direction: row;
+}
 .img-card{
   /* border: 5px pink solid; */
 }

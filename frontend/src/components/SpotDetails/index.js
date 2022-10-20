@@ -74,6 +74,7 @@ function SingleSpot() {
 		// <NavLink to='/spots/update-spot'></NavLink>
 		<>
 
+		<div className='page-container'>
 		<div id="current-spot-container">
 			<h1>{spot.name}</h1>
 
@@ -83,7 +84,7 @@ function SingleSpot() {
 						<img src={spot.SpotImages[0].url} alt="preview"></img>
 					)}
 				</div>
-				<div className="spot-text">
+				{/* <div className="spot-text">
 					<div className="top-spot-text">
 						<h2>
 							{spot.city}, {spot.state}
@@ -92,10 +93,9 @@ function SingleSpot() {
 					</div>
 					<h2>{spot.description}</h2>
 					<h2>${spot.price} </h2>
+				</div> */}
 					{spotUpdateButton}
 					{spotDeleteButton}
-				</div>
-			</div>
 		</div>
 		<div className='reviews-container'>
 		<div className='reviews-card'>
@@ -115,6 +115,22 @@ function SingleSpot() {
 				)
 			})}
 		</div>
+			</div>
+
+		</div>
+
+		<fieldset>
+		<div className="spot-text">
+					<div className="top-spot-text">
+						<h2>
+							{spot.city}, {spot.state}
+						</h2>
+						<h2>★{spot.avgRating}</h2>
+					</div>
+					<h2>{spot.description}</h2>
+					<h2>${spot.price} </h2>
+				</div>
+		</fieldset>
 		</div>
 		</>
 	);
