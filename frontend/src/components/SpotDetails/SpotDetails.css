@@ -1,21 +1,26 @@
-#current-spot-container{
-  border: 1px green solid;
-  display: inline-block;
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* grid-template-rows: (10px, 300px, 10px, 10px, 10px); */
-
-}
-/* #current-spot-name{
-  border: 1px pink solid;
-  height: 10px;
+.spots-container {
+  /* border: 5px blue solid; */
+  display:grid;
   justify-content: center;
-}
-*/
-.img-card{
-  /* border: 5px pink solid; */
+  grid-template-columns: repeat(3, 300px);
+  grid-gap: 20px;
+
+  /* width: 100vh;
+  height: 100vh; */
+
 }
 
+.img-card img{
+  border-radius: 15px;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  /* border: 3px black solid */
+}
+.spot-text{
+  color:#484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
 button {
   color:white;
   background: rgb(205,52,99);

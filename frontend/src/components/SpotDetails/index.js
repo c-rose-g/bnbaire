@@ -21,6 +21,11 @@ function SingleSpot() {
   // const [showModal, setShowModal] = useState(false);
   // const openModal = () =>{setShowModal(true)}
 	// const warningSubmit = (e) => {e.preventDefault()return (<><DeleteWarningModal /></>)};
+	const handleCancel = (e) =>{
+		e.preventDefault()
+		dispatch(deleteSpot(spotId))
+		history.push('/')
+	}
 	let spotUpdateButton;
 	let spotDeleteButton;
 	useEffect(() => {
@@ -72,11 +77,9 @@ function SingleSpot() {
 
 	return (
 		// <NavLink to='/spots/update-spot'></NavLink>
-		<>
+		<div className='spots-container'>
 
-		<div id="current-spot-container">
 			<h1>{spot.name}</h1>
-
 			<div className="spot-card">
 				<div className="img-card">
 					{spot.SpotImages && spot.SpotImages.length && (
