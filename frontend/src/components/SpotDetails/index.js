@@ -32,6 +32,13 @@ function SingleSpot() {
 		dispatch(thunkLoadSingleSpot(spotId));
 		dispatch(loadReviewsBySpotThunk(spotId));
 		// console.log('this is state inSingleSpot', spot);
+		// if(reviews.length <1){
+		// 	return (
+		// 		<>
+		// 			<h2>this spot has no reviews</h2>
+		// 		</>
+		// 	)
+		// }
 	}, [dispatch]);
 
 
@@ -46,11 +53,7 @@ function SingleSpot() {
 		<button onClick={handleCancel}>Delete a spot</button>
 		)
 	}
-	// if(userSelector && spot.length < 1) {
-	// 	return(
-	// 		<h1> You don't have any spot!</h1>
-	// 	)
-	// }
+
 	if(userSelector && spot.ownerId === null){
 		// return(
 		// 	<>
@@ -100,7 +103,8 @@ function SingleSpot() {
 		</div>
 		<div className='reviews-container'>
 		<div className='reviews-card'>
-			<h2> this is where the reviews will go</h2>
+			{/* <h2> this is where the reviews will go</h2> */}
+			{/* {reviews.length < 0 && ('this spot has no reviews')} */}
 			{reviews.map(review => {
 
 				return(
