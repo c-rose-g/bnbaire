@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
-import { createSingleSpot, CreateSpotImage, thunkLoadSpots, thunkLoadSingleSpot } from '../../store/allSpots';
+import {
+	createSingleSpot,
+	CreateSpotImage,
+	thunkLoadSpots,
+	thunkLoadSingleSpot,
+} from '../../store/allSpots';
 import './CreateSpot.css';
 
 function CreateSpot() {
@@ -18,9 +23,8 @@ function CreateSpot() {
 	const [lat, setLAT] = useState(0);
 	const [lng, setLNG] = useState(0);
 	const [url, seturl] = useState('');
-	const [validationErrors, setValidationErrors] = useState([])
+	const [validationErrors, setValidationErrors] = useState([]);
 	const userSelector = useSelector((state) => state.session.user);
-
 
 	const updateAddress = (e) => setAddress(e.target.value);
 	const updateName = (e) => setName(e.target.value);
@@ -33,65 +37,68 @@ function CreateSpot() {
 	const updateLNG = (e) => setLNG(e.target.value);
 	const updateUrl = (e) => seturl(e.target.value);
 
-	const errors = []
-			if(address.length < 1 ) errors.push('please provide an address.')
-			if(city.length < 1) errors.push('please provide the city.')
-			if(url.length < 1) errors.push('please provide image url.')
-			if(state.length < 1) errors.push('please provide state initials.')
-			if(state.length > 2) errors.push('please only use state initials.')
-			if(country.length < 1) errors.push('please provide the country.')
-			if(description.length < 1) errors.push('please provide description')
-			// how to check for decimals?
-			// if(price < 1) errors.push('please provide a price.')
-			if(!url.endsWith('png') && !url.endsWith('jpg')) errors.push('image needs to end with .jpg or .png.')
-			if(name.length < 1) errors.push('please provide a name for the spot.')
-			if(name.length > 50) errors.push('spot name must 50 characters max.')
-			
+	const errors = [];
+	if (address.length < 1) errors.push('please provide an address.');
+	if (city.length < 1) errors.push('please provide the city.');
+	if (url.length < 1) errors.push('please provide image url.');
+	if (state.length < 1) errors.push('please provide state initials.');
+	if (state.length > 2) errors.push('please only use state initials.');
+	if (country.length < 1) errors.push('please provide the country.');
+	if (description.length < 1) errors.push('please provide description');
+	// how to check for decimals?
+	// if(price < 1) errors.push('please provide a price.')
+	if (!url.endsWith('png') && !url.endsWith('jpg'))
+		errors.push('image needs to end with .jpg or .png.');
+	if (name.length < 1) errors.push('please provide a name for the spot.');
+	if (name.length > 50) errors.push('spot name must 50 characters max.');
+
 	useEffect(() => {
 		dispatch(thunkLoadSingleSpot(spotId));
 	}, [dispatch]);
 
-	if(!userSelector) return(
-		<Redirect to='/' />
-		)
+	if (!userSelector) return <Redirect to="/" />;
 
-		const handleSubmit = async (e) => {
-			e.preventDefault();
-			const payload = {
-				address,
-				city,
-				state,
-				country,
-				lat,
-				lng,
-				name,
-				description,
-				price,
-				url,
-				SpotImages:[{url}]
-			};
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		const payload = {
+			address,
+			city,
+			state,
+			country,
+			lat,
+			lng,
+			name,
+			description,
+			price,
+			url,
+			SpotImages: [{ url }],
+		};
 
-			// 	setValidationErrors(errors)
+		// 	setValidationErrors(errors)
 		let spotForm = { ...payload };
 
-		try{
-			const newSpot = await dispatch(createSingleSpot(spotForm))
-			history.push(`/spots/${newSpot.id}`);
-		}catch{
-			setValidationErrors(errors)
-		}
+		const newSpot = await dispatch(createSingleSpot(spotForm)).catch(
+			async (res) => {
+				const data = await res.json();
+				console.log('this is data in single spot', data);
+
+				if (errors.length > 0) setValidationErrors(errors);
+			}
+		);
+		history.push(`/spots/${newSpot.id}`);
 	};
 	return (
 		<div className="spot-form-container">
 			{/* add error vaidation message */}
 			<h2>Become a host</h2>
 			<form onSubmit={handleSubmit}>
-			{validationErrors.length > 0 && (
-				<ul className="errors">
-					{validationErrors.map((validate) => (
-						<li key={validate}>{validate}</li>
-					))}
-				</ul>)}
+				{validationErrors.length > 0 && (
+					<ul className="errors">
+						{validationErrors.map((validate) => (
+							<li key={validate}>{validate}</li>
+						))}
+					</ul>
+				)}
 				<input
 					type="text"
 					placeholder="Name"
@@ -144,16 +151,16 @@ function CreateSpot() {
 				<input
 					inputMode="decimal"
 					placeholder="Latitude"
-					min='-90'
-					max='90'
+					min="-90"
+					max="90"
 					value={lat}
 					onChange={updateLAT}
 				/>
 				<input
 					inputMode="decimal"
 					placeholder="Longitude"
-					min='-180'
-					max='180'
+					min="-180"
+					max="180"
 					value={lng}
 					onChange={updateLNG}
 				/>

@@ -6,7 +6,7 @@ import './AllSpots.css';
 function AllSpots() {
 	//  returning spot image, spot name?, price, rating, city/state(location), dates?
 	const spotsSelector = useSelector((state) => Object.values(state.spots.allSpots));
-	const [pagenotfound, setpagenotfound] = useState({})
+	// const [pagenotfound, setpagenotfound] = useState({})
 	// const imageSelector = useSelector(state => Object.values(state.spots.allSpots.SpotImages))
 	// console.log('this is image selector',imageSelector)
 	// const {spotsSelector.id} = useParams()
@@ -17,13 +17,14 @@ function AllSpots() {
 	// const spotsArray = Object.values(spotsSelector);
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(thunkLoadSpots()).catch(async res =>{
-			const data = await res.json()
-			console.log('datam', data)
-			if(data && data.message){
-				setpagenotfound(data.message)
-			}
-		});
+		dispatch(thunkLoadSpots())
+		// .catch(async res =>{
+		// 	const data = await res.json()
+		// 	console.log('datam', data)
+		// 	if(data && data.message){
+		// 		setpagenotfound(data.message)
+		// 	}
+		// });
 	}, [dispatch]);
 
 
