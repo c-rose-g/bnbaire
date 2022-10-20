@@ -44,6 +44,7 @@ function App() {
           {/* <Route path='/spots/:spotId/reviews'>
 
           </Route> */}
+        <Route>Page not found</Route>
         </Switch>
       )}
     </>
