@@ -24,3 +24,13 @@ button {
   padding: 5px;
   background: linear-gradient(90deg, rgba(205,52,99,1) 25%, rgba(244,91,106,1) 50%, rgba(205,52,99,1) 75%);
 }
+.review-card{
+
+  color:#484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+
+.review-user-stars {
+  display: flex;
+  /* justify-content: space-around; */
+}

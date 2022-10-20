@@ -17,7 +17,7 @@ function SingleSpot() {
 	// console.log('this is spot use selector in SINGLE SPOT', spot)
 	const userSelector = useSelector((state) => state.session.user);
 	const reviews = useSelector(state => Object.values(state.reviews.spot))
-	// console.log('this is reviews state in SINGLE SPOT', reviews)
+	console.log('this is reviews state in SINGLE SPOT', reviews)
   // const [showModal, setShowModal] = useState(false);
   // const openModal = () =>{setShowModal(true)}
 	// const warningSubmit = (e) => {e.preventDefault()return (<><DeleteWarningModal /></>)};
@@ -103,7 +103,13 @@ function SingleSpot() {
 			{reviews.map(review => {
 
 				return(
-					<div className='review' key={review.id}>
+					<div className='review-card' key={review.id}>
+					<div className='review-user-stars'>
+
+					{review.User.firstName}
+					{review.stars} stars
+					</div>
+					<p/>
 						{review.review}
 					</div>
 				)
