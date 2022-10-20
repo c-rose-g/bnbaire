@@ -34,13 +34,7 @@ function SingleSpot() {
 		// console.log('this is state inSingleSpot', spot);
 	}, [dispatch]);
 
-	const handleCancel = (e) =>{
-		e.preventDefault()
-		dispatch(deleteSpot(spotId))
 
-		history.push('/')
-
-	}
 	if (userSelector && userSelector.id === spot.ownerId) {
 		spotUpdateButton = (
 			<NavLink to={`/my-spots/update/${spotId}`}>
@@ -77,6 +71,7 @@ function SingleSpot() {
 
 	return (
 		// <NavLink to='/spots/update-spot'></NavLink>
+		<>
 		<div className='spots-container'>
 
 			<h1>{spot.name}</h1>
