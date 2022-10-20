@@ -146,14 +146,14 @@ router.post('/:reviewsId/images', requireAuth, async (req, res) => {
 		},
 	});
 
-	if (reviewOwner) {
+	// if (reviewOwner) {
 		const reviewImage = await ReviewImage.create({
 			reviewId: reviewsId,
 			url,
 		});
 
-		res.status(200).json({ id: reviewsId, url: url });
-	}
+		res.status(200).json({ id: reviewsId, url: reviewImage.url });
+	// }
 });
 
 module.exports = router;
