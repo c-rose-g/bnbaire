@@ -460,7 +460,7 @@ router.get('/', async (req, res) => {
 		offset: size * (page - 1),
 	});
 
-	
+
 	//  toJSON on each spot, key into review and spotimage, test on spot w/o reviews/stars
 	let spots = [];
 	for (let spot of allSpots) {
