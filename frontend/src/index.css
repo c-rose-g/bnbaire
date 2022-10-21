@@ -1,0 +1,87 @@
+.spots-container {
+  display:grid;
+  justify-content: center;
+  grid-template-columns: repeat(3, 300px);
+  grid-gap: 20px;
+  /* border: 3px solid green; */
+}
+.page-container{
+  /* border: 3px solid green; */
+  display: flex;
+  flex-direction: row;
+
+}
+
+.reviews-container{
+  /* box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px; */
+}
+a {
+  text-decoration: none;
+  font-size: 11px;
+  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+}
+.spot-text-container{
+  /* box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px; */
+}
+.img-card{
+  width: 300px;
+  height: 300px;
+
+  display: flex;
+  flex-direction: row;
+}
+.spot-text{
+  color:#484848;
+  font-size: large;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+
+.subtext {
+  padding: 5px;
+  font-size: medium;
+  color:#484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+.text{
+  font-size: large;
+  color:#484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+.top-spot-text {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+
+}
+.img-card img{
+  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+  border-radius: 15px;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.review-card{
+
+  padding: 6px;
+  font-size: medium;
+  color:#484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+.review-user-stars{
+  display: flex;
+  justify-content: space-between;
+  /* border: 1px blue solid; */
+  font-size: small;
+  color:#484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+hr.subline {
+  border-top: 1px solid #55555563;
+
+  width: 100%;
+}
+
+.side-panel{
+  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+  border: none
+}

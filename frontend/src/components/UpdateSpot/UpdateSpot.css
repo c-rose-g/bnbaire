@@ -1,0 +1,19 @@
+.update-page-container{
+  border: 2px solid blue;
+  height: 100vh;
+
+}
+.update-spot-container{
+ border: 1px solid pink;
+ display:grid;
+ justify-content: center;
+ flex-direction: column;
+
+}
+
+.input {
+  /* object-fit: cover; */
+  box-sizing: border-box;
+  height: 100px;
+  width: 500px;
+}

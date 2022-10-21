@@ -3,6 +3,7 @@
   justify-content: center;
   grid-template-columns: repeat(3, 300px);
   grid-gap: 20px;
+
 }
 a {
   text-decoration: none;
@@ -30,5 +31,11 @@ a {
   height: 100%;
   width: 100%;
   object-fit: cover;
+
+}
+
+.spots-card{
+  /* border: 2px solid green; */
+  border-radius: 15px;
 
 }

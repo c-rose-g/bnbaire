@@ -21,14 +21,15 @@
   width: 100px;
   background-repeat: no-repeat;
   background-size: contain;
+  border-radius: 5px;
+
 }
 hr.line {
   border-top: 1px solid black;
-
   width: 100%;
 }
 
-#navLinks button {
+.button {
 
   color:white;
   background: rgb(205,52,99);
