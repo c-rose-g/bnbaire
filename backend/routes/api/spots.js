@@ -395,13 +395,7 @@ router.get('/current', requireAuth, async (req, res) => {
 //GET DETAILS OF A SPOT FROM AN ID (no auth)
 router.get('/:spotId', async (req, res) => {
 	const { spotId } = req.params;
-	let spot = await Spot.findByPk(spotId, {
-		include: {
-				model: User,
-				as: 'Owner',
-				attributes: ['id', 'firstName', 'lastName']
-		}
-});
+	let spot = await Spot.findByPk(spotId);
 	// console.log('get existing spots',spot.toJSON())
 	if (!spot) {
 		res.status(404).json({
@@ -423,13 +417,17 @@ router.get('/:spotId', async (req, res) => {
 				],
 			});
 
+			const user = await User.findByPk( spot.ownerId,{
+						attributes:['id', 'firstName', 'lastName']
+			})
+
 			const image = await SpotImage.findAll({
 				where:{
 					spotId: spot.id
 				},
 				attributes:['id', 'url','preview']
 			})
-
+			spot.User = user;
 			spot.SpotImages = image
 			let reviews = +rating[0].numReviews;
 			spot.numReviews = reviews;
