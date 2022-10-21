@@ -4,12 +4,22 @@ import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { deleteSpot, thunkLoadSingleSpot } from '../../store/allSpots';
 import { loadReviewsBySpotThunk } from '../../store/reviews';
+import { deleteReview } from '../../store/reviews';
 import './SpotDetails.css';
 // import DeleteWarningModal from '../DeleteSpotModal';
 // import { Modal } from '../../context/Modal';
 // import '../DeleteSpotModal/DeleteSpotModal.css';
+// const [showModal, setShowModal] = useState(false);
+// const openModal = () =>{setShowModal(true)}
+// const warningSubmit = (e) => {e.preventDefault()return (<><DeleteWarningModal /></>)};
 
 function SingleSpot() {
+	// const [isLoaded, setIsLoaded] = useState(false);
+	// console.log('spot selector', spot);
+	// console.log('num reviews', numReviews);
+	// console.log('this is spot use selector in SINGLE SPOT', spot)
+	// console.log('this is the user SPOT DETAILS', user)
+	// console.log('this is reviews state in SPOT DETAILS', reviews)
 	let { spotId } = useParams();
 	spotId = parseInt(spotId);
 	const history = useHistory();
@@ -17,26 +27,27 @@ function SingleSpot() {
 	const spot = useSelector((state) => state.spots.singleSpot);
 	let numReviews = spot.numReviews;
 	numReviews = parseInt(numReviews)
-	// console.log('num reviews', numReviews);
-	// console.log('spot selector', spot);
-	// console.log('this is spot use selector in SINGLE SPOT', spot)
 	const user = useSelector((state) => state.session.user);
-	// console.log('this is the user SPOT DETAILS', user)
 	const reviews = useSelector((state) => Object.values(state.reviews.spot));
-	// console.log('this is reviews state in SPOT DETAILS', reviews)
 	const userReview = (user) ? reviews.find(id => id.userId === user.id): null
-	// console.log('this is the current user with review in SPOT DETAILS', userReview)
+	console.log('this is the userReview in SPOT DETAILS', userReview)
 
-	// const [showModal, setShowModal] = useState(false);
-	// const openModal = () =>{setShowModal(true)}
-	// const warningSubmit = (e) => {e.preventDefault()return (<><DeleteWarningModal /></>)};
-	const handleCancel = (e) => {
+	const handlDeleteCurrentSpot = (e) => {
 		e.preventDefault();
 		dispatch(deleteSpot(spotId));
 		history.push('/');
 	};
+	const handleDeleteCurrentReview = async() => {
+		// e.preventDefault()
+
+			await dispatch(deleteReview(userReview.id))
+			// .then(() => setIsLoaded(true))
+			history.push(`/spots/${spotId}`)
+	}
 	let spotUpdateButton;
 	let spotDeleteButton;
+	let spotSubmitReviewButton;
+	let spotDeleteReviewButton;
 	useEffect(() => {
 		dispatch(thunkLoadSingleSpot(spotId));
 		dispatch(loadReviewsBySpotThunk(spotId));
@@ -44,9 +55,8 @@ function SingleSpot() {
 
 	const handleReview = (e) => {
 		e.preventDefault();
-		if(!user){
-			alert('Please sign in to leave a review.')
-		}else if(user && userReview){
+
+		if(user && userReview){
 			alert('You have already left a review.')
 		}else{
 			history.push(`/spots/${spotId}/reviews`);
@@ -58,21 +68,32 @@ function SingleSpot() {
 				<button>Update Spot</button>
 			</NavLink>
 		);
+		spotDeleteButton = (<>
+			<button onClick={handlDeleteCurrentSpot}>Delete Spot</button>
+		</>)
 	}
 
-	function starsWord(num){
-		if (num === 0) return 'stars';
-		if (num === 1) return 'star';
-		if (num > 1) return 'stars';
+	if(user && user.id !== spot.ownerId){
+		spotSubmitReviewButton=(<>
+			<button onClick={handleReview}>Submit a review</button>
+		</>)
+		// spotDeleteReviewButton=(<>
+			{/* <button onClick={handleDeleteCurrentReview}>Delete your review</button> */}
+		// </>)
 	}
+	// if(user && user.id === reviews.userReview){
+		// spotDeleteReviewButton=(<>
+		// 	<button onClick={handleDeleteCurrentReview}>Delete your review</button>
+		// </>)
+	// }
 	function reviewsWord(num) {
-
+		// return (num === 0) ? 'reviews': num === 1 ? : 'reviews' : num > 1 ? :'reviews'
 		if (num === 0) return 'reviews';
 		if (num === 1) return 'review';
 		if (num > 1) return 'reviews';
 	}
 
-	return (
+	return  (
 		<div className="spots-container">
 			<div className="page-container">
 				<div id="current-spot-container">
@@ -100,28 +121,32 @@ function SingleSpot() {
 					<div className="reviews-card">
 						{/* <h2> this is where the reviews will go</h2> */}
 						{/* {reviews.length < 0 && ('this spot has no reviews')} */}
+						{/* {user && userReview && */}
 						{reviews.map((review) => {
-							console.log('each review ', review.User)
+							{/* console.log('each review ', review.User) */}
 							return (
 								<div className="review-card" key={review.id}>
 									<div className="review-user-stars">
 									<b>{review.User.firstName} says: </b> <span>{review.stars} stars</span>
 
-
 									</div>
 									<p />
 									"{review.review}"
+									<div>
+									{user && +user.id === +review.User.id? <button onClick={handleDeleteCurrentReview}>Delete your review</button>:null }
+									</div>
 									<hr className="subline" />
 								</div>
 							);
 						})}
+						{/* } */}
 						<div className="review-container">
-							<button onClick={handleReview}> submit review</button>
+						{/* {spotSubmitReviewButton} */}
+							{/* <button onClick={handleReview}> submit review</button> */}
 						</div>
 					</div>
 				</div>
-
-						{spotUpdateButton} {spotDeleteButton}
+						{/* {spotUpdateButton} <span>{spotDeleteButton}</span> */}
 					</div>
 				</div>
 
@@ -147,7 +172,12 @@ function SingleSpot() {
 					<div className='spot-text'>What this place offers:</div>
 					<p/>
 					<div className='subtext'>{spot.description}</div>
-
+					<div>
+					{spotUpdateButton} <span>{spotDeleteButton}</span>
+					</div>
+					<div>
+					{spotSubmitReviewButton}
+					</div>
 				</div>
 			</fieldset>
 		</div>

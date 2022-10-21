@@ -5,7 +5,7 @@ const ADD_REVIEW_IMAGE_BY_REVIEW_ID = 'reviews/actionAddReviewImageByReviewId'
 const LOAD_REVIEWS_BY_USER = 'reviews/actionLoadReviewsByUser'
 const LOAD_REVIEWS_BY_SPOT_ID = 'reviews/actionLoadReviewsBySpotId'
 const EDIT_REVIEW_BY_REVIEW_REVIEW_ID = 'reviews/actionEditReviewByReviewId'
-const DELETE_REVIEW_BY_SPOT_ID = 'reviews/actionDeleteReviewBySpotId'
+const DELETE_REVIEW_BY_REVIEW_ID = 'reviews/actionDeleteReviewByReviewId'
 // TODO define action creators
 export const actionCreateReviewBySpotId = (newReview) =>({
   type: CREATE_REVIEW_BY_SPOT_ID,
@@ -29,8 +29,8 @@ export const actionEditReviewByReviewId =(reviews) =>({
   reviews
 })
 // use id or spot?
-export const actionDeleteReviewBySpotId = (id) =>({
-  type: DELETE_REVIEW_BY_SPOT_ID,
+export const actionDeleteReviewByReviewId = (id) =>({
+  type: DELETE_REVIEW_BY_REVIEW_ID,
   id
 })
 function normalizeArray(dataArray) {
@@ -118,8 +118,17 @@ export const editReview = (reviews, reviewId) => async(dispatch) =>{
   }
 }
 // ****DELETE********************************************************************************************************************
-export const deleteReview = () => async(dispatch) => {
-
+export const deleteReview = (id) => async(dispatch) => {
+  const response = await csrfFetch(`/api/reviews/${id}`,{
+    method:'DELETE'
+  })
+  console.log('this is the response in delete THUNK', response)
+  if(response.ok){
+    const data = await response.json();
+    console.log('this is data in thunk', data)
+    dispatch(actionDeleteReviewByReviewId(data,id))
+    return data
+  }
 }
 // TODO define reducer
 const initialState = {spot:{}}
@@ -151,6 +160,14 @@ const reviewsReducer = (state = initialState, action) =>{
     case EDIT_REVIEW_BY_REVIEW_REVIEW_ID:{
       newState = {...state}
       newState.spot[action.review.id] = action.reviews
+      return newState
+    }
+    case DELETE_REVIEW_BY_REVIEW_ID:{
+      // newState = {...state, spot:{...state.spot}}
+      newState = {...state}
+
+      delete newState.spot[action.id]
+      console.log('this is newState in DELETE REVIEW REDUCER', newState)
       return newState
     }
     default:

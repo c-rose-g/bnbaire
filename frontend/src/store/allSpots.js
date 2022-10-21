@@ -147,7 +147,7 @@ export const thunkUpdateSingleSpot = (spot, spotId) => async(dispath) =>{
 
   if(response.ok){
     const data = await response.json()
-    console.log('data coming from THUNK single spot', data)
+    // console.log('data coming from THUNK single spot', data)
     dispath(actionUpdateSpot(data))
     // return response
     return data
@@ -194,7 +194,6 @@ const allSpotsReducer = (state = initialState, action) =>{
       newState = {...state}
       // const imageUrl = action.
       newState.singleSpot = action.spot
-      console.log('newState in single spot REDUCER', newState)
       return newState
     }
     case CREATE_SPOT:{
