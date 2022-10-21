@@ -13,8 +13,10 @@ function CreateReview(){
   const [errors, setErrors] = useState([]);
 
   // find the user
+  const user = useSelector((state) => state.session);
+  console.log('this is user in CREATE REVIEW', user)
 	const spot = useSelector((state) => state.reviews);
-  console.log('spot selector', spot)
+  // console.log('spot selector in CREATE REVIEW', spot)
   // find the review just created - move to create review image
   // const findReview = useSelector((state)=> Object.values(state.reviews))
   const addReview = e => setNewReview(e.target.value)
@@ -23,6 +25,7 @@ function CreateReview(){
 
   const submitReview = async e => {
     e.preventDefault();
+    // if(spot.userId !== )
     const payload = {review, stars}
 
     let reviewForm = {...payload}

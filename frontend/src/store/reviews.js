@@ -100,8 +100,21 @@ export const loadReviewsBySpotThunk = (spotId) => async(dispatch) =>{
   }
 }
 // ****UPDATE********************************************************************************************************************
-export const editReview = () => async(dispatch) =>{
+export const editReview = (reviews, reviewId) => async(dispatch) =>{
+  const {review, stars} = reviews
+  const response = await csrfFetch(`/api/reviews/${reviewId}`,{
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({review, stars})
+  })
 
+  if(response.ok){
+    const data = await response.json()
+    dispatch(actionEditReviewByReviewId(data))
+    return data
+  }
 }
 // ****DELETE********************************************************************************************************************
 export const deleteReview = () => async(dispatch) => {
@@ -132,6 +145,11 @@ const reviewsReducer = (state = initialState, action) =>{
     case ADD_REVIEW_IMAGE_BY_REVIEW_ID:{
       newState = {...state}
       newState.spot[action.newReview.ReviewImages] = action.newReview
+      return newState
+    }
+    case EDIT_REVIEW_BY_REVIEW_REVIEW_ID:{
+      newState = {...state}
+      newState.spot[action.review.id] = action.reviews
       return newState
     }
     default:
