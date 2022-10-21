@@ -21,16 +21,12 @@ function SingleSpot() {
 	// console.log('spot selector', spot);
 	// console.log('this is spot use selector in SINGLE SPOT', spot)
 	const user = useSelector((state) => state.session.user);
-	console.log('this is the user SPOT DETAILS', user)
+	// console.log('this is the user SPOT DETAILS', user)
 	const reviews = useSelector((state) => Object.values(state.reviews.spot));
-	console.log('this is reviews state in SPOT DETAILS', reviews)
-	const userReview = reviews.find(id => id.userId === user.id)
-	console.log('this is the current user with review in SPOT DETAILS', userReview)
-	// let userStarRating = useSelector((state) => state.reviews.spot)
-	// console.log('this is userStarRating in SINGLE SPOT', userStarRating);
-	// if(reviews.User.id === reviews.userId){
-	// 	alert('You have already left a review.')
-	// }
+	// console.log('this is reviews state in SPOT DETAILS', reviews)
+	const userReview = (user) ? reviews.find(id => id.userId === user.id): null
+	// console.log('this is the current user with review in SPOT DETAILS', userReview)
+
 	// const [showModal, setShowModal] = useState(false);
 	// const openModal = () =>{setShowModal(true)}
 	// const warningSubmit = (e) => {e.preventDefault()return (<><DeleteWarningModal /></>)};
@@ -50,7 +46,7 @@ function SingleSpot() {
 		e.preventDefault();
 		if(!user){
 			alert('Please sign in to leave a review.')
-		}else if(userReview){
+		}else if(user && userReview){
 			alert('You have already left a review.')
 		}else{
 			history.push(`/spots/${spotId}/reviews`);
@@ -64,9 +60,6 @@ function SingleSpot() {
 		);
 	}
 
-	// if (!spot?.id) {
-	// 	return null;
-	// }
 	function starsWord(num){
 		if (num === 0) return 'stars';
 		if (num === 1) return 'star';
@@ -108,12 +101,11 @@ function SingleSpot() {
 						{/* <h2> this is where the reviews will go</h2> */}
 						{/* {reviews.length < 0 && ('this spot has no reviews')} */}
 						{reviews.map((review) => {
+							console.log('each review ', review.User)
 							return (
 								<div className="review-card" key={review.id}>
 									<div className="review-user-stars">
-									<b>
-
-									{review.User.firstName} says: </b> <span>{review.stars} stars</span>
+									<b>{review.User.firstName} says: </b> <span>{review.stars} stars</span>
 
 
 									</div>

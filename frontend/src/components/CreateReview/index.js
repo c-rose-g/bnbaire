@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import {createReviewBySpotId, addReviewImageByReviewId} from '../../store/reviews'
+import {thunkLoadSingleSpot} from '../../store/allSpots';
 import './CreateReview.css'
 
 function CreateReview(){
@@ -14,7 +15,7 @@ function CreateReview(){
 
   // find the user
   const user = useSelector((state) => state.session);
-  console.log('this is user in CREATE REVIEW', user)
+  // console.log('this is user in CREATE REVIEW', user)
 	const spot = useSelector((state) => state.reviews);
   // console.log('spot selector in CREATE REVIEW', spot)
   // find the review just created - move to create review image
@@ -22,19 +23,29 @@ function CreateReview(){
   const addReview = e => setNewReview(e.target.value)
   const addStars = e => setNewStars(e.target.value)
 
+  useEffect(() => {
+    dispatch(thunkLoadSingleSpot(spotId));
+
+  }, [dispatch]);
 
   const submitReview = async e => {
     e.preventDefault();
     // if(spot.userId !== )
-    const payload = {review, stars}
+    const payload = {review, stars:+stars}
 
     let reviewForm = {...payload}
-    const newReview = await dispatch(createReviewBySpotId(reviewForm, spotId)).catch(async (res) => {
-      const data = await res.json();
-      if (data && data.errors) setErrors(data.errors);
-    });
-    history.push(`/spots/${spotId}/reviews`)
-  }
+    console.log('payload in CREATE REVIEW',reviewForm)
+    let userObj = {id:user.id, firstName:user.firstName, lastName:user.lastName}
+    const newReview = await dispatch(createReviewBySpotId(reviewForm, spotId, userObj))
+    // .catch(async (res) => {
+      //   const data = await res.json();
+      //   if (data && data.errors) setErrors(data.errors);
+      // });
+
+      history.push(`/spots/${spotId}`)
+
+    }
+
 
   // once review is created, dispatch to add image, then dispatch to spot details
   // extra functionality do it later

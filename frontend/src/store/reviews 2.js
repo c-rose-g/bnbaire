@@ -1,19 +1,19 @@
 import { csrfFetch } from "./csrf";
 // TODO define types
 const CREATE_REVIEW_BY_SPOT_ID = 'reviews/actionCreateReviewBySpotId'
-const ADD_REVIEW_IMAGE_BY_REVIEW_ID = 'reviews/actionAddReviewImageByReviewId'
+const ADD_REVIEW_IMAGE_TO_NEW_REVIEW = 'reviews/actionAddReviewImageToNewReview'
 const LOAD_REVIEWS_BY_USER = 'reviews/actionLoadReviewsByUser'
 const LOAD_REVIEWS_BY_SPOT_ID = 'reviews/actionLoadReviewsBySpotId'
-const EDIT_REVIEW_BY_REVIEW_REVIEW_ID = 'reviews/actionEditReviewByReviewId'
+const EDIT_REVIEW_BY_REVIEW_ID = 'reviews/actionEditReviewByReviewId'
 const DELETE_REVIEW_BY_SPOT_ID = 'reviews/actionDeleteReviewBySpotId'
 // TODO define action creators
-export const actionCreateReviewBySpotId = (newReview) =>({
+export const actionCreateReviewBySpotId = (id) =>({
   type: CREATE_REVIEW_BY_SPOT_ID,
-  newReview
+  id
 })
-export const actionAddReviewImageByReviewId = (newReview) =>({
-  type: ADD_REVIEW_IMAGE_BY_REVIEW_ID,
-  newReview
+export const actionAddReviewImageToNewReview = (review) =>({
+  type: ADD_REVIEW_IMAGE_TO_NEW_REVIEW,
+  review
 })
 
 // export const actionLoadReviewsByUser = (reviews)=>({
@@ -25,7 +25,7 @@ export const actionLoadReviewsBySpotId = (reviews) =>({
   reviews
 })
 export const actionEditReviewByReviewId =(reviews) =>({
-  type: EDIT_REVIEW_BY_REVIEW_REVIEW_ID,
+  type: EDIT_REVIEW_BY_REVIEW_ID,
   reviews
 })
 // use id or spot?
@@ -46,40 +46,11 @@ function normalizeArray(dataArray) {
 }
 // TODO define thunks
 // ****CREATE********************************************************************************************************************
-export const createReviewBySpotId = (newReview, spotId, user) => async(dispatch) => {
-  const {review, stars} = newReview
-  const response = await csrfFetch(`/api/spots/${spotId}/reviews`,{
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      review, stars
-    })
-  })
-  if(response.ok){
-    const data = await response.json()
-    data.User = user
-    dispatch(actionCreateReviewBySpotId(data))
-    return data
-  }
+export const createReview = () => async(dispatch) => {
+
 }
-export const addReviewImageByReviewId = (newReview, url) => async(dispatch) => {
-  const response = await csrfFetch(`/api/reviews/${newReview.id}/images`,{
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      url:url
-    })
-  })
-  if(response.ok){
-    const data = await response.json()
-    newReview.ReviewImages = [data]
-    dispatch(actionAddReviewImageByReviewId(data))
-    return data
-  }
+export const addReviewImage = () => async(dispatch) => {
+
 }
 // ****READ********************************************************************************************************************
 // export const loadReviewsByUserThunk = () => async(dispatch) =>{
@@ -101,21 +72,8 @@ export const loadReviewsBySpotThunk = (spotId) => async(dispatch) =>{
   }
 }
 // ****UPDATE********************************************************************************************************************
-export const editReview = (reviews, reviewId) => async(dispatch) =>{
-  const {review, stars} = reviews
-  const response = await csrfFetch(`/api/reviews/${reviewId}`,{
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({review, stars})
-  })
+export const editReview = () => async(dispatch) =>{
 
-  if(response.ok){
-    const data = await response.json()
-    dispatch(actionEditReviewByReviewId(data))
-    return data
-  }
 }
 // ****DELETE********************************************************************************************************************
 export const deleteReview = () => async(dispatch) => {
@@ -136,21 +94,6 @@ const reviewsReducer = (state = initialState, action) =>{
       newState = {...state}
       // console.log('newState in review reducer'. newState)
       newState.spot = normalizeArray(action.reviews.Reviews)
-      return newState
-    }
-    case CREATE_REVIEW_BY_SPOT_ID:{
-      newState = {...state}
-      newState.spot[action.newReview.id] = action.newReview
-      return newState
-    }
-    case ADD_REVIEW_IMAGE_BY_REVIEW_ID:{
-      newState = {...state}
-      newState.spot[action.newReview.ReviewImages] = action.newReview
-      return newState
-    }
-    case EDIT_REVIEW_BY_REVIEW_REVIEW_ID:{
-      newState = {...state}
-      newState.spot[action.review.id] = action.reviews
       return newState
     }
     default:
