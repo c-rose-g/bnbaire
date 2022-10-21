@@ -15,9 +15,11 @@
 
 }
 
-
+.spot-card{
+  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+}
 .page-container{
-  border: 1px pink solid;
+
   display: flex;
   flex-direction: row;
 }

@@ -5,7 +5,9 @@ import { NavLink, useParams } from 'react-router-dom';
 import './AllSpots.css';
 function AllSpots() {
 	//  returning spot image, spot name?, price, rating, city/state(location), dates?
-	const spotsSelector = useSelector((state) => Object.values(state.spots.allSpots));
+	const spotsSelector = useSelector((state) =>
+		Object.values(state.spots.allSpots)
+	);
 	// const [pagenotfound, setpagenotfound] = useState({})
 	// const imageSelector = useSelector(state => Object.values(state.spots.allSpots.SpotImages))
 	// console.log('this is image selector',imageSelector)
@@ -13,11 +15,11 @@ function AllSpots() {
 	// const spotId = spotsSelector.find()
 	// console.log('this is spotsSelector', spotsSelector);
 	// find id
-// const spotId = spotsSelector.find(spot => spot.id === +)
+	// const spotId = spotsSelector.find(spot => spot.id === +)
 	// const spotsArray = Object.values(spotsSelector);
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(thunkLoadSpots())
+		dispatch(thunkLoadSpots());
 		// .catch(async res =>{
 		// 	const data = await res.json()
 		// 	console.log('datam', data)
@@ -27,19 +29,22 @@ function AllSpots() {
 		// });
 	}, [dispatch]);
 
-
 	return (
 		<div className="spots-container">
 			{spotsSelector.map((spot) => {
-					{/* console.log('each spot',spot.SpotImages)
+				{
+					/* console.log('each spot',spot.SpotImages)
 					let imageArray = spot.SpotImages[0]
-					let imageUrl = imageArray.url */}
+					let imageUrl = imageArray.url */
+				}
 				return (
+						<div className="spots-card">
 					<NavLink key={spot.name} to={`/spots/${spot.id}`}>
-						<div className="spot-card" >
 							<div className="img-card">
 								<img src={spot?.previewImage} alt="spot image"></img>
 							</div>
+							<div className='spot-text-container'>
+
 							<div className="spot-text">
 								<div className="top-spot-text">
 									<h2>
@@ -47,10 +52,11 @@ function AllSpots() {
 									</h2>
 									<h2>★{spot.avgRating}</h2>
 								</div>
-								<h2>${spot.price} </h2>
+								<div>${spot.price} </div>
 							</div>
 						</div>
 					</NavLink>
+							</div>
 				);
 			})}
 		</div>
