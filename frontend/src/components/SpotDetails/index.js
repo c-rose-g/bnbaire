@@ -12,19 +12,20 @@ import './SpotDetails.css';
 function SingleSpot() {
 	let { spotId } = useParams();
 	spotId = parseInt(spotId);
-	console.log('spot Id', spotId);
-
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const spot = useSelector((state) => state.spots.singleSpot);
 	let numReviews = spot.numReviews;
 	numReviews = parseInt(numReviews)
-	console.log('num reviews', numReviews);
-	console.log('spot selector', spot);
+	// console.log('num reviews', numReviews);
+	// console.log('spot selector', spot);
 	// console.log('this is spot use selector in SINGLE SPOT', spot)
-	const userSelector = useSelector((state) => state.session.user);
+	const user = useSelector((state) => state.session.user);
+	console.log('this is the user SPOT DETAILS', user)
 	const reviews = useSelector((state) => Object.values(state.reviews.spot));
-	// console.log('this is reviews state in SINGLE SPOT', reviews)
+	console.log('this is reviews state in SPOT DETAILS', reviews)
+	const userReview = reviews.find(id => id.userId === user.id)
+	console.log('this is the current user with review in SPOT DETAILS', userReview)
 	// let userStarRating = useSelector((state) => state.reviews.spot)
 	// console.log('this is userStarRating in SINGLE SPOT', userStarRating);
 	// if(reviews.User.id === reviews.userId){
@@ -47,14 +48,15 @@ function SingleSpot() {
 
 	const handleReview = (e) => {
 		e.preventDefault();
-		if(userSelector){
+		if(!user){
+			alert('Please sign in to leave a review.')
+		}else if(userReview){
+			alert('You have already left a review.')
+		}else{
 			history.push(`/spots/${spotId}/reviews`);
 		}
-		else{
-			alert('Please sign in to leave a review')
-		}
 	};
-	if (userSelector && userSelector.id === spot.ownerId) {
+	if (user && user.id === spot.ownerId) {
 		spotUpdateButton = (
 			<NavLink to={`/my-spots/update/${spotId}`}>
 				<button>Update Spot</button>

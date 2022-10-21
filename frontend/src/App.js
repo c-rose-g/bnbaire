@@ -12,6 +12,7 @@ import CreateSpot from "./components/CreateSpot";
 import SpotsByUser from "./components/SpotsByUser";
 import UpdateSpot from "./components/UpdateSpot";
 import CreateReview from "./components/CreateReview";
+import UpdateReview from "./components/UpdateReview";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -44,6 +45,9 @@ function App() {
           </Route>
           <Route path='/spots/:spotId/reviews'>
           <CreateReview />
+          </Route>
+          <Route path='/reviews/:reviewId'>
+            <UpdateReview />
           </Route>
           <Route>Page not found.</Route>
         </Switch>

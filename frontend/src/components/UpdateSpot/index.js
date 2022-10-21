@@ -54,7 +54,7 @@ function UpdateSpot() {
 			lng,
 		};
 		let updateSpotForm = { ...payload };
-		console.log('this is updateSpotForm in UpdateSpot comp', updateSpotForm);
+		// console.log('this is updateSpotForm in UpdateSpot comp', updateSpotForm);
 		setErrors([]);
 		const updateSpot = await dispatch(
 			thunkUpdateSingleSpot(updateSpotForm, spotId)
