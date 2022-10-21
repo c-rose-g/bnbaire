@@ -41,11 +41,11 @@ function SingleSpot() {
 	}, [dispatch]);
 
 
-	// const handleReview = (e) => {
-	// 	e.preventDefault();
+	const handleReview = (e) => {
+		e.preventDefault();
 
-	// 	history.push(`/spots/${spotId}/reviews`)
-	// };
+		history.push(`/spots/${spotId}/reviews`)
+	};
 	// if (userSelector && userSelector.id === spot.ownerId) {
 	// 	spotUpdateButton = (
 	// 		<NavLink to={`/my-spots/update/${spotId}`}>
