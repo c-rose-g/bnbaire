@@ -41,32 +41,30 @@ function SingleSpot() {
 	}, [dispatch]);
 
 
-		history.push('/');
-	};
-	const handleReview = (e) => {
-		e.preventDefault();
+	// const handleReview = (e) => {
+	// 	e.preventDefault();
 
-		history.push(`/spots/${spotId}/reviews`)
-	};
-	if (userSelector && userSelector.id === spot.ownerId) {
-		spotUpdateButton = (
-			<NavLink to={`/my-spots/update/${spotId}`}>
-				<button>Update Spot</button>
-			</NavLink>
-		);
-		spotDeleteButton = <button onClick={handleCancel}>Delete a spot</button>;
-	}
-	if (userSelector && spot.ownerId === null) {
+	// 	history.push(`/spots/${spotId}/reviews`)
+	// };
+	// if (userSelector && userSelector.id === spot.ownerId) {
+	// 	spotUpdateButton = (
+	// 		<NavLink to={`/my-spots/update/${spotId}`}>
+	// 			<button>Update Spot</button>
+	// 		</NavLink>
+	// 	);
+	// 	spotDeleteButton = <button onClick={handleCancel}>Delete a spot</button>;
+	// }
+	// if (userSelector && spot.ownerId === null) {
 
-		history.push('/');
-	}
+	// 	history.push('/');
+	// }
 
-	if (!spot?.id) {
-		return null;
-	}
+	// if (!spot?.id) {
+	// 	return null;
+	// }
 
 	return (
-		<>
+
 		<div className='spots-container'>
 
 		<div className='page-container'>
@@ -91,6 +89,7 @@ function SingleSpot() {
 						{spotUpdateButton}
 						{spotDeleteButton}
 					</div>
+					</div>
 					<div className="reviews-container">
 						<div className="reviews-card">
 							{/* <h2> this is where the reviews will go</h2> */}
@@ -113,7 +112,6 @@ function SingleSpot() {
 						</div>
 					</div>
 				</div>
-
 				<fieldset>
 					<div className="spot-text">
 						<div className="top-spot-text">
@@ -127,8 +125,8 @@ function SingleSpot() {
 					</div>
 				</fieldset>
 			</div>
-		</>
-	);
+	)
 }
+
 
 export default SingleSpot;
