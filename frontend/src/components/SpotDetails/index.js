@@ -22,9 +22,9 @@ function SingleSpot() {
 	const userSelector = useSelector((state) => state.session.user);
 	const reviews = useSelector((state) => Object.values(state.reviews.spot));
 	console.log('this is reviews state in SINGLE SPOT', reviews)
-	if(reviews.User.id === reviews.userId){
-		alert('You have already left a review.')
-	}
+	// if(reviews.User.id === reviews.userId){
+	// 	alert('You have already left a review.')
+	// }
 	// const [showModal, setShowModal] = useState(false);
 	// const openModal = () =>{setShowModal(true)}
 	// const warningSubmit = (e) => {e.preventDefault()return (<><DeleteWarningModal /></>)};

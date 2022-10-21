@@ -45,7 +45,7 @@ function AllSpots() {
 					<NavLink key={spot.name} to={`/spots/${spot.id}`}>
 						<div className="spot-card" >
 							<div className="img-card">
-								<img src={spot?.SpotImages[0]?.url} alt="spot image"></img>
+								<img src={spot?.previewImage} alt="spot image"></img>
 							</div>
 							<div className="spot-text">
 								<div className="top-spot-text">

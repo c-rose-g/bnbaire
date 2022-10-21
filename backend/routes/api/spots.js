@@ -393,16 +393,13 @@ router.get('/current', requireAuth, async (req, res) => {
 
 //GET DETAILS OF A SPOT FROM AN ID (no auth)
 router.get('/:spotId', async (req, res) => {
-	// const { spotId } = req.params;
-	let spot = await Spot.findByPk(req.params.spotId, {
-		include: [{
-				model: SpotImage,
-				attributes: ['id', 'url', 'preview']
-		},{
+	const { spotId } = req.params;
+	let spot = await Spot.findByPk(spotId, {
+		include: {
 				model: User,
 				as: 'Owner',
 				attributes: ['id', 'firstName', 'lastName']
-		}]
+		}
 });
 	// console.log('get existing spots',spot.toJSON())
 	if (!spot) {
@@ -411,7 +408,7 @@ router.get('/:spotId', async (req, res) => {
 			statusCode: 404,
 		});
 	}
-		// for (let spotObj of spot) {
+
 			spot = spot.toJSON();
 			// console.log('spots json', spot)
 			let rating = await Review.findAll({
@@ -425,18 +422,22 @@ router.get('/:spotId', async (req, res) => {
 				],
 			});
 
-			// console.log('rating',rating[0].toJSON().numReviews)
+			const image = await SpotImage.findAll({
+				where:{
+					spotId: spot.id
+				},
+				attributes:['id', 'url','preview']
+			})
+
+			spot.SpotImages = image
 			let reviews = +rating[0].numReviews;
 			spot.numReviews = reviews;
 			spot.price = +spot.price;
 			spot.avgStarRating = +rating[0].avgStarRating;
-			// spot.push(spotObj);
-			// console.log('spotObj',spotObj)
-			// spotObj.numReviews = rating[0].toJSON().numReviews
 
-		console.log('this is spots in backend route',spot)
+
 		res.status(200).json(spot);
-	// }
+
 });
 
 // NOTE do I need to test on a spot w/o reviews / stars ?
@@ -470,18 +471,16 @@ router.get('/', async (req, res) => {
 			},
 			attributes: [[sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']],
 		});
-		// console.log('this is rating',rating)
+
 		spot.avgRating = Number(rating[0].toJSON().avgRating);
-		// TODO add conditional;
-		// if(!spot.previewImage){
-		// 	spot.previewImage = null
-		// }else {
-			// spot.previewImage = spot.SpotImages[0].url;
-			// delete spot.SpotImages;
+
+			spot.previewImage = spot.SpotImages[0].url;
+			delete spot.SpotImages;
+
 			spots.push(spot);
-		// }
 	}
-	// console.log('spots ', spots)
+
+	
 	res.status(200).json({ Spots: spots, page, size });
 });
 
