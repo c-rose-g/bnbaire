@@ -17,9 +17,26 @@
   left: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.7);
+
 }
 
 #modal-content {
   position: absolute;
   background-color:white;
+  opacity: 90%;
+}
+
+.errors{
+  /* border: 1px solid red; */
+  /* color: red; */
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  font-size: medium;
+  justify-items: center;
+  /* text-decoration: ; */
+}
+.errors li{
+  /* border: 1px solid blue */
+}
+li{
+text-decoration: none;
 }

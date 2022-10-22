@@ -35,7 +35,8 @@ a {
 }
 
 label {
-  padding: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   font-size: medium;
   justify-items: center;
   color: #484848;
@@ -67,9 +68,11 @@ label {
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }
 
-.text {
+.modal-title {
   font-size: large;
   color: #484848;
+  display: flex;
+  justify-content: center;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }
 
@@ -80,7 +83,7 @@ label {
 }
 
 input {
-  border: 1px solid blue;
+  border: 1px solid pink;
   display: flex;
   flex-direction: column;
   align-items: center;
