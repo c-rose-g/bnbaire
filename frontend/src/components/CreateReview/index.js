@@ -11,7 +11,7 @@ function CreateReview(){
 	const history = useHistory();
   const [review, setNewReview] = useState('')
   const [stars, setNewStars] = useState('')
-  const [errors, setErrors] = useState([]);
+  const [validateErrors, setValidateErrors] = useState([]);
 
   // find the user
   const user = useSelector((state) => state.session);
@@ -28,21 +28,37 @@ function CreateReview(){
 
   }, [dispatch]);
 
+  const [frontEndErrors, setFrontEndErrors] = useState([])
+  useEffect(()=>{
+    const errors = []
+    if(review.length < 1) {errors.push('Please write your review.')}
+    if(review.length > 250) {errors.push('Reviews must be less than 250 characters.')}
+    if(!stars) {errors.push('please add a star rating.')}
+    setFrontEndErrors(errors)
+  },[review,stars])
   const submitReview = async e => {
     e.preventDefault();
+    let errors = []
     // if(spot.userId !== )
     const payload = {review, stars:+stars}
-
-    let reviewForm = {...payload}
-    console.log('payload in CREATE REVIEW',reviewForm)
-    let userObj = {id:user.id, firstName:user.firstName, lastName:user.lastName}
-    const newReview = await dispatch(createReviewBySpotId(reviewForm, spotId, userObj))
-    // .catch(async (res) => {
-      //   const data = await res.json();
-      //   if (data && data.errors) setErrors(data.errors);
-      // });
-
+    if(review.length < 1) {errors.push('Please write your review.')}
+    if(review.length > 250) {errors.push('Reviews must be less than 250 characters.')}
+    if(!stars) {errors.push('please add a star rating.')}
+    setValidateErrors(errors)
+    console.log('validate errors', validateErrors)
+    if(!frontEndErrors.length){
+      console.log('calidate errors', validateErrors.length)
+      let reviewForm = {...payload}
+      console.log('review payloag', reviewForm)
+      let userObj = {id:user.id, firstName:user.firstName, lastName:user.lastName}
+      const newReview = await dispatch(createReviewBySpotId(reviewForm, spotId, userObj))
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setValidateErrors(data.errors);
+      });
+      console.log('this wold send')
       history.push(`/spots/${spotId}`)
+    }
 
     }
 
@@ -62,6 +78,13 @@ function CreateReview(){
       <div className='review-form-container'>
       <div className='review-form'>
         <form onSubmit={submitReview}>
+        {validateErrors.length > 0 && (
+					<ul className="errors">
+						{validateErrors.map((validate) => (
+							<li key={validate}>{validate}</li>
+						))}
+					</ul>
+				)}
         <input
 					type="textarea"
 					placeholder="Review"
