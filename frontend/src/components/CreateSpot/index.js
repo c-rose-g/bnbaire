@@ -40,6 +40,8 @@ function CreateSpot() {
 		if (state.length !== 2) errors.push('please only use state initials.');
 		if (country.length < 1) errors.push('please provide the country.');
 		if (description.length < 1) errors.push('please provide description');
+		if (description.length > 250)
+			errors.push('description must be less than 255 characters.');
 		if (price < 1) errors.push('please provide a price.');
 		if (!url.endsWith('png') && !url.endsWith('jpg'))
 			errors.push('image needs to end with .jpg or .png.');
@@ -75,6 +77,11 @@ function CreateSpot() {
 		if (description.length < 1) {
 			errors.push('please provide description');
 		}
+		if (description.length > 250){
+
+			errors.push('description must be less than 255 characters.');
+		}
+
 		if (price < 1) errors.push('please provide a price.');
 		if (!url.endsWith('png') && !url.endsWith('jpg')) {
 			errors.push('image needs to end with .jpg or .png.');
@@ -114,7 +121,7 @@ function CreateSpot() {
 	};
 	return (
 		<div className="spot-form-container">
-			<h2 className='text'>Open your door to hosting</h2>
+			<h2 className="text">Open your door to hosting</h2>
 			<form onSubmit={handleSubmit}>
 				{validationErrors.length > 0 && (
 					<ul className="errors">
