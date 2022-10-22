@@ -1,24 +1,17 @@
-/* .modal-content {
-  height: 100px;
-  width: 500px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-} */
-
-
-
-/* #signup-modal{
-add form sizing here
-} */
-
 #signup-modal{
-  height: auto;
+  width: 300px;
+  /* border: 5px solid yellow; */
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 5px;
+  gap:5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+}
+
+/* #signup-form{
+  height: auto;
   padding-top: 5px;
   gap:5px;
   padding-bottom: 5px;
@@ -28,4 +21,20 @@ add form sizing here
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
+  border-radius: 5%;
+} */
+/* .modal-content {
+  height: 100px;
+  width: 500px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+} */
+.signup-modal-button{
+  /* border: 1px solid blue; */
+  padding-top: 5px;
+    display: flex;
+    justify-content: center;
 }
