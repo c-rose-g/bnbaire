@@ -20,6 +20,17 @@ function LoginForm() {
 		);
 	};
 
+	const demoUser = (e)=>{
+
+		e.preventDefault();
+		setErrors([]);
+		return dispatch(sessionActions.login({ credential:'Demolition', password:'password' })).catch(
+			async (res) => {
+				const data = await res.json();
+				if (data && data.errors) setErrors(data.errors);
+			}
+		);
+	}
 	return (
 		<div className="modal-content">
 			<form onSubmit={handleSubmit}>
@@ -53,6 +64,9 @@ function LoginForm() {
 				<div className="submit-button">
 					<button type="submit" >Log In</button>
 				</div>
+					<div className='submit-button'>
+					<button type='submit' onClick={demoUser}>Demo User Login</button>
+					</div>
 			</form>
 		</div>
 	);

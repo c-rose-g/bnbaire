@@ -13,6 +13,7 @@ import SpotsByUser from "./components/SpotsByUser";
 import UpdateSpot from "./components/UpdateSpot";
 import CreateReview from "./components/CreateReview";
 import UpdateReview from "./components/UpdateReview";
+import DeleteReview from "./components/DeleteReview";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -34,7 +35,7 @@ function App() {
           <Route exact path='/create-spot'>
             <CreateSpot/>
           </Route>
-          <Route exact path={`/spots/:spotId`} >
+          <Route exact path='/spots/:spotId' >
             <SingleSpot />
           </Route>
           <Route exact path='/my-spots/current'>
@@ -46,8 +47,11 @@ function App() {
           <Route path='/spots/:spotId/reviews'>
           <CreateReview />
           </Route>
-          <Route path='/reviews/:reviewId'>
+          <Route exact path='/reviews/:reviewId'>
             <UpdateReview />
+          </Route>
+          <Route path='/reviews/:reviewId'>
+          <DeleteReview />
           </Route>
           <Route>Page not found.</Route>
         </Switch>
