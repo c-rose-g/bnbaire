@@ -38,14 +38,12 @@ function LoginForm() {
 						<li key={idx}>{error}</li>
 					))}
 				</ul> */}
-				<div className='text'>
-					<label>
-						Please sign in
-					</label>
+				<div className="modal-title">
+					<label>Please sign in</label>
 				</div>
-				<div className="username">
+				<div className="modal-title">
 					<label>
-					Username or email
+						Username or email
 						<input
 							placeholder="Username or Email"
 							type="text"
@@ -55,9 +53,9 @@ function LoginForm() {
 						/>
 					</label>
 				</div>
-				<div className="Password">
+				<div className="modal-title">
 					<label>
-					Password
+						Password
 						<input
 							placeholder="Password"
 							type="password"
@@ -78,11 +76,13 @@ function LoginForm() {
 					</div>
 				</div>
 			</form>
-			<ul>
+			<div >
+				<ul className="errors">
 					{errors.map((error, idx) => (
 						<li key={idx}>{error}</li>
 					))}
 				</ul>
+			</div>
 		</div>
 	);
 }
