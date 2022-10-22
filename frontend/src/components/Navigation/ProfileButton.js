@@ -54,8 +54,8 @@ function ProfileButton({ user }) {
       </button>
       {showMenu && (
         <div className="profile-dropdown">
-          <li>{user.username}</li>
-          <li>{user.email}</li>
+          <li> Hello, {user.username}</li>
+          <li>Email: {user.email}</li>
           <li>
           <NavLink to='/my-spots/current'>
             <button > Manage your spots</button>
