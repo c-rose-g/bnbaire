@@ -38,8 +38,8 @@ function AllSpots() {
 					let imageUrl = imageArray.url */
 				}
 				return (
-						<div className="spots-card">
-					<NavLink key={spot.name} to={`/spots/${spot.id}`}>
+						<div className="spots-card" key={spot.name}>
+					<NavLink to={`/spots/${spot.id}`}>
 							<div className="img-card">
 								<img src={spot?.previewImage} alt="spot image"></img>
 							</div>
@@ -50,7 +50,7 @@ function AllSpots() {
 									<h2>
 										{spot.city}, {spot.state}
 									</h2>
-									<h2>★{spot.avgRating}</h2>
+									<h2>★{Math.trunc(((spot.avgRating) * 10))/10}</h2>
 								</div>
 								<div>${spot.price} </div>
 							</div>
