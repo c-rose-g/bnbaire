@@ -43,6 +43,7 @@ function CreateSpot() {
 		if (description.length > 250)
 			errors.push('description must be less than 255 characters.');
 		if (price < 1) errors.push('please provide a price.');
+		if(isNaN(price)) errors.push('price must be a number.')
 		if (!url.endsWith('png') && !url.endsWith('jpg'))
 			errors.push('image needs to end with .jpg or .png.');
 		if (name.length < 1) errors.push('please provide a name for the spot.');
@@ -83,6 +84,7 @@ function CreateSpot() {
 		}
 
 		if (price < 1) errors.push('please provide a price.');
+		if(isNaN(price)) errors.push('price must be a number.')
 		if (!url.endsWith('png') && !url.endsWith('jpg')) {
 			errors.push('image needs to end with .jpg or .png.');
 		}
