@@ -31,7 +31,7 @@ function SingleSpot() {
 	const reviews = useSelector((state) => Object.values(state.reviews.spot));
 	const userReview = (user) ? reviews.find(id => id.userId === user.id): null
 	// console.log('this is the userReview in SPOT DETAILS', userReview)
-
+	
 	const handlDeleteCurrentSpot = () => {
 		// e.preventDefault();
 		console.log('dispatch delete spot')
@@ -102,7 +102,7 @@ function SingleSpot() {
 					<h1 className="text">{spot.name}</h1>
 					<hr className="subline" />
 					<div className="subtext">
-						★ {spot.avgStarRating} • {spot.numReviews} {reviewsWord(numReviews)} • {spot.city}, {spot.state}
+						★ {Math.trunc(((spot.avgStarRating)* 10))/10} • {spot.numReviews} {reviewsWord(numReviews)} • {spot.city}, {spot.state}
 					</div>
 					<div className="spot-card">
 						<div className="img-card">
@@ -167,7 +167,7 @@ function SingleSpot() {
 						{/* </h2> */}
 					</div>
 					<div>
-						<span className='subtext'> ★ {spot.avgStarRating}</span> • <span className='subtext'>{spot.numReviews} {reviewsWord(numReviews)}</span>
+						<span className='subtext'> ★ {Math.trunc(((spot.avgStarRating)* 10))/10}</span> • <span className='subtext'>{spot.numReviews} {reviewsWord(numReviews)}</span>
 						<p/>
 					</div>
 					{/* </div> */}

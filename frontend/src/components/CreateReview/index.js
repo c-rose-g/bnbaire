@@ -63,7 +63,7 @@ function CreateReview(){
       <div className='review-form'>
         <form onSubmit={submitReview}>
         <input
-					type="text"
+					type="textarea"
 					placeholder="Review"
 					value={review}
 					onChange={addReview}
