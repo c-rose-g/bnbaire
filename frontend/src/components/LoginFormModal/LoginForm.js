@@ -20,27 +20,32 @@ function LoginForm() {
 		);
 	};
 
-	const demoUser = (e)=>{
-
+	const demoUser = (e) => {
 		e.preventDefault();
 		setErrors([]);
-		return dispatch(sessionActions.login({ credential:'Demolition', password:'password' })).catch(
-			async (res) => {
-				const data = await res.json();
-				if (data && data.errors) setErrors(data.errors);
-			}
-		);
-	}
+		return dispatch(
+			sessionActions.login({ credential: 'Demolition', password: 'password' })
+		).catch(async (res) => {
+			const data = await res.json();
+			if (data && data.errors) setErrors(data.errors);
+		});
+	};
 	return (
-		<div className="modal-content">
+		<div className="modal-content-login">
 			<form onSubmit={handleSubmit}>
-				<ul>
+				{/* <ul>
 					{errors.map((error, idx) => (
 						<li key={idx}>{error}</li>
 					))}
-				</ul>
+				</ul> */}
+				<div className='text'>
+					<label>
+						Please sign in
+					</label>
+				</div>
 				<div className="username">
 					<label>
+					Username or email
 						<input
 							placeholder="Username or Email"
 							type="text"
@@ -52,6 +57,7 @@ function LoginForm() {
 				</div>
 				<div className="Password">
 					<label>
+					Password
 						<input
 							placeholder="Password"
 							type="password"
@@ -62,12 +68,21 @@ function LoginForm() {
 					</label>
 				</div>
 				<div className="submit-button">
-					<button type="submit" >Log In</button>
-				</div>
-					<div className='submit-button'>
-					<button type='submit' onClick={demoUser}>Demo User Login</button>
+					<div>
+						<button type="submit">Log In</button>
 					</div>
+					<div>
+						<button type="submit" onClick={demoUser}>
+							Demo User Login
+						</button>
+					</div>
+				</div>
 			</form>
+			<ul>
+					{errors.map((error, idx) => (
+						<li key={idx}>{error}</li>
+					))}
+				</ul>
 		</div>
 	);
 }

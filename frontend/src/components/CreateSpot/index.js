@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
-import {
-	createSingleSpot,
-	CreateSpotImage,
-	thunkLoadSpots,
-	thunkLoadSingleSpot,
-} from '../../store/allSpots';
+import { createSingleSpot } from '../../store/allSpots';
 import './CreateSpot.css';
 
 function CreateSpot() {
-	const { spotId } = useParams();
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const [address, setAddress] = useState('');
@@ -23,7 +17,7 @@ function CreateSpot() {
 
 	const [url, seturl] = useState('');
 	const [validationErrors, setValidationErrors] = useState([]);
-	const [frontEndErrors, setFrontEndErrors] = useState([])
+	const [frontEndErrors, setFrontEndErrors] = useState([]);
 
 	const userSelector = useSelector((state) => state.session.user);
 
@@ -37,7 +31,7 @@ function CreateSpot() {
 
 	const updateUrl = (e) => seturl(e.target.value);
 
-	useEffect(() =>{
+	useEffect(() => {
 		const errors = [];
 		if (address.length < 1) errors.push('please provide an address.');
 		if (city.length < 1) errors.push('please provide the city.');
@@ -46,16 +40,13 @@ function CreateSpot() {
 		if (state.length !== 2) errors.push('please only use state initials.');
 		if (country.length < 1) errors.push('please provide the country.');
 		if (description.length < 1) errors.push('please provide description');
-		// how to check for decimals?
-		if(price < 1) errors.push('please provide a price.')
+		if (price < 1) errors.push('please provide a price.');
 		if (!url.endsWith('png') && !url.endsWith('jpg'))
-		errors.push('image needs to end with .jpg or .png.');
+			errors.push('image needs to end with .jpg or .png.');
 		if (name.length < 1) errors.push('please provide a name for the spot.');
 		if (name.length > 50) errors.push('spot name must 50 characters max.');
-		setFrontEndErrors(errors)
-	},[address,city,url, state,country,description,name])
-
-
+		setFrontEndErrors(errors);
+	}, [address, city, url, state, country, description, name]);
 
 	if (!userSelector) return <Redirect to="/" />;
 
@@ -63,26 +54,44 @@ function CreateSpot() {
 		e.preventDefault();
 		const errors = [];
 
-		if (address.length < 1) {errors.push('please provide an address.')};
-		if (city.length < 1) {errors.push('please provide the city.')};
-		if (url.length < 1) {errors.push('please provide image url.')};
-		if (state.length < 1) {errors.push('please provide state initials.')};
-		if (state.length !== 2) {errors.push('please only use state initials.')};
-		if (country.length < 1) {errors.push('please provide the country.')};
-		if (description.length < 1) {errors.push('please provide description')};
-		if(price < 1) errors.push('please provide a price.')
-		if (!url.endsWith('png') && !url.endsWith('jpg')) {errors.push('image needs to end with .jpg or .png.')};
-		if (name.length < 1) {errors.push('please provide a name for the spot.')};
-		if (name.length > 50) {errors.push('spot name must 50 characters max.')};
-		setValidationErrors(errors)
-		if(!frontEndErrors.length){
-
+		if (address.length < 1) {
+			errors.push('please provide an address.');
+		}
+		if (city.length < 1) {
+			errors.push('please provide the city.');
+		}
+		if (url.length < 1) {
+			errors.push('please provide image url.');
+		}
+		if (state.length < 1) {
+			errors.push('please provide state initials.');
+		}
+		if (state.length !== 2) {
+			errors.push('please only use state initials.');
+		}
+		if (country.length < 1) {
+			errors.push('please provide the country.');
+		}
+		if (description.length < 1) {
+			errors.push('please provide description');
+		}
+		if (price < 1) errors.push('please provide a price.');
+		if (!url.endsWith('png') && !url.endsWith('jpg')) {
+			errors.push('image needs to end with .jpg or .png.');
+		}
+		if (name.length < 1) {
+			errors.push('please provide a name for the spot.');
+		}
+		if (name.length > 50) {
+			errors.push('spot name must 50 characters max.');
+		}
+		setValidationErrors(errors);
+		if (!frontEndErrors.length) {
 			const payload = {
 				address,
 				city,
 				state,
 				country,
-		
 				name,
 				description,
 				price,
@@ -92,22 +101,20 @@ function CreateSpot() {
 
 			let spotForm = { ...payload };
 
-			const newSpot = await dispatch(createSingleSpot(spotForm))
-			.catch(
+			const newSpot = await dispatch(createSingleSpot(spotForm)).catch(
 				async (res) => {
 					const data = await res.json();
 					console.log('this is data in single spot', data);
 
-					if (data && data.errors ) setValidationErrors(data.errors);
+					if (data && data.errors) setValidationErrors(data.errors);
 				}
-				);
-				history.push(`/spots/${newSpot.id}`);
-			}
+			);
+			history.push(`/spots/${newSpot.id}`);
+		}
 	};
 	return (
 		<div className="spot-form-container">
-			{/* add error vaidation message */}
-			<h2>Become a host</h2>
+			<h2 className='text'>Open your door to hosting</h2>
 			<form onSubmit={handleSubmit}>
 				{validationErrors.length > 0 && (
 					<ul className="errors">
@@ -121,49 +128,42 @@ function CreateSpot() {
 					placeholder="Name"
 					value={name}
 					onChange={updateName}
-					// required
 				/>
 				<input
 					type="text"
 					placeholder="Price"
 					value={price}
 					onChange={updatePrice}
-					// required
 				/>
 				<input
 					type="text"
 					placeholder="Address"
 					value={address}
 					onChange={updateAddress}
-					// required
 				/>
 				<input
 					type="text"
 					placeholder="City"
 					value={city}
 					onChange={updateCity}
-					// required
 				/>
 				<input
 					type="text"
 					placeholder="State"
 					value={state}
 					onChange={updateState}
-					// required
 				/>
 				<input
 					type="text"
 					placeholder="Country"
 					value={country}
 					onChange={updateCountry}
-					// required
 				/>
 				<input
 					type="text"
 					placeholder="Description"
 					value={description}
 					onChange={updateDescription}
-					// required
 				/>
 
 				<input
@@ -171,7 +171,6 @@ function CreateSpot() {
 					placeholder="Image URL"
 					value={url}
 					onChange={updateUrl}
-					// required
 				/>
 				<button type="submit">Create a new spot</button>
 			</form>

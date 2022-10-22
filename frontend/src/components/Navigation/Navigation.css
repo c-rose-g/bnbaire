@@ -15,7 +15,11 @@
   border: 1px solid grey;
   position: absolute;
   /* font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif; */
-
+  /* font-family: Georgia, serif;
+   */font-family: "Gill Sans", sans-serif;
+  font-weight:normal;
+  font-style: normal;
+  font-size: smaller;
 }
 
 .logo {
@@ -32,10 +36,3 @@ hr.line {
   width: 100%;
 }
 
-.button {
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
-  color:white;
-  border-radius: 5px;
-  border: none;
-  background: linear-gradient(90deg, rgba(205,52,99,1) 25%, rgba(244,91,106,1) 50%, rgba(205,52,99,1) 75%);
-}

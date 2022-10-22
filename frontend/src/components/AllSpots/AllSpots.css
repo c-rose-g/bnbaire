@@ -3,7 +3,6 @@
   justify-content: center;
   grid-template-columns: repeat(3, 300px);
   grid-gap: 20px;
-
 }
 a {
   text-decoration: none;
@@ -12,7 +11,6 @@ a {
 .img-card{
   width: 300px;
   height: 300px;
-
   display: flex;
   flex-direction: row;
 }
@@ -35,7 +33,9 @@ a {
 }
 
 .spots-card{
-  /* border: 2px solid green; */
   border-radius: 15px;
+}
 
+.numbers{
+  font-variant: common-ligatures tabular-nums;font-variant: common-ligatures tabular-nums;
 }
