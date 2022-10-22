@@ -40,18 +40,12 @@ function SignupForm() {
 	};
 
 	return (
-		<form id="signup-modal" onSubmit={handleSubmit}>
-			<div className="errors">
-				{errors.map((error, idx) => (
-					<div key={idx}>{error}</div>
-				))}
-			</div>
-
-			{/* <div id="signup-modal"> */}
-					<div>
-						<label className='text'>Sign up!</label>
-					</div>
-				<div>
+		<div id="signup-modal">
+			<form onSubmit={handleSubmit}>
+				<div className="modal-title">
+					<label className="text">Sign up!</label>
+				</div>
+				<div className='modal-title'>
 					<label>
 						First Name
 						<input
@@ -64,6 +58,8 @@ function SignupForm() {
 					</label>
 				</div>
 				<div>
+				<div className='modal-title'>
+
 					<label>
 						Last Name
 						<input
@@ -75,7 +71,8 @@ function SignupForm() {
 						/>
 					</label>
 				</div>
-				<div>
+				</div>
+				<div className='modal-title'>
 					<label>
 						Email
 						<input
@@ -87,7 +84,7 @@ function SignupForm() {
 						/>
 					</label>
 				</div>
-				<div>
+				<div className='modal-title'>
 					<label>
 						Username
 						<input
@@ -99,7 +96,7 @@ function SignupForm() {
 						/>
 					</label>
 				</div>
-				<div>
+				<div className='modal-title'>
 					<label>
 						Password
 						<input
@@ -111,7 +108,7 @@ function SignupForm() {
 						/>
 					</label>
 				</div>
-				<div>
+				<div className='modal-title'>
 					<label>
 						Confirm Password
 						<input
@@ -122,11 +119,19 @@ function SignupForm() {
 						/>
 					</label>
 				</div>
-				<div>
+				<div className='signup-modal-button'>
 					<button type="submit">Sign Up</button>
 				</div>
-			{/* </div> */}
-		</form>
+			</form>
+			<div className="errors">
+			<ul>
+					{errors.map((error, idx) => (
+
+						<div key={idx}> <li>{error} </li></div>
+					))}
+			</ul>
+				</div>
+		</div>
 	);
 }
 

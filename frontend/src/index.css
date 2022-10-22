@@ -40,6 +40,7 @@ label {
   font-size: medium;
   justify-items: center;
   color: #484848;
+  /* border: 2px solid green; */
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }
 
@@ -83,6 +84,7 @@ label {
 }
 
 input {
+
   border: 1px solid pink;
   display: flex;
   flex-direction: column;
