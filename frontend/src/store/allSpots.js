@@ -162,7 +162,7 @@ export const deleteSpot = (id) => async(dispatch) =>{
 
   if(response.ok){
     const data = await response.json()
-    dispatch(actionDeleteSpot(data, id))
+    dispatch(actionDeleteSpot(id))
     return data
   }
 }
@@ -221,8 +221,9 @@ const allSpotsReducer = (state = initialState, action) =>{
       return newState
     }
     case DELETE_SPOT:{
-      newState = {...newState};
-      delete newState[action.id];
+      newState = {...state};
+      delete newState.singleSpot[action.id];
+      console.log('this is the newState in DELETE SPOT REDUCER', newState)
       return newState;
     }
     default:

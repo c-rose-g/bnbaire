@@ -37,55 +37,74 @@ function CreateSpot() {
 	const updateLNG = (e) => setLNG(e.target.value);
 	const updateUrl = (e) => seturl(e.target.value);
 
-	const errors = [];
-	if (address.length < 1) errors.push('please provide an address.');
-	if (city.length < 1) errors.push('please provide the city.');
-	if (url.length < 1) errors.push('please provide image url.');
-	if (state.length < 1) errors.push('please provide state initials.');
-	if (state.length > 2) errors.push('please only use state initials.');
-	if (country.length < 1) errors.push('please provide the country.');
-	if (description.length < 1) errors.push('please provide description');
-	// how to check for decimals?
-	// if(price < 1) errors.push('please provide a price.')
-	if (!url.endsWith('png') && !url.endsWith('jpg'))
-		errors.push('image needs to end with .jpg or .png.');
-	if (name.length < 1) errors.push('please provide a name for the spot.');
-	if (name.length > 50) errors.push('spot name must 50 characters max.');
+	// const errors = [];
+	// useEffect(() =>{
+	// 	if (address.length < 1) errors.push('please provide an address.');
+	// 	if (city.length < 1) errors.push('please provide the city.');
+	// 	if (url.length < 1) errors.push('please provide image url.');
+	// 	if (state.length < 1) errors.push('please provide state initials.');
+	// 	if (state.length !== 2) errors.push('please only use state initials.');
+	// 	if (country.length < 1) errors.push('please provide the country.');
+	// 	if (description.length < 1) errors.push('please provide description');
+	// 	// how to check for decimals?
+	// 	// if(price < 1) errors.push('please provide a price.')
+	// 	if (!url.endsWith('png') && !url.endsWith('jpg'))
+	// 	errors.push('image needs to end with .jpg or .png.');
+	// 	if (name.length < 1) errors.push('please provide a name for the spot.');
+	// 	if (name.length > 50) errors.push('spot name must 50 characters max.');
+	// 	setValidationErrors(errors)
+	// },[address,city,url, state,country,description,name])
 
-	useEffect(() => {
-		dispatch(thunkLoadSingleSpot(spotId));
-	}, [dispatch]);
 
 	if (!userSelector) return <Redirect to="/" />;
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const payload = {
-			address,
-			city,
-			state,
-			country,
-			lat,
-			lng,
-			name,
-			description,
-			price,
-			url,
-			SpotImages: [{ url }],
-		};
+		const errors = [];
 
-		// 	setValidationErrors(errors)
-		let spotForm = { ...payload };
+		if (address.length < 1) {errors.push('please provide an address.')};
+		if (city.length < 1) {errors.push('please provide the city.')};
+		if (url.length < 1) {errors.push('please provide image url.')};
+		if (state.length < 1) {errors.push('please provide state initials.')};
+		if (state.length !== 2) {errors.push('please only use state initials.')};
+		if (country.length < 1) {errors.push('please provide the country.')};
+		if (description.length < 1) {errors.push('please provide description')};
+		// how to check for decimals?
+		// if(price < 1) errors.push('please provide a price.')
+		if (!url.endsWith('png') && !url.endsWith('jpg')) {errors.push('image needs to end with .jpg or .png.')};
+		if (name.length < 1) {errors.push('please provide a name for the spot.')};
+		if (name.length > 50) {errors.push('spot name must 50 characters max.')};
+		setValidationErrors(errors)
+		if(!validationErrors.length){
 
-		const newSpot = await dispatch(createSingleSpot(spotForm)).catch(
-			async (res) => {
-				const data = await res.json();
-				console.log('this is data in single spot', data);
+			const payload = {
+				address,
+				city,
+				state,
+				country,
+				lat,
+				lng,
+				name,
+				description,
+				price,
+				url,
+				SpotImages: [{ url }],
+			};
 
-				if (errors.length > 0) setValidationErrors(errors);
+			// 	setValidationErrors(errors)
+			let spotForm = { ...payload };
+
+			const newSpot = await dispatch(createSingleSpot(spotForm))
+			.catch(
+				async (res) => {
+					const data = await res.json();
+					console.log('this is data in single spot', data);
+
+					if (data && data.errors ) setValidationErrors(data.errors);
+				}
+				);
+				history.push(`/spots/${newSpot.id}`);
 			}
-		);
-		history.push(`/spots/${newSpot.id}`);
 	};
 	return (
 		<div className="spot-form-container">

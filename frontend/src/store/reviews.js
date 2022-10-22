@@ -122,11 +122,10 @@ export const deleteReview = (id) => async(dispatch) => {
   const response = await csrfFetch(`/api/reviews/${id}`,{
     method:'DELETE'
   })
-  console.log('this is the response in delete THUNK', response)
   if(response.ok){
     const data = await response.json();
     console.log('this is data in thunk', data)
-    dispatch(actionDeleteReviewByReviewId(data,id))
+    dispatch(actionDeleteReviewByReviewId(id))
     return data
   }
 }
@@ -143,7 +142,6 @@ const reviewsReducer = (state = initialState, action) =>{
     }
     case LOAD_REVIEWS_BY_SPOT_ID:{
       newState = {...state}
-      // console.log('newState in review reducer'. newState)
       newState.spot = normalizeArray(action.reviews.Reviews)
       return newState
     }
@@ -165,9 +163,8 @@ const reviewsReducer = (state = initialState, action) =>{
     case DELETE_REVIEW_BY_REVIEW_ID:{
       // newState = {...state, spot:{...state.spot}}
       newState = {...state}
-
       delete newState.spot[action.id]
-      console.log('this is newState in DELETE REVIEW REDUCER', newState)
+      // console.log('this is newState in DELETE REVIEW REDUCER', newState)
       return newState
     }
     default:

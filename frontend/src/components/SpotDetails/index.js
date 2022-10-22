@@ -30,11 +30,13 @@ function SingleSpot() {
 	const user = useSelector((state) => state.session.user);
 	const reviews = useSelector((state) => Object.values(state.reviews.spot));
 	const userReview = (user) ? reviews.find(id => id.userId === user.id): null
-	console.log('this is the userReview in SPOT DETAILS', userReview)
+	// console.log('this is the userReview in SPOT DETAILS', userReview)
 
-	const handlDeleteCurrentSpot = (e) => {
-		e.preventDefault();
+	const handlDeleteCurrentSpot = () => {
+		// e.preventDefault();
+		console.log('dispatch delete spot')
 		dispatch(deleteSpot(spotId));
+		// might have to delete history
 		history.push('/');
 	};
 	const handleDeleteCurrentReview = async() => {
@@ -42,7 +44,7 @@ function SingleSpot() {
 
 			await dispatch(deleteReview(userReview.id))
 			// .then(() => setIsLoaded(true))
-			history.push(`/spots/${spotId}`)
+			// history.push(`/spots/${spotId}`)
 	}
 	let spotUpdateButton;
 	let spotDeleteButton;
@@ -173,7 +175,10 @@ function SingleSpot() {
 					<p/>
 					<div className='subtext'>{spot.description}</div>
 					<div>
-					{spotUpdateButton} <span>{spotDeleteButton}</span>
+					{spotUpdateButton} <span>
+
+					{spotDeleteButton}
+					</span>
 					</div>
 					<div>
 					{spotSubmitReviewButton}

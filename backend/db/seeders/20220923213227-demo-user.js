@@ -8,39 +8,46 @@ module.exports = {
 			'Users',
 			[
 				{
-					firstName: 'Cindy',
-					lastName: 'Guzman',
-					username: 'Cece1',
-					hashedPassword: bcrypt.hashSync('password1'),
-					email: 'demo1@aa.io',
+					firstName: 'Demo',
+					lastName: 'Demo',
+					username: 'Demolition',
+					hashedPassword: bcrypt.hashSync('password'),
+					email: 'demo@aa.io',
 				},
 				{
 					firstName: 'Cindy',
 					lastName: 'Guzman',
 					username: 'Cece2',
-					hashedPassword: bcrypt.hashSync('password2'),
+					hashedPassword: bcrypt.hashSync('password'),
 					email: 'demo2@aa.io',
+				},
+				{
+					firstName: 'Cindy',
+					lastName: 'Guzman',
+					username: 'Cece3',
+					hashedPassword: bcrypt.hashSync('password'),
+					email: 'demo3@aa.io',
 				},
 				{
 					firstName: 'Lucy',
 					lastName: 'Perez',
-					username: 'Lucy3',
-					hashedPassword: bcrypt.hashSync('password3'),
-					email: 'demo3@aa.io',
+					username: 'Lucy4',
+					hashedPassword: bcrypt.hashSync('password'),
+					email: 'demo4@aa.io',
 				},
 				{
 					firstName: 'Harper',
 					lastName: 'Guzman',
-					username: 'Harper4',
-					hashedPassword: bcrypt.hashSync('password4'),
-					email: 'demo4@aa.io',
+					username: 'Harper5',
+					hashedPassword: bcrypt.hashSync('password'),
+					email: 'demo5@aa.io',
 				},
 				{
 					firstName: 'Lilith',
 					lastName: 'Guzman',
 					username: 'Lilith5',
-					hashedPassword: bcrypt.hashSync('password5'),
-					email: 'demo5@aa.io',
+					hashedPassword: bcrypt.hashSync('password'),
+					email: 'demo6@aa.io',
 				},
 			],
 			{}
@@ -52,7 +59,7 @@ module.exports = {
 		return queryInterface.bulkDelete(
 			'Users',
 			{
-				username: { [Op.in]: ['Cece1', 'Cece2', 'Lucy3','Harper4','Lilith5'] },
+				username: { [Op.in]: ['Demolition','Cece2', 'Cece3', 'Lucy4','Harper5','Lilith5'] },
 			},
 			{}
 		);
