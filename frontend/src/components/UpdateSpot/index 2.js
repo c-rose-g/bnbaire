@@ -60,7 +60,7 @@ function UpdateSpot(){
       if (data && data.errors) setErrors(data.errors);
     });
     history.push(`/spots/${spotId}`)
-		
+
   }
   return(
     <div className='update-spot-container'>

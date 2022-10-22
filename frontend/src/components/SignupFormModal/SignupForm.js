@@ -45,7 +45,7 @@ function SignupForm() {
           type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
-          required
+          // required
         />
       </label>
       </div>
@@ -57,7 +57,7 @@ function SignupForm() {
           type="text"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
-          required
+          // required
         />
       </label>
       </div>
@@ -69,7 +69,7 @@ function SignupForm() {
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
+          // required
         />
       </label>
       </div>
@@ -81,7 +81,7 @@ function SignupForm() {
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          required
+          // required
         />
       </label>
       </div>
@@ -93,7 +93,7 @@ function SignupForm() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
+          // required
         />
       </label>
       </div>
@@ -105,7 +105,7 @@ function SignupForm() {
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          required
+          // required
         />
       </label>
       </div>

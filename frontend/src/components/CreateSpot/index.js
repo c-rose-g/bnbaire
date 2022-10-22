@@ -20,10 +20,11 @@ function CreateSpot() {
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
 	const [price, setPrice] = useState('');
-	const [lat, setLAT] = useState(0);
-	const [lng, setLNG] = useState(0);
+
 	const [url, seturl] = useState('');
 	const [validationErrors, setValidationErrors] = useState([]);
+	const [frontEndErrors, setFrontEndErrors] = useState([])
+
 	const userSelector = useSelector((state) => state.session.user);
 
 	const updateAddress = (e) => setAddress(e.target.value);
@@ -33,27 +34,27 @@ function CreateSpot() {
 	const updateCountry = (e) => setCountry(e.target.value);
 	const updateDescription = (e) => setDescription(e.target.value);
 	const updatePrice = (e) => setPrice(e.target.value);
-	const updateLAT = (e) => setLAT(e.target.value);
-	const updateLNG = (e) => setLNG(e.target.value);
+
 	const updateUrl = (e) => seturl(e.target.value);
 
-	// const errors = [];
-	// useEffect(() =>{
-	// 	if (address.length < 1) errors.push('please provide an address.');
-	// 	if (city.length < 1) errors.push('please provide the city.');
-	// 	if (url.length < 1) errors.push('please provide image url.');
-	// 	if (state.length < 1) errors.push('please provide state initials.');
-	// 	if (state.length !== 2) errors.push('please only use state initials.');
-	// 	if (country.length < 1) errors.push('please provide the country.');
-	// 	if (description.length < 1) errors.push('please provide description');
-	// 	// how to check for decimals?
-	// 	// if(price < 1) errors.push('please provide a price.')
-	// 	if (!url.endsWith('png') && !url.endsWith('jpg'))
-	// 	errors.push('image needs to end with .jpg or .png.');
-	// 	if (name.length < 1) errors.push('please provide a name for the spot.');
-	// 	if (name.length > 50) errors.push('spot name must 50 characters max.');
-	// 	setValidationErrors(errors)
-	// },[address,city,url, state,country,description,name])
+	useEffect(() =>{
+		const errors = [];
+		if (address.length < 1) errors.push('please provide an address.');
+		if (city.length < 1) errors.push('please provide the city.');
+		if (url.length < 1) errors.push('please provide image url.');
+		if (state.length < 1) errors.push('please provide state initials.');
+		if (state.length !== 2) errors.push('please only use state initials.');
+		if (country.length < 1) errors.push('please provide the country.');
+		if (description.length < 1) errors.push('please provide description');
+		// how to check for decimals?
+		if(price < 1) errors.push('please provide a price.')
+		if (!url.endsWith('png') && !url.endsWith('jpg'))
+		errors.push('image needs to end with .jpg or .png.');
+		if (name.length < 1) errors.push('please provide a name for the spot.');
+		if (name.length > 50) errors.push('spot name must 50 characters max.');
+		setFrontEndErrors(errors)
+	},[address,city,url, state,country,description,name])
+
 
 
 	if (!userSelector) return <Redirect to="/" />;
@@ -69,21 +70,19 @@ function CreateSpot() {
 		if (state.length !== 2) {errors.push('please only use state initials.')};
 		if (country.length < 1) {errors.push('please provide the country.')};
 		if (description.length < 1) {errors.push('please provide description')};
-		// how to check for decimals?
-		// if(price < 1) errors.push('please provide a price.')
+		if(price < 1) errors.push('please provide a price.')
 		if (!url.endsWith('png') && !url.endsWith('jpg')) {errors.push('image needs to end with .jpg or .png.')};
 		if (name.length < 1) {errors.push('please provide a name for the spot.')};
 		if (name.length > 50) {errors.push('spot name must 50 characters max.')};
 		setValidationErrors(errors)
-		if(!validationErrors.length){
+		if(!frontEndErrors.length){
 
 			const payload = {
 				address,
 				city,
 				state,
 				country,
-				lat,
-				lng,
+		
 				name,
 				description,
 				price,
@@ -91,7 +90,6 @@ function CreateSpot() {
 				SpotImages: [{ url }],
 			};
 
-			// 	setValidationErrors(errors)
 			let spotForm = { ...payload };
 
 			const newSpot = await dispatch(createSingleSpot(spotForm))
@@ -123,72 +121,57 @@ function CreateSpot() {
 					placeholder="Name"
 					value={name}
 					onChange={updateName}
-					required
+					// required
 				/>
 				<input
 					type="text"
 					placeholder="Price"
 					value={price}
 					onChange={updatePrice}
-					required
+					// required
 				/>
 				<input
 					type="text"
 					placeholder="Address"
 					value={address}
 					onChange={updateAddress}
-					required
+					// required
 				/>
 				<input
 					type="text"
 					placeholder="City"
 					value={city}
 					onChange={updateCity}
-					required
+					// required
 				/>
 				<input
 					type="text"
 					placeholder="State"
 					value={state}
 					onChange={updateState}
-					required
+					// required
 				/>
 				<input
 					type="text"
 					placeholder="Country"
 					value={country}
 					onChange={updateCountry}
-					required
+					// required
 				/>
 				<input
 					type="text"
 					placeholder="Description"
 					value={description}
 					onChange={updateDescription}
-					required
+					// required
 				/>
-				<input
-					inputMode="decimal"
-					placeholder="Latitude"
-					min="-90"
-					max="90"
-					value={lat}
-					onChange={updateLAT}
-				/>
-				<input
-					inputMode="decimal"
-					placeholder="Longitude"
-					min="-180"
-					max="180"
-					value={lng}
-					onChange={updateLNG}
-				/>
+
 				<input
 					type="text"
 					placeholder="Image URL"
 					value={url}
 					onChange={updateUrl}
-					required
+					// required
 				/>
 				<button type="submit">Create a new spot</button>
 			</form>

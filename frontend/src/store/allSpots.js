@@ -57,7 +57,7 @@ export const actionDeleteSpot = (id) =>({
 // TODO define thunks
 // ****CREATE********************************************************************************************************************
 export const createSingleSpot = (spot) => async (dispatch) =>{
-  const {address, city, state, country, lat, lng, name, description, price, url, SpotImages} = spot;
+  const {address, city, state, country, name, description, price, url, SpotImages} = spot;
   // console.log('this destructures spot in createSingleSpot, url', url)
   const response = await csrfFetch('/api/spots', {
     method: 'POST',
@@ -66,7 +66,7 @@ export const createSingleSpot = (spot) => async (dispatch) =>{
     },
     body: JSON.stringify({
       // ...spot
-      address, city, state, country, lat, lng, name, description, price, url, SpotImages
+      address, city, state, country, name, description, price, url, SpotImages
     })
   })
   if(response.ok){
