@@ -1,41 +1,117 @@
-.spots-container {
-  display:grid;
-  justify-content: center;
-  grid-template-columns: repeat(3, 300px);
-  grid-gap: 20px;
+.spot-card-container {
+  border-radius: 15px;
+  /* border: 1px solid blue; */
+  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+  display: grid;
 }
+
+.upper-half-spot-card {
+  height: 300px;
+  /* border: 1px solid pink; */
+  display: grid;
+}
+
+.lower-half-spot-card {
+  /* border: 1px solid green; */
+  display: grid;
+  /* justify-items: auto; */
+  /* padding-left: 10px; */
+  grid-template-columns: 120px 75px;
+  grid-template-areas:
+    "location state stars"
+    "description . ."
+    "price . .";
+  align-items: end;
+}
+
+.allspots-location {
+  padding-top: 5px;
+  grid-area: location;
+  font-size: medium;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* border: 1px solid pink; */
+  font-weight: bold;
+}
+
+.allspots-state {
+  grid-area: state;
+  font-size: medium;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.allspots-stars {
+  padding-top: 5px;
+  /* padding-right: 5px; */
+  grid-area: stars;
+  font-size: medium;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  font-variant: common-ligatures tabular-nums;
+  font-variant: common-ligatures tabular-nums;
+  font-weight: bold;
+
+}
+
+.allspots-description {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  grid-area: description;
+  font-size: medium;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.allspots-price {
+  padding-top: 5px;
+  grid-area: price;
+  font-size: medium;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  font-variant: common-ligatures tabular-nums;
+  font-variant: common-ligatures tabular-nums;
+  font-weight: bold;
+}
+
 a {
   text-decoration: none;
   font-size: 11px;
 }
-.img-card{
+
+/* .img-card{
   width: 300px;
   height: 300px;
   display: flex;
   flex-direction: row;
-}
-.spot-text{
+} */
+/* .spot-text{
   color:#484848;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
-}
+} */
 
-.top-spot-text {
+/* .top-spot-text {
   display: flex;
   align-content: center;
   justify-content: space-between;
-}
-.img-card img{
+} */
+/* .img-card img{
   border-radius: 15px;
   height: 100%;
   width: 100%;
   object-fit: cover;
+} */
 
-}
-
-.spots-card{
-  border-radius: 15px;
-}
-
-.numbers{
+/* .numbers{
   font-variant: common-ligatures tabular-nums;font-variant: common-ligatures tabular-nums;
-}
+} */

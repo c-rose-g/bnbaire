@@ -33,23 +33,23 @@ function AllSpots() {
 		<div className="spots-container">
 			{spotsSelector.map((spot) => {
 				return (
-					<div className="spots-card" key={spot.name}>
+					<div className="spot-card-container" key={spot.name}>
 						<NavLink to={`/spots/${spot.id}`}>
-							<div className="img-card">
-								<img src={spot?.previewImage} alt="spot image"></img>
-							</div>
-							<div className="spot-text-container">
-								<div className="spot-text">
-									<div className="top-spot-text">
-										<h2>
-											{spot.city}, {spot.state}
-										</h2>
-										<h2 className="numbers">
-											★{Math.trunc(spot.avgRating * 10) / 10}
-										</h2>
-									</div>
-									<div className='numbers'>${spot.price} </div>
+							<div className="upper-half-spot-card">
+								<div className="img-card">
+									<img src={spot?.previewImage} alt="spot image"></img>
 								</div>
+							</div>
+							<div className="lower-half-spot-card">
+								<div className="allspots-location">
+								{spot.city},</div> <div className="allspots-state">{spot.state}</div>
+								<div className="allspots-stars">
+								★ {Math.trunc(spot.avgRating * 10) / 10}
+								</div>
+								<div className="allspots-description">
+									{spot.description}
+								</div>
+								<div className="allspots-price">${spot.price} night</div>
 							</div>
 						</NavLink>
 					</div>
