@@ -127,6 +127,13 @@ function CreateSpot() {
 				<h1 className="newspot-title">Open your door to hosting</h1>
 				</div>
 				<form className='newspot-form' onSubmit={handleSubmit}>
+				{validationErrors.length > 0 && (
+					<ul className="errors">
+						{validationErrors.map((validate) => (
+							<li key={validate}>{validate}</li>
+						))}
+					</ul>
+				)}
 					<label>
 					 <div className='newspot-input-names'>Name</div>
 						<input
@@ -178,6 +185,7 @@ function CreateSpot() {
 						/>
 					</label>
 					<label>
+					State
 						<input
 							className="newspot-input"
 							type="text"
@@ -232,13 +240,7 @@ function CreateSpot() {
 					</button>
 					</label>
 				</form>
-				{validationErrors.length > 0 && (
-					<ul className="errors">
-						{validationErrors.map((validate) => (
-							<li key={validate}>{validate}</li>
-						))}
-					</ul>
-				)}
+
 			</div>
 		</div>
 	);

@@ -67,7 +67,7 @@ function SingleSpot() {
 	if (user && user.id === spot.ownerId) {
 		spotUpdateButton = (
 			<NavLink to={`/my-spots/update/${spotId}`}>
-				<button className='details-update-spot-button'>Update Spot</button>
+				<button className='details-update-spot-button' >Update Spot</button>
 			</NavLink>
 		);
 		spotDeleteButton = (<>

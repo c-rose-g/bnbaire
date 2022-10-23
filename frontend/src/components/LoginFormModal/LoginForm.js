@@ -1,5 +1,5 @@
 // frontend/src/components/LoginFormModal/LoginForm.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import './LoginFormModal.css';
@@ -7,40 +7,59 @@ function LoginForm() {
 	const dispatch = useDispatch();
 	const [credential, setCredential] = useState('');
 	const [password, setPassword] = useState('');
-	const [errors, setErrors] = useState([]);
+	const [validationErrors, setValidationErrors] = useState([]);
+  const [frontEndErrors, setFrontEndErrors] = useState([])
+	const [error, setError] = useState([])
 
+	useEffect(() =>{
+		const errors = []
+		if(credential.length < 1) errors.push('Please provide a username or email')
+		if(password.length < 1) errors.push('Please provide an email.')
+		setFrontEndErrors(errors)
+	},[credential, password])
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		setErrors([]);
-		return dispatch(sessionActions.login({ credential, password })).catch(
-			async (res) => {
-				const data = await res.json();
-				if (data && data.errors) setErrors(data.errors);
-			}
-		);
+		// setErrors([]);
+		const errors = [];
+
+		if(credential.length < 1) errors.push('Please provide a username or email')
+		if(password.length < 1) errors.push('Please provide an email.')
+
+		setValidationErrors(errors)
+		if(!frontEndErrors.length){
+			return dispatch(sessionActions.login({ credential, password })).catch(
+				async (res) => {
+					const data = await res.json();
+					if (data && data.errors) setValidationErrors(data.errors);
+				}
+			);
+
+		}
 	};
 
 	const demoUser = (e) => {
 		e.preventDefault();
-		setErrors([]);
+		setError([]);
 		return dispatch(
 			sessionActions.login({ credential: 'Demolition', password: 'password' })
 		).catch(async (res) => {
 			const data = await res.json();
-			if (data && data.errors) setErrors(data.errors);
+			if (data && data.errors) setError(data.errors);
 		});
 	};
 	return (
 		<div className="modal-content-login">
 			<form onSubmit={handleSubmit}>
-				{/* <ul>
-					{errors.map((error, idx) => (
-						<li key={idx}>{error}</li>
-					))}
-				</ul> */}
 				<div className="modal-title">
 					<label>Please sign in</label>
 				</div>
+			{validationErrors.length > 0 && (
+					<ul className="errors">
+						{validationErrors.map((validate) => (
+							<li key={validate}>{validate}</li>
+						))}
+					</ul>
+				)}
 				<div className="modal-title">
 					<label>
 						Username or email
@@ -77,11 +96,7 @@ function LoginForm() {
 				</div>
 			</form>
 			<div >
-				<ul className="errors">
-					{errors.map((error, idx) => (
-						<li key={idx}>{error}</li>
-					))}
-				</ul>
+
 			</div>
 		</div>
 	);
