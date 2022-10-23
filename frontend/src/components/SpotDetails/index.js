@@ -31,7 +31,7 @@ function SingleSpot() {
 	const reviews = useSelector((state) => Object.values(state.reviews.spot));
 	const userReview = (user) ? reviews.find(id => id.userId === user.id): null
 	// console.log('this is the userReview in SPOT DETAILS', userReview)
-	
+
 	const handlDeleteCurrentSpot = () => {
 		// e.preventDefault();
 		console.log('dispatch delete spot')
@@ -67,17 +67,17 @@ function SingleSpot() {
 	if (user && user.id === spot.ownerId) {
 		spotUpdateButton = (
 			<NavLink to={`/my-spots/update/${spotId}`}>
-				<button>Update Spot</button>
+				<button className='details-update-spot-button'>Update Spot</button>
 			</NavLink>
 		);
 		spotDeleteButton = (<>
-			<button onClick={handlDeleteCurrentSpot}>Delete Spot</button>
+			<button className='details-delete-spot-button' onClick={handlDeleteCurrentSpot}>Delete Spot</button>
 		</>)
 	}
 
 	if(user && user.id !== spot.ownerId){
 		spotSubmitReviewButton=(<>
-			<button onClick={handleReview}>Submit a review</button>
+			<button className='submit-review-button' onClick={handleReview}>Submit a review</button>
 		</>)
 		// spotDeleteReviewButton=(<>
 			{/* <button onClick={handleDeleteCurrentReview}>Delete your review</button> */}
@@ -94,12 +94,17 @@ function SingleSpot() {
 		if (num === 1) return 'review';
 		if (num > 1) return 'reviews';
 	}
+	// const noReviews = ()=>{
+	// 	if(!reviews.spot){
+	// 		return ('hello')
+	// 	}
+	// }
 
 	return  (
-		<div className="spots-container">
+		<div className="details-spots-container">
 			<div className="page-container">
 				<div id="current-spot-container">
-					<h1 className="text">{spot.name}</h1>
+					<div className="details-spot-card-title">{spot.name}</div>
 					<hr className="subline" />
 					<div className="subtext">
 						★ {Math.trunc(((spot.avgStarRating)* 10))/10} • {spot.numReviews} {reviewsWord(numReviews)} • {spot.city}, {spot.state}
@@ -124,20 +129,28 @@ function SingleSpot() {
 						{/* <h2> this is where the reviews will go</h2> */}
 						{/* {reviews.length < 0 && ('this spot has no reviews')} */}
 						{/* {user && userReview && */}
+						<div className='details-review-title'>Reviews for {spot.name}</div>
 						{reviews.map((review) => {
 							{/* console.log('each review ', review.User) */}
 							return (
 								<div className="review-card" key={review.id}>
+									<div >
+									<hr className="subline" />
 									<div className="review-user-stars">
+
 									<b>{review.User.firstName} says: </b> <span>{review.stars} stars</span>
+									</div>
 
 									</div>
 									<p />
-									"{review.review}"
 									<div>
-									{user && +user.id === +review.User.id? <button onClick={handleDeleteCurrentReview}>Delete your review</button>:null }
+									{/* '{!review.review? review === 'this place has no reviews.':review.review}' */}
+									"{review.review}"
 									</div>
-									<hr className="subline" />
+									<div className='delete-review-div'>
+									{user && +user.id === +review.User.id? <button className='delete-review-button' onClick={handleDeleteCurrentReview}>Delete your review</button>:null }
+									</div>
+									{/* <hr className="subline" /> */}
 								</div>
 							);
 						})}
@@ -174,13 +187,13 @@ function SingleSpot() {
 					<div className='spot-text'>What this place offers:</div>
 					<p/>
 					<div className='subtext'>{spot.description}</div>
-					<div>
-					{spotUpdateButton} <span>
-
-					{spotDeleteButton}
-					</span>
+					<div className='details-update-spot-div'>
+					{spotUpdateButton}
 					</div>
-					<div>
+					<div className='details-delete-spot-div'>
+					{spotDeleteButton}
+					</div>
+					<div className='submit-review-div'>
 					{spotSubmitReviewButton}
 					</div>
 				</div>

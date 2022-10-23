@@ -123,9 +123,12 @@ function CreateSpot() {
 	return (
 		<div className="newspot-form-container">
 			<div className="newspot-form-card">
-				<div className="newspot-title">Open your door to hosting</div>
+				<div>
+				<h1 className="newspot-title">Open your door to hosting</h1>
+				</div>
 				<form className='newspot-form' onSubmit={handleSubmit}>
 					<label>
+					 <div className='newspot-input-names'>Name</div>
 						<input
 							className="newspot-input"
 							type="text"
@@ -136,6 +139,9 @@ function CreateSpot() {
 						/>
 					</label>
 					<label>
+					<div className='newspot-input-names'>
+					Price
+					</div>
 						<input
 							className="newspot-input"
 							type="text"
@@ -146,6 +152,9 @@ function CreateSpot() {
 						/>
 					</label>
 					<label>
+					<div className='newspot-input-names'>
+					Address
+					</div>
 						<input
 							className="newspot-input"
 							type="text"
@@ -156,6 +165,9 @@ function CreateSpot() {
 						/>
 					</label>
 					<label>
+					<div className='newspot-input-names'>
+					City
+					</div>
 						<input
 							className="newspot-input"
 							type="text"
@@ -176,6 +188,9 @@ function CreateSpot() {
 						/>
 					</label>
 					<label>
+					<div className='newspot-input-names'>
+					Country
+					</div>
 						<input
 							className="newspot-input"
 							type="text"
@@ -186,6 +201,9 @@ function CreateSpot() {
 						/>
 					</label>
 					<label>
+					<div className='newspot-input-names'>
+					Description
+					</div>
 						<input
 							className="newspot-input"
 							type="text"
@@ -196,6 +214,9 @@ function CreateSpot() {
 						/>
 					</label>
 					<label>
+					<div className='newspot-input-names'>
+					Image URL
+					</div>
 						<input
 							className="newspot-input"
 							type="text"
@@ -205,9 +226,11 @@ function CreateSpot() {
 							required
 						/>
 					</label>
-					<button className="newspot-input" type="submit">
+					<label className='newspot-button-label'>
+					<button className='newspot-button' type="submit">
 						Create a new spot
 					</button>
+					</label>
 				</form>
 				{validationErrors.length > 0 && (
 					<ul className="errors">

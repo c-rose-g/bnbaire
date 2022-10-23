@@ -42,7 +42,7 @@ function AllSpots() {
 							</div>
 							<div className="lower-half-spot-card">
 								<div className="allspots-location">
-								{spot.city},</div> <div className="allspots-state">{spot.state}</div>
+								{spot.city}, {spot.state}</div>
 								<div className="allspots-stars">
 								★ {Math.trunc(spot.avgRating * 10) / 10}
 								</div>

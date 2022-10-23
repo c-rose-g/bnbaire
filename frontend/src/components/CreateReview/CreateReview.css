@@ -1,0 +1,64 @@
+.review-form-container{
+  display: grid;
+  justify-content: center;
+  padding: 20px;
+}
+.review-form-card{
+  padding-top: 50px;
+  padding-bottom: 50px;
+  display: grid;
+  justify-items:center;
+  width: 400px;
+  /* border: 1px dashed blue; */
+  border-radius: 15px;
+  box-shadow: rgb(0 0 0 / 30%) 0px 6px 16px;
+}
+
+.review-form-title {
+  font-size: large;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  padding-bottom: 10px;
+  display: flex;
+  justify-items: center;
+}
+.newreview-button-label{
+
+}
+.newreview-button{
+  color: white;
+  background: rgb(205, 52, 99);
+  background: linear-gradient(90deg, rgba(205, 52, 99, 1) 25%, rgba(244, 91, 106, 1) 50%, rgba(205, 52, 99, 1) 75%);
+  box-shadow: rgb(0 0 0 / 30%) 0px 6px 16px;
+  width: 305px;
+  height: 45px;
+  border-radius: 15px;
+  font-size: x-large;
+  font-weight: bold;
+}
+.newreview-input{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 300px;
+  height: 100px;
+  border-radius: 5%;
+}
+.newreview-stars{
+  /* border: 1px solid blue; */
+  width: 300px;
+
+}
+.newreview-button-div{
+  display: flex;
+}
+.newreview-button{
+  color: white;
+  background: rgb(205, 52, 99);
+  background: linear-gradient(90deg, rgba(205, 52, 99, 1) 25%, rgba(244, 91, 106, 1) 50%, rgba(205, 52, 99, 1) 75%);
+  box-shadow: rgb(0 0 0 / 30%) 0px 6px 16px;
+  width: 305px;
+  height: 45px;
+  border-radius: 15px;
+  font-size: x-large;
+  font-weight: bold;
+}

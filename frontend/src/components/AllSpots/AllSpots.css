@@ -12,18 +12,31 @@
 }
 
 .lower-half-spot-card {
+  border-radius: 15px;
   /* border: 1px solid green; */
   display: grid;
   /* justify-items: auto; */
   /* padding-left: 10px; */
   grid-template-columns: 120px 75px;
   grid-template-areas:
-    "location state stars"
-    "description . ."
-    "price . .";
+    "location location stars"
+    "description description description "
+    "price price price";
+    padding-bottom: 10px;
   align-items: end;
+  padding-left: 10px;
+  padding-right: 10px;
+  /* justify-content: flex-start */
 }
+.lh-text-top{
 
+}
+.lh-text-mid{
+
+}
+.lh-text-bottom{
+
+}
 .allspots-location {
   padding-top: 5px;
   grid-area: location;
@@ -35,6 +48,8 @@
   text-overflow: ellipsis;
   /* border: 1px solid pink; */
   font-weight: bold;
+  display: flex;
+  /* justify-content: center; */
 }
 
 .allspots-state {
@@ -58,7 +73,8 @@
   font-variant: common-ligatures tabular-nums;
   font-variant: common-ligatures tabular-nums;
   font-weight: bold;
-
+  display: flex;
+  justify-content: flex-end;
 }
 
 .allspots-description {
@@ -87,6 +103,7 @@
 a {
   text-decoration: none;
   font-size: 11px;
+  border-radius: 15px;
 }
 
 /* .img-card{
