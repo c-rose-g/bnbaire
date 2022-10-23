@@ -7,13 +7,13 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const validateSignup = [
 	check('firstName')
-		.exists({ checkFalsy: true })
-		.withMessage('Please provide a first name.'),
+		.exists({ checkFalsy: true, max: 70 })
+		.withMessage('First name must be less than 70 characters.'),
 	check('lastName')
-		.exists({ checkFalsy: true })
-		.withMessage('Please provide a last name.'),
+		.exists({ checkFalsy: true, max:70 })
+		.withMessage('Last name must be less than 70 characters.'),
 	check('email')
-		.exists({ checkFalsy: true })
+		.exists({ checkFalsy: true,  })
 		.isEmail()
 		.withMessage('Please provide a valid email.'),
 	check('username')

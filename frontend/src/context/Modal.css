@@ -28,13 +28,13 @@
   border-radius: 5%;
 }
 
-.errors{
+.errors li{
   /* border: 1px solid red; */
-  /* color: red; */
+  color: red;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
   font-size: medium;
   justify-items: center;
-  /* text-decoration: ; */
+  list-style: none ;
 }
 .errors li{
   /* border: 1px solid blue */

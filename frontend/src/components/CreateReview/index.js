@@ -41,7 +41,7 @@ function CreateReview(){
     let errors = []
     // if(spot.userId !== )
     const payload = {review, stars:+stars}
-    if(review.length < 1) {errors.push('Please write your review.')}
+    if(review.length < 25) {errors.push('Please write your review.')}
     if(review.length > 250) {errors.push('Reviews must be less than 250 characters.')}
     if(!stars) {errors.push('please add a star rating.')}
     setValidateErrors(errors)
@@ -77,8 +77,8 @@ function CreateReview(){
       <h1>add a review</h1>
     </div>
       {/* <div className='review-form-container'> */}
-      <div className='review-form'>
-        <form onSubmit={submitReview}>
+      <div>
+        <form className='review-form' onSubmit={submitReview}>
         {validateErrors.length > 0 && (
 					<ul className="errors">
 						{validateErrors.map((validate) => (
@@ -86,28 +86,33 @@ function CreateReview(){
 						))}
 					</ul>
 				)}
-        <label >
+        <label>
         Review
-        <input className='newreview-input'
-					type="textarea"
+        </label>
+        <div >
+        <textarea className='newreview-input'
+					type="text"
 					placeholder="Please start writing your review here."
 					value={review}
 					onChange={addReview}
 				/>
-        </label>
+        </div>
         <label>
         Star rating
+        </label>
+        <div>
         <input className='newreview-stars'
         type='number'
         value={stars}
         onChange={addStars}
         min='1'
         max='5'
+        required
         />
-        </label>
-        <label className='newreview-button-div'>
+        </div>
+        <div className='newreview-button-div'>
         <button className='newreview-button' type='submit'>submit</button>
-        </label>
+        </div>
         </form>
       </div>
       {/* </div> */}

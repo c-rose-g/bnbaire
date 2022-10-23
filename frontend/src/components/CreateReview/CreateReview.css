@@ -19,8 +19,8 @@
   color: #484848;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
   padding-bottom: 10px;
-  display: flex;
-  justify-items: center;
+  /* display: flex;
+  justify-items: center; */
 }
 .newreview-button-label{
 
@@ -37,11 +37,12 @@
   font-weight: bold;
 }
 .newreview-input{
-  padding-top: 5px;
-  padding-bottom: 5px;
+  /* padding-top: 5px;
+  padding-bottom: 5px; */
   width: 300px;
-  height: 100px;
+  /* height: 100px; */
   border-radius: 5%;
+  resize: none;
 }
 .newreview-stars{
   /* border: 1px solid blue; */
@@ -61,4 +62,9 @@
   border-radius: 15px;
   font-size: x-large;
   font-weight: bold;
+}
+.review-form{
+  /* border: 1px dashed green; */
+  /* display: flex; */
+  /* justify-items: center; */
 }

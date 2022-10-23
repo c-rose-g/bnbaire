@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, connectAdvanced } from 'react-redux';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import './UpdateSpot.css';
 import {
@@ -7,19 +7,24 @@ import {
 	thunkLoadSpotsByUser,
 } from '../../store/allSpots';
 function UpdateSpot() {
-	const userSelector = useSelector((state) => state.session.user);
-
-	// console.log('user selector id', userSelector)
 	const { spotId } = useParams();
+	console.log(spotId)
+
+	const userSelector = useSelector((state) => state.session.user);
+	let spot = useSelector(state => Object.values(state.spots.allSpots))
+	spot = spot[0]
+	console.log('spot       ', spot.address)
+	// findAddy = spot.find(key => key.id)
+	// console.log('user selector id', userSelector)
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const [address, setAddress] = useState('');
-	const [city, setCity] = useState('');
-	const [state, setState] = useState('');
-	const [country, setCountry] = useState('');
-	const [name, setName] = useState('');
-	const [description, setDescription] = useState('');
-	const [price, setPrice] = useState('');
+	const [address, setAddress] = useState(spot.address);
+	const [city, setCity] = useState(spot.city);
+	const [state, setState] = useState(spot.state);
+	const [country, setCountry] = useState(spot.country);
+	const [name, setName] = useState(spot.name);
+	const [description, setDescription] = useState(spot.description);
+	const [price, setPrice] = useState(spot.price);
 
 	const [validateErrors, setValidateErrors] = useState([]);
 	const [frontEndErrors, setFrontEndErrors] = useState([]);
@@ -42,9 +47,11 @@ function UpdateSpot() {
 		if (description.length < 1) errors.push('please provide description');
 		if (name.length < 1) errors.push('please provide a name for the spot.');
 		if (name.length > 50) errors.push('spot name must 50 characters max.');
-
+		if (price < 1) errors.push('please provide a price.');
+		if(price > 999) errors.push('price must be less than 1000.')
+		if (isNaN(price)) errors.push('price must be a number.');
 		setFrontEndErrors(errors);
-	}, [address, city, state, country, description, name]);
+	}, [address, city, state, country, description, name, price]);
 
 	useEffect(() => {
 		dispatch(thunkLoadSpotsByUser());
@@ -62,7 +69,9 @@ function UpdateSpot() {
 		if (description.length < 1) errors.push('please provide description');
 		if (name.length < 1) errors.push('please provide a name for the spot.');
 		if (name.length > 50) errors.push('spot name must 50 characters max.');
-
+		if (price < 1) errors.push('please provide a price.');
+		if(price > 999) errors.push('price must be less than 1000.')
+		if (isNaN(price)) errors.push('price must be a number.');
 		setValidateErrors(errors);
 
 		if (!frontEndErrors.length) {

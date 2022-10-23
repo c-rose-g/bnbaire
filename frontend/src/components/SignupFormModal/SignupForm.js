@@ -45,6 +45,14 @@ function SignupForm() {
 				<div className="modal-title">
 					<label className="text">Sign up!</label>
 				</div>
+			<div className="errors">
+			<ul>
+					{errors.map((error, idx) => (
+
+						<div key={idx}> <li>{error} </li></div>
+					))}
+			</ul>
+				</div>
 				<div className='modal-title'>
 					<label>
 						First Name
@@ -53,7 +61,7 @@ function SignupForm() {
 							placeholder="First name"
 							value={firstName}
 							onChange={(e) => setFirstName(e.target.value)}
-							// required
+							required
 						/>
 					</label>
 				</div>
@@ -67,7 +75,7 @@ function SignupForm() {
 							placeholder="Last Name"
 							value={lastName}
 							onChange={(e) => setLastName(e.target.value)}
-							// required
+							required
 						/>
 					</label>
 				</div>
@@ -80,7 +88,7 @@ function SignupForm() {
 							placeholder="Email"
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
-							// required
+							required
 						/>
 					</label>
 				</div>
@@ -92,7 +100,7 @@ function SignupForm() {
 							placeholder="Username"
 							value={username}
 							onChange={(e) => setUsername(e.target.value)}
-							// required
+							required
 						/>
 					</label>
 				</div>
@@ -104,7 +112,7 @@ function SignupForm() {
 							placeholder="Password"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
-							// required
+							required
 						/>
 					</label>
 				</div>
@@ -123,14 +131,7 @@ function SignupForm() {
 					<button type="submit">Sign Up</button>
 				</div>
 			</form>
-			<div className="errors">
-			<ul>
-					{errors.map((error, idx) => (
 
-						<div key={idx}> <li>{error} </li></div>
-					))}
-			</ul>
-				</div>
 		</div>
 	);
 }
