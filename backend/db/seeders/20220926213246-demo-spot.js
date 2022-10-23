@@ -24,7 +24,7 @@ module.exports = {
 				lat: 33.6567793,
 				lng: -117.9103903,
 				name: 'Elegantly Renovated Bungalow',
-				description: 'Relax in a renovated historic home with abundant design details',
+				description:'Relax in a renovated historic home',
 				price: 150,
 			},
 			{
@@ -47,8 +47,8 @@ module.exports = {
 				country: 'United States of America',
 				lat: 33.6566096,
 				lng: -117.9109225,
-				name: 'Hollywood Hills New Construction w/ View',
-				description: 'An outdoor awaits just off kitchen filled w/ light',
+				name: 'Hollywood Hills View',
+				description: 'An outdoor awaits',
 				price: 250,
 			},
 			{
@@ -59,8 +59,8 @@ module.exports = {
 				country: 'United States of America',
 				lat: 33.65644,
 				lng: -117.9108983,
-				name: 'Private Rooftop w/Views of Downtown Dallas',
-				description: 'Central Dallas modern townhome',
+				name: 'Views of Downtown Dallas',
+				description: 'Dallas modern townhome',
 				price: 300,
 			},
 		]);
@@ -76,9 +76,7 @@ module.exports = {
 	},
 
 	down: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete(
-      'Spots'
-    )
+		return queryInterface.bulkDelete('Spots');
 		/**
 		 * Add commands to revert seed here.
 		 *
