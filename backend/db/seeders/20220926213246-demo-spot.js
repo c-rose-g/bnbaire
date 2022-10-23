@@ -12,7 +12,7 @@ module.exports = {
 				lat: 33.6566065,
 				lng: -117.9103705,
 				name: 'Delightful vacation',
-				description: 'Our 1 bedroom is a spacious 970 sq ft situated on the 2nd floor of our building in the heart of the Gulch neighborhood in downtown Nashville.',
+				description: 'In the heart of downtown Nashville',
 				price: 100,
 			},
 			{
@@ -36,7 +36,7 @@ module.exports = {
 				lat: 33.6567828,
 				lng: -117.9108898,
 				name: 'Modern Villa with Unmatched Skyline Views',
-				description: 'Soak up the open loft space.',
+				description: 'Soak up the open loft space',
 				price: 200,
 			},
 			{
@@ -60,7 +60,7 @@ module.exports = {
 				lat: 33.65644,
 				lng: -117.9108983,
 				name: 'Private Rooftop w/Views of Downtown Dallas',
-				description: 'Central Dallas modern townhome close to Downtown.',
+				description: 'Central Dallas modern townhome',
 				price: 300,
 			},
 		]);
