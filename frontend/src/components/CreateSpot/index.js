@@ -26,7 +26,7 @@ function CreateSpot() {
 	const updateDescription = (e) => setDescription(e.target.value);
 	const updatePrice = (e) => setPrice(e.target.value);
 	const updateUrl = (e) => seturl(e.target.value);
-	// const validatePrice = new RegExp('^(\d*([.,](?=\d{3}))?\d+)+((?!\ 2)[.,]\d\d)?$')
+	// const validatePrice = new RegExp('^(\$|)([1-9]\d{0,2}(\,\d{3})*|([1-9]\d*))(\.\d{2})?$')
 	useEffect(() => {
 		const errors = [];
 		if (address.length < 1) errors.push('please provide an address.');
@@ -39,6 +39,7 @@ function CreateSpot() {
 		if (description.length > 250)
 			errors.push('description must be less than 255 characters.');
 		if (price < 1) errors.push('please provide a price.');
+		if(price > 999) errors.push('price must be less than 1000.')
 		if (isNaN(price)) errors.push('price must be a number.');
 		// if(!validatePrice.test(price)) errors.push('price must be a valid number.')
 		if (!url.endsWith('png') && !url.endsWith('jpg'))
@@ -81,6 +82,7 @@ function CreateSpot() {
 
 		if (price < 1) errors.push('please provide a price.');
 		if (isNaN(price)) errors.push('price must be a number.');
+		if(price > 999) errors.push('price must be less than 1000.')
 		// if(!validatePrice.test(price)) errors.push('price must be a valid number.')
 		if (!url.endsWith('png') && !url.endsWith('jpg')) {
 			errors.push('image needs to end with .jpg or .png.');
