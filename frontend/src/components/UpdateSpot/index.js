@@ -22,7 +22,7 @@ function UpdateSpot() {
 	const [price, setPrice] = useState('');
 
 	const [validateErrors, setValidateErrors] = useState([]);
-	const [frontEndErrors, setFrontEndErrors] = useState([])
+	const [frontEndErrors, setFrontEndErrors] = useState([]);
 
 	const updateAddress = (e) => setAddress(e.target.value);
 	const updateName = (e) => setName(e.target.value);
@@ -32,8 +32,7 @@ function UpdateSpot() {
 	const updateDescription = (e) => setDescription(e.target.value);
 	const updatePrice = (e) => setPrice(e.target.value);
 
-
-	useEffect(() =>{
+	useEffect(() => {
 		const errors = [];
 		if (address.length < 1) errors.push('please provide an address.');
 		if (city.length < 1) errors.push('please provide the city.');
@@ -44,8 +43,8 @@ function UpdateSpot() {
 		if (name.length < 1) errors.push('please provide a name for the spot.');
 		if (name.length > 50) errors.push('spot name must 50 characters max.');
 
-		setFrontEndErrors(errors)
-	},[address,city, state,country,description,name])
+		setFrontEndErrors(errors);
+	}, [address, city, state, country, description, name]);
 
 	useEffect(() => {
 		dispatch(thunkLoadSpotsByUser());
@@ -64,9 +63,9 @@ function UpdateSpot() {
 		if (name.length < 1) errors.push('please provide a name for the spot.');
 		if (name.length > 50) errors.push('spot name must 50 characters max.');
 
-		setValidateErrors(errors)
+		setValidateErrors(errors);
 
-		if(!frontEndErrors.length){
+		if (!frontEndErrors.length) {
 			const payload = {
 				address,
 				city,
@@ -75,102 +74,103 @@ function UpdateSpot() {
 				name,
 				description,
 				price,
-
 			};
 			let updateSpotForm = { ...payload };
 			// console.log('this is updateSpotForm in UpdateSpot comp', updateSpotForm);
 			// setErrors([]);
 			const updateSpot = await dispatch(
 				thunkUpdateSingleSpot(updateSpotForm, spotId)
-				).catch(async (res) => {
-					const data = await res.json();
-					if (data && data.errors) setValidateErrors(data.errors);
-				});
-				history.push(`/spots/${spotId}`);
-			}
+			).catch(async (res) => {
+				const data = await res.json();
+				if (data && data.errors) setValidateErrors(data.errors);
+			});
+			history.push(`/spots/${spotId}`);
+		}
 	};
 	return (
-		<div className='update-page-container'>
-		<div className="update-spot-container">
-			<div>
-				<h2 className='text'> page to update a single spot</h2>
-			</div>
-			<div className='input'>
-				<form onSubmit={handleSubmit}>
-					{validateErrors.length > 0 && (
-				<ul className="errors">
-					{validateErrors.map((validate) => (
-						<li key={validate}>{validate}</li>
-					))}
-				</ul>)}
+		<div className="update-spot-form-container">
+			<div className="update-spot-card">
+
+					<form className='update-spot-form' onSubmit={handleSubmit}>
 				<div >
-
-					<input
-						type="text"
-						placeholder="Name"
-						value={name}
-						onChange={updateName}
-					/>
+					<h1 className="update-spot-form-title"> Update your spot's information</h1>
 				</div>
-				<div>
+						{validateErrors.length > 0 && (
+							<ul className="errors">
+								{validateErrors.map((validate) => (
+									<li key={validate}>{validate}</li>
+								))}
+							</ul>
+						)}
+						<label>
+						Name
+							<input className='update-spot-input'
+								type="text"
+								placeholder="Name"
+								value={name}
+								onChange={updateName}
+							/>
+						</label>
+						<label>
+						Price
+							<input className='update-spot-input'
+								type="text"
+								placeholder="Price"
+								value={price}
+								onChange={updatePrice}
+							/>
+						</label>
+						<label>
+						Address
+							<input className='update-spot-input'
+								type="text"
+								placeholder="Address"
+								value={address}
+								onChange={updateAddress}
+							/>
+						</label>
+						<label>
+						City
+							<input className='update-spot-input'
+								type="text"
+								placeholder="City"
+								value={city}
+								onChange={updateCity}
+							/>
+						</label>
+						<label>
+						State
+							<input className='update-spot-input'
+								type="text"
+								placeholder="State"
+								value={state}
+								onChange={updateState}
+							/>
+						</label>
+						<label>
+						Country
+							<input className='update-spot-input'
+								type="text"
+								placeholder="Country"
+								value={country}
+								onChange={updateCountry}
+							/>
+						</label>
+						<label>
+						Description
+							<input className='update-spot-descrip-input'
+								type="text"
+								placeholder="Please write your spot's description here"
+								value={description}
+								onChange={updateDescription}
+							/>
+						</label>
+						<label className='update-spot-button-label'>
+						<button className='update-spot-button' type="submit">Update spot</button>
+						</label>
+					</form>
 
-					<input
-						type="text"
-						placeholder="Price"
-						value={price}
-						onChange={updatePrice}
-					/>
-				</div>
-				<div>
-
-					<input
-						type="text"
-						placeholder="Address"
-						value={address}
-						onChange={updateAddress}
-					/>
-				</div>
-				<div>
-
-					<input
-						type="text"
-						placeholder="City"
-						value={city}
-						onChange={updateCity}
-					/>
-				</div>
-				<div>
-
-					<input
-						type="text"
-						placeholder="State"
-						value={state}
-						onChange={updateState}
-					/>
-				</div>
-				<div>
-
-					<input
-						type="text"
-						placeholder="Country"
-						value={country}
-						onChange={updateCountry}
-					/>
-				</div>
-				<div>
-
-					<input
-						type="text"
-						placeholder="Description"
-						value={description}
-						onChange={updateDescription}
-					/>
-				</div>
-			
-					<button type="submit">Update spot</button>
-				</form>
 			</div>
-		</div>
 		</div>
 	);
 }

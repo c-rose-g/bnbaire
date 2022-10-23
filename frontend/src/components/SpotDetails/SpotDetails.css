@@ -1,29 +1,47 @@
-.spots-container {
-
+.details-spots-container{
+  /* border: 1px darkblue solid; */
   display:grid;
   justify-content: center;
-  grid-template-columns: repeat(3, 300px);
-  grid-gap: 20px;
-
+  grid-template-columns: repeat(2, 300px);
+  grid-gap: 50px;
+  grid-gap: 100px;
+  padding: 40px;
 }
-
 .img-card img{
   border-radius: 15px;
   height: 100%;
   width: 100%;
   object-fit: cover;
-
 }
 
-.spot-card{
+.details-spot-card-title{
+  grid-area: spotname;
+  /* border: 1px darkblue solid; */
+  font-size:xx-large;
+  font-weight: bold;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+.details-review-title{
+  font-weight: bold;
+  padding: 6px;
+  font-size: large;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+.side-panel{
+  border:none;
   box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+
 }
-.page-container{
+.spot-card{
+  /* box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px; */
+}
+/* .page-container{
 
   display: flex;
   flex-direction: row;
-}
-
+} */
 
 .review-card{
 
@@ -33,5 +51,79 @@
 
 .review-user-stars {
   display: flex;
+
+}
+.submit-review-div{
+  /* border: 1px solid blue; */
+  display: flex;
+  padding-top: 5px;
+}
+.submit-review-button{
+  border: 1px solid lightblue;
+  color: white;
+  background: rgb(205, 52, 99);
+  background: linear-gradient(90deg, rgba(205, 52, 99, 1) 25%, rgba(244, 91, 106, 1) 50%, rgba(205, 52, 99, 1) 75%);
+  box-shadow: rgb(0 0 0 / 30%) 0px 6px 16px;
+  width: 305px;
+  height: 35px;
+  border-radius: 50px;
+  font-size: large;
+  font-weight: bold;
+}
+.delete-review-div{
+  /* border: 1px solid pink; */
+  display: flex;
+  padding-top: 5px;
+}
+.delete-review-button{
+  border: 1px solid lightblue;
+  color: white;
+  background: rgb(205, 52, 99);
+  background: linear-gradient(90deg, rgba(205, 52, 99, 1) 25%, rgba(244, 91, 106, 1) 50%, rgba(205, 52, 99, 1) 75%);
+  box-shadow: rgb(0 0 0 / 30%) 0px 6px 16px;
+  width: 305px;
+  height: 35px;
+  border-radius: 50px;
+  font-size: large;
+  font-weight: bold;
+}
+.details-delete-spot-div{
+  /* border: 1px solid blue; */
+  display: flex;
+  padding-top: 5px;
+
+}
+.details-delete-spot-button{
+  /* border: 1px solid blue; */
+  border: 1px solid lightblue;
+  color: white;
+  background: rgb(205, 52, 99);
+  background: linear-gradient(90deg, rgba(205, 52, 99, 1) 25%, rgba(244, 91, 106, 1) 50%, rgba(205, 52, 99, 1) 75%);
+  box-shadow: rgb(0 0 0 / 30%) 0px 6px 16px;
+  width: 305px;
+  height: 35px;
+  border-radius: 50px;
+  font-size: large;
+  font-weight: bold;
+
+}
+.details-update-spot-div{
+  /* border: 1px solid blue; */
+  display: flex;
+  padding-top: 5px;
+
+}
+.details-update-spot-button{
+  /* border: 1px solid blue; */
+  border: 1px solid lightblue;
+  color: white;
+  background: rgb(205, 52, 99);
+  background: linear-gradient(90deg, rgba(205, 52, 99, 1) 25%, rgba(244, 91, 106, 1) 50%, rgba(205, 52, 99, 1) 75%);
+  box-shadow: rgb(0 0 0 / 30%) 0px 6px 16px;
+  width: 305px;
+  height: 35px;
+  border-radius: 50px;
+  font-size: large;
+  font-weight: bold;
 
 }

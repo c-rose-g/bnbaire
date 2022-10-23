@@ -1,19 +1,77 @@
-.update-page-container{
-  border: 2px solid blue;
-  height: 100vh;
+.update-spot-form-container{
+  /* border: 2px solid blue; */
+  height: auto;
+  display: grid;
+  justify-content: center;
+  padding: 20px;
+  /* border: 1px dashed blue; */
 
 }
-.update-spot-container{
- border: 1px solid pink;
- display:grid;
- justify-content: center;
- flex-direction: column;
+.update-spot-card{
+  /* border: 1px dashed blue; */
 
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 50px;
+  padding-right: 20px;
+  display: grid;
+  /* justify-items:center; */
+  width: 350px;
+  border-radius: 15px;
+  box-shadow: rgb(0 0 0 / 30%) 0px 6px 16px;
 }
-
-.input {
-  /* object-fit: cover; */
-  box-sizing: border-box;
+.update-spot-form{
+  /* border: 1px dashed blue; */
+  width: 305px
+}
+.update-spot-form-title{
+  font-size: 40px;
+  /* border: 1px dashed blue; */
+  /* margin-right: 50px; */
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  /* padding-bottom: 10px; */
+  display: flex;
+  justify-content: center;
+}
+.update-spot-button-label{
+  display: flex;
+}
+.update-spot-button{
+  color: white;
+  background: rgb(205, 52, 99);
+  background: linear-gradient(90deg, rgba(205, 52, 99, 1) 25%, rgba(244, 91, 106, 1) 50%, rgba(205, 52, 99, 1) 75%);
+  box-shadow: rgb(0 0 0 / 30%) 0px 6px 16px;
+  width: 305px;
+  height: 45px;
+  border-radius: 15px;
+  font-size: x-large;
+  font-weight: bold;
+}
+.update-spot-descrip-input{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 300px;
   height: 100px;
-  width: 500px;
+  border-radius: 5%;
+  /* position: absolute; */
+}
+.update-spot-input {
+  /* object-fit: cover; */
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 300px;
+  height: 20px;
+  border-radius: 5%;
+  /* box-sizing: border-box;
+  height: 100px;
+  width: 500px; */
+}
+.update-spot-descrip-input::placeholder {
+  /* position:absolute; */
+  /* left: 20px; */
+  top: 0px;
+  background-color: white;
+  /* padding: 0 20px; */
+
 }

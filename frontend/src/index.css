@@ -5,7 +5,8 @@
   grid-template-columns: repeat(3, 300px);
   grid-template-rows: auto;
   grid-gap: 20px;
-  border: 1px dashed black;
+  gap: 50px;
+  /* border: 1px dashed black; */
 }
 
 /* img size for all photos */
@@ -35,26 +36,14 @@
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }
 
-.page-container {
-  /* border: 3px solid green; */
-  display: flex;
-  flex-direction: row;
-
-}
-
-.reviews-container {
-  /* box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px; */
-}
-
 button {
   color: white;
   background: rgb(205, 52, 99);
-  border-radius: 5px;
+  border-radius: 15px;
   border: none;
   padding: 5px;
   background: linear-gradient(90deg, rgba(205, 52, 99, 1) 25%, rgba(244, 91, 106, 1) 50%, rgba(205, 52, 99, 1) 75%);
   box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
-
 }
 
 a {
@@ -72,9 +61,6 @@ label {
   /* border: 2px solid green; */
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }
-
-
-
 
 .subtext {
   padding: 5px;
@@ -125,6 +111,10 @@ input {
 }
 
 hr.subline {
-  border-top: 1px solid #55555563;
-  width: 100%;
+  width: auto;
+  margin: auto;
+  margin-top: 10%;
+  margin-bottom: 0;
+  height: 100%;
+  border-color: #f5fafa;
 }

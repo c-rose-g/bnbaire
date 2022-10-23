@@ -71,11 +71,12 @@ function CreateReview(){
 
   return(
     <>
-    <div className='page-container'>
-    <div className='title'>
-      <h1> add a review</h1>
+    <div className='review-form-container'>
+    <div className='review-form-card'>
+    <div className='review-form-title'>
+      <h1>add a review</h1>
     </div>
-      <div className='review-form-container'>
+      {/* <div className='review-form-container'> */}
       <div className='review-form'>
         <form onSubmit={submitReview}>
         {validateErrors.length > 0 && (
@@ -85,22 +86,31 @@ function CreateReview(){
 						))}
 					</ul>
 				)}
-        <input
+        <label >
+        Review
+        <input className='newreview-input'
 					type="textarea"
-					placeholder="Review"
+					placeholder="Please start writing your review here."
 					value={review}
 					onChange={addReview}
 				/>
-        <input
+        </label>
+        <label>
+        Star rating
+        <input className='newreview-stars'
         type='number'
         value={stars}
         onChange={addStars}
         min='1'
         max='5'
         />
-        <button type='submit'>submit</button>
+        </label>
+        <label className='newreview-button-div'>
+        <button className='newreview-button' type='submit'>submit</button>
+        </label>
         </form>
       </div>
+      {/* </div> */}
       </div>
     </div>
     </>
