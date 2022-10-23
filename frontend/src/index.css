@@ -86,9 +86,9 @@ label {
 .modal-title {
   font-size: large;
   color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
   display: flex;
   justify-content: center;
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }
 
 /* .top-spot-text {
