@@ -22,14 +22,14 @@ module.exports = {
 					email: 'demo2@aa.io',
 				},
 				{
-					firstName: 'Cindy',
+					firstName: 'Hunter',
 					lastName: 'Guzman',
 					username: 'Cece3',
 					hashedPassword: bcrypt.hashSync('password'),
 					email: 'demo3@aa.io',
 				},
 				{
-					firstName: 'Lucy',
+					firstName: 'Kennedy',
 					lastName: 'Perez',
 					username: 'Lucy4',
 					hashedPassword: bcrypt.hashSync('password'),
@@ -43,7 +43,7 @@ module.exports = {
 					email: 'demo5@aa.io',
 				},
 				{
-					firstName: 'Lilith',
+					firstName: 'Jenna',
 					lastName: 'Guzman',
 					username: 'Lilith5',
 					hashedPassword: bcrypt.hashSync('password'),
