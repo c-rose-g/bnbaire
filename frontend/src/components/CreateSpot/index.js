@@ -29,37 +29,32 @@ function CreateSpot() {
 	// const validatePrice = new RegExp('^(\$|)([1-9]\d{0,2}(\,\d{3})*|([1-9]\d*))(\.\d{2})?$')
 	useEffect(() => {
 		const errors = [];
-		if (address.length < 1) errors.push('please provide an address.');
-		if (city.length < 1) errors.push('please provide the city.');
-		if (url.length < 1) errors.push('please provide image url.');
-		if (state.length < 1) errors.push('please provide state initials.');
-		if (state.length !== 2) errors.push('please only use state initials.');
-		if (country.length < 1) errors.push('please provide the country.');
-		if (description.length < 1) errors.push('please provide description');
-		if (description.length > 250)
-			errors.push('description must be less than 255 characters.');
-		if (price < 1) errors.push('please provide a price.');
-		if(price > 999) errors.push('price must be less than 1000.')
-		if (isNaN(price)) errors.push('price must be a number.');
-		// if(!validatePrice.test(price)) errors.push('price must be a valid number.')
-		if (!url.endsWith('png') && !url.endsWith('jpg'))
-			errors.push('image needs to end with .jpg or .png.');
-		if (name.length < 1) errors.push('please provide a name for the spot.');
-		if (name.length > 50) errors.push('spot name must 50 characters max.');
-		setFrontEndErrors(errors);
-	}, [address, city, url, state, country, description, name]);
-
-	if (!userSelector) return <Redirect to="/" />;
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		const errors = [];
-
-		if (address.length < 1) {
-			errors.push('please provide an address.');
+		if (name.length < 4) {
+			errors.push('please provide a name for the spot.');
 		}
-		if (city.length < 1) {
-			errors.push('please provide the city.');
+		if (name.length > 50) {
+			errors.push('spot name must 50 characters max.');
+		}
+		if (name.endsWith('png') || name.endsWith('jpg')) {
+			errors.push('name cannot be an image.');
+		}
+		if (address.length < 4) {
+			errors.push('address cannot be less than 4 characters.');
+		}
+		if (address.endsWith('png') || address.endsWith('jpg')) {
+			errors.push('address cannot be an image.');
+		}
+		if (address.length > 255) {
+			errors.push('address must be less than 255 characters.');
+		}
+		if (city.length < 4) {
+			errors.push('city cannot be less than 4 characters.');
+		}
+		if (city.length > 85) {
+			errors.push('city must be less than 85 characters.');
+		}
+		if (city.endsWith('png') || city.endsWith('jpg')) {
+			errors.push('city cannot be an image.');
 		}
 		if (url.length < 1) {
 			errors.push('please provide image url.');
@@ -70,29 +65,134 @@ function CreateSpot() {
 		if (state.length !== 2) {
 			errors.push('please only use state initials.');
 		}
-		if (country.length < 1) {
-			errors.push('please provide the country.');
+		if (country.length < 3) {
+			errors.push('country initials cannot be less than 3 characters.');
 		}
-		if (description.length < 1) {
-			errors.push('please provide description');
+		if (country.length > 3) {
+			errors.push('please use country initials only.');
 		}
-		if (description.length > 250) {
+		if(country.includes('.')){
+			errors.push('please do not include abbreviations in country initials.')
+		}
+		if (country.endsWith('png') || country.endsWith('jpg')) {
+			errors.push('country cannot be an image.');
+		}
+		if (description.length < 10) {
+			errors.push('description cannot be less than 10 characters');
+		}
+		if (description.length > 255) {
 			errors.push('description must be less than 255 characters.');
 		}
+		if (description.endsWith('png') || description.endsWith('jpg')) {
+			errors.push('description cannot be an image.');
+		}
 
-		if (price < 1) errors.push('please provide a price.');
-		if (isNaN(price)) errors.push('price must be a number.');
-		if(price > 999) errors.push('price must be less than 1000.')
-		// if(!validatePrice.test(price)) errors.push('price must be a valid number.')
+		if (description.length > 255) {
+			errors.push('description must be less than 255 characters.');
+		}
+		if (price < 10) {
+			errors.push('price cannot be less than 10.');
+		}
+		if(price.includes('$')){
+			errors.push('please use numbers without the dollar sign.')
+		}
+		if (isNaN(price)) {
+			errors.push('price must be a number.');
+		}
+		if (price > 999) {
+			errors.push('price must be less than 1000.');
+		}
+
 		if (!url.endsWith('png') && !url.endsWith('jpg')) {
 			errors.push('image needs to end with .jpg or .png.');
 		}
-		if (name.length < 1) {
+
+		setFrontEndErrors(errors);
+	}, [address, city, url, state, country, description, name]);
+
+	if (!userSelector) return <Redirect to="/" />;
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		const errors = [];
+		if (name.length < 4) {
 			errors.push('please provide a name for the spot.');
 		}
 		if (name.length > 50) {
 			errors.push('spot name must 50 characters max.');
 		}
+		if (name.endsWith('png') || name.endsWith('jpg')) {
+			errors.push('name cannot be an image.');
+		}
+		if (address.length < 4) {
+			errors.push('address cannot be less than 4 characters.');
+		}
+		if (address.endsWith('png') || address.endsWith('jpg')) {
+			errors.push('address cannot be an image.');
+		}
+		if (address.length > 255) {
+			errors.push('address must be less than 255 characters.');
+		}
+		if (city.length < 4) {
+			errors.push('city cannot be less than 4 characters.');
+		}
+		if (city.length > 85) {
+			errors.push('city must be less than 85 characters.');
+		}
+		if (city.endsWith('png') || city.endsWith('jpg')) {
+			errors.push('city cannot be an image.');
+		}
+		if (url.length < 1) {
+			errors.push('please provide image url.');
+		}
+		if (state.length < 1) {
+			errors.push('please provide state initials.');
+		}
+		if (state.length !== 2) {
+			errors.push('please only use state initials.');
+		}
+		if (country.length < 3) {
+			errors.push('country initials cannot be less than 3 characters.');
+		}
+		if (country.length > 3) {
+			errors.push('please use country initials only.');
+		}
+		if(country.includes('.')){
+			errors.push('please do not include abbreviations in country initials.')
+		}
+		if (country.endsWith('png') || country.endsWith('jpg')) {
+			errors.push('country cannot be an image.');
+		}
+		if (description.length < 10) {
+			errors.push('description cannot be less than 10 characters');
+		}
+		if (description.length > 255) {
+			errors.push('description must be less than 255 characters.');
+		}
+		if (description.endsWith('png') || description.endsWith('jpg')) {
+			errors.push('description cannot be an image.');
+		}
+
+		if (description.length > 255) {
+			errors.push('description must be less than 255 characters.');
+		}
+		if (price < 10) {
+			errors.push('price cannot be less than 10.');
+		}
+		if(price.includes('$')){
+			errors.push('please use numbers without the dollar sign.')
+		}
+		if (isNaN(price)) {
+			errors.push('price must be a number.');
+		}
+		if (price > 999) {
+			errors.push('price must be less than 1000.');
+		}
+
+		if (!url.endsWith('png') && !url.endsWith('jpg')) {
+			errors.push('image needs to end with .jpg or .png.');
+		}
+
 		setValidationErrors(errors);
 		if (!frontEndErrors.length) {
 			const payload = {
@@ -124,18 +224,18 @@ function CreateSpot() {
 		<div className="newspot-form-container">
 			<div className="newspot-form-card">
 				<div>
-				<h1 className="newspot-title">Open your door to hosting</h1>
+					<h1 className="newspot-title">Open your door to hosting</h1>
 				</div>
-				<form className='newspot-form' onSubmit={handleSubmit}>
-				{validationErrors.length > 0 && (
-					<ul className="errors">
-						{validationErrors.map((validate) => (
-							<li key={validate}>{validate}</li>
-						))}
-					</ul>
-				)}
+				<form className="newspot-form" onSubmit={handleSubmit}>
+					{validationErrors.length > 0 && (
+						<ul className="errors">
+							{validationErrors.map((validate) => (
+								<li key={validate}>{validate}</li>
+							))}
+						</ul>
+					)}
 					<label>
-					 <div className='newspot-input-names'>Name</div>
+						<div className="newspot-input-names">Name</div>
 						<input
 							className="newspot-input"
 							type="text"
@@ -146,9 +246,7 @@ function CreateSpot() {
 						/>
 					</label>
 					<label>
-					<div className='newspot-input-names'>
-					Price
-					</div>
+						<div className="newspot-input-names">Price</div>
 						<input
 							className="newspot-input"
 							type="text"
@@ -159,9 +257,7 @@ function CreateSpot() {
 						/>
 					</label>
 					<label>
-					<div className='newspot-input-names'>
-					Address
-					</div>
+						<div className="newspot-input-names">Address</div>
 						<input
 							className="newspot-input"
 							type="text"
@@ -172,9 +268,7 @@ function CreateSpot() {
 						/>
 					</label>
 					<label>
-					<div className='newspot-input-names'>
-					City
-					</div>
+						<div className="newspot-input-names">City</div>
 						<input
 							className="newspot-input"
 							type="text"
@@ -185,7 +279,7 @@ function CreateSpot() {
 						/>
 					</label>
 					<label>
-					State
+						State
 						<input
 							className="newspot-input"
 							type="text"
@@ -196,9 +290,7 @@ function CreateSpot() {
 						/>
 					</label>
 					<label>
-					<div className='newspot-input-names'>
-					Country
-					</div>
+						<div className="newspot-input-names">Country</div>
 						<input
 							className="newspot-input"
 							type="text"
@@ -209,9 +301,7 @@ function CreateSpot() {
 						/>
 					</label>
 					<label>
-					<div className='newspot-input-names'>
-					Description
-					</div>
+						<div className="newspot-input-names">Description</div>
 						<input
 							className="newspot-input"
 							type="text"
@@ -222,9 +312,7 @@ function CreateSpot() {
 						/>
 					</label>
 					<label>
-					<div className='newspot-input-names'>
-					Image URL
-					</div>
+						<div className="newspot-input-names">Image URL</div>
 						<input
 							className="newspot-input"
 							type="text"
@@ -234,13 +322,12 @@ function CreateSpot() {
 							required
 						/>
 					</label>
-					<label className='newspot-button-label'>
-					<button className='newspot-button' type="submit">
-						Create a new spot
-					</button>
+					<label className="newspot-button-label">
+						<button className="newspot-button" type="submit">
+							Create a new spot
+						</button>
 					</label>
 				</form>
-
 			</div>
 		</div>
 	);

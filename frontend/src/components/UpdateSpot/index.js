@@ -39,17 +39,77 @@ function UpdateSpot() {
 
 	useEffect(() => {
 		const errors = [];
-		if (address.length < 1) errors.push('please provide an address.');
-		if (city.length < 1) errors.push('please provide the city.');
-		if (state.length < 1) errors.push('please provide state initials.');
-		if (state.length !== 2) errors.push('please only use state initials.');
-		if (country.length < 1) errors.push('please provide the country.');
-		if (description.length < 1) errors.push('please provide description');
-		if (name.length < 1) errors.push('please provide a name for the spot.');
-		if (name.length > 50) errors.push('spot name must 50 characters max.');
-		if (price < 1) errors.push('please provide a price.');
-		if(price > 999) errors.push('price must be less than 1000.')
-		if (isNaN(price)) errors.push('price must be a number.');
+		if (name.length < 4) {
+			errors.push('please provide a name for the spot.');
+		}
+		if (name.length > 50) {
+			errors.push('spot name must 50 characters max.');
+		}
+		if (name.endsWith('png') || name.endsWith('jpg')) {
+			errors.push('name cannot be an image.');
+		}
+		if (address.length < 4) {
+			errors.push('address cannot be less than 4 characters.');
+		}
+		if (address.endsWith('png') || address.endsWith('jpg')) {
+			errors.push('address cannot be an image.');
+		}
+		if (address.length > 255) {
+			errors.push('address must be less than 255 characters.');
+		}
+		if (city.length < 4) {
+			errors.push('city cannot be less than 4 characters.');
+		}
+		if (city.length > 85) {
+			errors.push('city must be less than 85 characters.');
+		}
+		if (city.endsWith('png') || city.endsWith('jpg')) {
+			errors.push('city cannot be an image.');
+		}
+
+		if (state.length < 1) {
+			errors.push('please provide state initials.');
+		}
+		if (state.length !== 2) {
+			errors.push('please only use state initials.');
+		}
+		if (country.length < 3) {
+			errors.push('country initials cannot be less than 3 characters.');
+		}
+		if (country.length > 3) {
+			errors.push('please use country initials only.');
+		}
+		if(country.includes('.')){
+			errors.push('please do not include abbreviations in country initials.')
+		}
+		if (country.endsWith('png') || country.endsWith('jpg')) {
+			errors.push('country cannot be an image.');
+		}
+		if (description.length < 10) {
+			errors.push('description cannot be less than 10 characters');
+		}
+		if (description.length > 255) {
+			errors.push('description must be less than 255 characters.');
+		}
+		if (description.endsWith('png') || description.endsWith('jpg')) {
+			errors.push('description cannot be an image.');
+		}
+
+		if (description.length > 255) {
+			errors.push('description must be less than 255 characters.');
+		}
+		if (price < 10) {
+			errors.push('price cannot be less than 10.');
+		}
+		if(price.includes('$')){
+			errors.push('please use numbers without the dollar sign.')
+		}
+		if (isNaN(price)) {
+			errors.push('price must be a number.');
+		}
+		if (price > 999) {
+			errors.push('price must be less than 1000.');
+		}
 		setFrontEndErrors(errors);
 	}, [address, city, state, country, description, name, price]);
 
@@ -61,17 +121,76 @@ function UpdateSpot() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const errors = [];
-		if (address.length < 1) errors.push('please provide an address.');
-		if (city.length < 1) errors.push('please provide the city.');
-		if (state.length < 1) errors.push('please provide state initials.');
-		if (state.length !== 2) errors.push('please only use state initials.');
-		if (country.length < 1) errors.push('please provide the country.');
-		if (description.length < 1) errors.push('please provide description');
-		if (name.length < 1) errors.push('please provide a name for the spot.');
-		if (name.length > 50) errors.push('spot name must 50 characters max.');
-		if (price < 1) errors.push('please provide a price.');
-		if(price > 999) errors.push('price must be less than 1000.')
-		if (isNaN(price)) errors.push('price must be a number.');
+		if (name.length < 4) {
+			errors.push('please provide a name for the spot.');
+		}
+		if (name.length > 50) {
+			errors.push('spot name must 50 characters max.');
+		}
+		if (name.endsWith('png') || name.endsWith('jpg')) {
+			errors.push('name cannot be an image.');
+		}
+		if (address.length < 4) {
+			errors.push('address cannot be less than 4 characters.');
+		}
+		if (address.endsWith('png') || address.endsWith('jpg')) {
+			errors.push('address cannot be an image.');
+		}
+		if (address.length > 255) {
+			errors.push('address must be less than 255 characters.');
+		}
+		if (city.length < 4) {
+			errors.push('city cannot be less than 4 characters.');
+		}
+		if (city.length > 85) {
+			errors.push('city must be less than 85 characters.');
+		}
+		if (city.endsWith('png') || city.endsWith('jpg')) {
+			errors.push('city cannot be an image.');
+		}
+		if (state.length < 1) {
+			errors.push('please provide state initials.');
+		}
+		if (state.length !== 2) {
+			errors.push('please only use state initials.');
+		}
+		if (country.length < 3) {
+			errors.push('country initials cannot be less than 3 characters.');
+		}
+		if (country.length > 3) {
+			errors.push('please use country initials only.');
+		}
+		if(country.includes('.')){
+			errors.push('please do not include abbreviations in country initials.')
+		}
+		if (country.endsWith('png') || country.endsWith('jpg')) {
+			errors.push('country cannot be an image.');
+		}
+		if (description.length < 10) {
+			errors.push('description cannot be less than 10 characters');
+		}
+		if (description.length > 255) {
+			errors.push('description must be less than 255 characters.');
+		}
+		if (description.endsWith('png') || description.endsWith('jpg')) {
+			errors.push('description cannot be an image.');
+		}
+
+		if (description.length > 255) {
+			errors.push('description must be less than 255 characters.');
+		}
+		if (price < 10) {
+			errors.push('price cannot be less than 10.');
+		}
+		if(price.includes('$')){
+			errors.push('please use numbers without the dollar sign.')
+		}
+		if (isNaN(price)) {
+			errors.push('price must be a number.');
+		}
+		if (price > 999) {
+			errors.push('price must be less than 1000.');
+		}
 		setValidateErrors(errors);
 
 		if (!frontEndErrors.length) {
