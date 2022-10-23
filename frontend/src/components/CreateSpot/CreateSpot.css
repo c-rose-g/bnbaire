@@ -1,0 +1,35 @@
+.newspot-form-container{
+  display: grid;
+  justify-content: center;
+  border: 1px dashed black;
+}
+
+.newspot-form-card{
+  padding-top: 5px;
+
+  display: grid;
+  justify-items:center;
+  width: 500px;
+  border: 1px dashed blue;
+}
+.newspot-title{
+  font-size: large;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  padding-bottom: 10px;
+}
+
+.newspot-input{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 300px;
+  height: 20px;
+  border-radius: 5%;
+
+}
+.newspot-form{
+
+}
+.newspot-labels{
+
+}
