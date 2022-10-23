@@ -36,7 +36,7 @@ module.exports = {
 				lat: 33.6567828,
 				lng: -117.9108898,
 				name: 'Modern Villa with Unmatched Skyline Views',
-				description: 'Soak up the airy living space filled with white brick, an open loft space and inspiring furniture and unwind in the luxurious bathrooms lined in beautiful tile.',
+				description: 'Soak up the open loft space.',
 				price: 200,
 			},
 			{
@@ -48,7 +48,7 @@ module.exports = {
 				lat: 33.6566096,
 				lng: -117.9109225,
 				name: 'Hollywood Hills New Construction w/ View',
-				description: 'An outdoor brick paved space awaits just off the generous kitchen filled with natural light and a cozy dining room bench.',
+				description: 'An outdoor awaits just off kitchen filled w/ light',
 				price: 250,
 			},
 			{
@@ -60,7 +60,7 @@ module.exports = {
 				lat: 33.65644,
 				lng: -117.9108983,
 				name: 'Private Rooftop w/Views of Downtown Dallas',
-				description: 'Central Dallas modern townhome close to Downtown, with multiple bars, and restaurants in close vicinity.',
+				description: 'Central Dallas modern townhome close to Downtown.',
 				price: 300,
 			},
 		]);
