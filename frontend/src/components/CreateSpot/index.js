@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
-import { createSingleSpot } from '../../store/allSpots';
+import { createSingleSpot, thunkLoadSingleSpot } from '../../store/allSpots';
 import './CreateSpot.css';
 
 function CreateSpot() {
@@ -217,6 +217,7 @@ function CreateSpot() {
 					if (data && data.errors) setValidationErrors(data.errors);
 				}
 			);
+			dispatch(thunkLoadSingleSpot(newSpot.id))
 			history.push(`/spots/${newSpot.id}`);
 		}
 	};
