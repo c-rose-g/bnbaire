@@ -6,7 +6,7 @@
   grid-template-rows: auto;
   grid-gap: 20px;
   gap: 50px;
-  padding-top: 50px;
+  padding-top: 80px;
   /* border: 1px dashed black; */
 }
 
@@ -98,7 +98,7 @@ input {
 .review-card {
 
   padding: 6px;
-  font-size: medium;
+  font-size: large;
   color: #484848;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }
@@ -107,7 +107,7 @@ input {
   display: flex;
   justify-content: space-between;
   /* border: 1px blue solid; */
-  font-size: small;
+  font-size: medium;
   color: #484848;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }

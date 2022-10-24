@@ -429,10 +429,16 @@ router.get('/:spotId', async (req, res) => {
 			})
 			spot.User = user;
 			spot.SpotImages = image
+			// if( Number.isNaN(rating[0].avgStarRating)){
+			// 	spot.avgStarRating = 'new'
+			// } else{
+			// 	spot.avgStarRating = +rating[0].avgStarRating
+			// }
 			let reviews = +rating[0].numReviews;
 			spot.numReviews = reviews;
 			spot.price = +spot.price;
 			spot.avgStarRating = +rating[0].avgStarRating;
+			// console.log('this is the new rating >>>',rating[0].avgStarRating)
 
 
 		res.status(200).json(spot);
