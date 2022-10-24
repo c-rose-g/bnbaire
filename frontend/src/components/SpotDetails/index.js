@@ -99,6 +99,13 @@ function SingleSpot() {
 	// 		return ('hello')
 	// 	}
 	// }
+	// let avgRating = Math.trunc(((spot.avgStarRating)* 10))/10
+	// let newRating = Number.isNaN(avgRating)? 'new': Math.trunc(((spot.avgStarRating)* 10))/10
+	// // if(Number.isNaN(avgRating)){
+	// // 	spot.avgStarRating = 'new'
+	// // } else {
+	// // 	spot.avgStarRating = avgRating
+	// // }
 
 	return  (
 		<div className="details-spots-container">
@@ -126,12 +133,10 @@ function SingleSpot() {
 						</div>
 						<div className="reviews-container">
 					<div className="reviews-card">
-						{/* <h2> this is where the reviews will go</h2> */}
-						{/* {reviews.length < 0 && ('this spot has no reviews')} */}
-						{/* {user && userReview && */}
+
 						<div className='details-review-title'>Reviews for {spot.name}</div>
 						{reviews.map((review) => {
-							{/* console.log('each review ', review.User) */}
+
 							return (
 								<div className="review-card" key={review.id}>
 									<div >

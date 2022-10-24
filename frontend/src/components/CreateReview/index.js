@@ -44,7 +44,7 @@ function CreateReview() {
 		}
 		setFrontEndErrors(errors);
 	}, [review, stars]);
-  
+
 	const submitReview = async (e) => {
 		e.preventDefault();
 		let errors = [];
@@ -60,11 +60,11 @@ function CreateReview() {
 			errors.push('please add a star rating.');
 		}
 		setValidateErrors(errors);
-		console.log('validate errors', validateErrors);
+		// console.log('validate errors', validateErrors);
 		if (!frontEndErrors.length) {
-			console.log('calidate errors', validateErrors.length);
+			// console.log('calidate errors', validateErrors.length);
 			let reviewForm = { ...payload };
-			console.log('review payloag', reviewForm);
+			// console.log('review payloag', reviewForm);
 			let userObj = {
 				id: user.id,
 				firstName: user.firstName,

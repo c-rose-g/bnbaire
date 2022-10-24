@@ -28,7 +28,14 @@ function AllSpots() {
 		// 	}
 		// });
 	}, [dispatch]);
-
+	for (let i = 0; i < spotsSelector.length; i++) {
+		const avgRating = Math.trunc(spotsSelector[i].avgRating * 10) / 10;
+		if (Number.isNaN(avgRating) || avgRating === 0) {
+			spotsSelector[i].avgRating = 'new';
+		} else {
+			spotsSelector[i].avgRating = avgRating;
+		}
+	}
 	return (
 		<div className="spots-container">
 			{spotsSelector.map((spot) => {
@@ -42,13 +49,12 @@ function AllSpots() {
 							</div>
 							<div className="lower-half-spot-card">
 								<div className="allspots-location">
-								{spot.city}, {spot.state}</div>
+									{spot.city}, {spot.state}
+								</div>
 								<div className="allspots-stars">
-								★ {Math.trunc(spot.avgRating * 10) / 10}
+									{/* {spot && spot.avgRating === 0} */}★ {spot.avgRating}
 								</div>
-								<div className="allspots-description">
-									{spot.description}
-								</div>
+								<div className="allspots-description">{spot.description}</div>
 								<div className="allspots-price">${spot.price} night</div>
 							</div>
 						</NavLink>
