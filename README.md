@@ -41,7 +41,6 @@ Bnbaire is a website clone, inspired by Airbnb. Bnbaire provides an online marke
 * [Backend Routes](https://github.com/c-rose-g/Bnbaire/wiki/Backend-Routes)
 * [Feature List](https://github.com/c-rose-g/Bnbaire/wiki/Features-List)
 * [Database Schema](https://github.com/c-rose-g/Bnbaire/wiki/Database-Schema)
-* [Frontend Routes](https://github.com/c-rose-g/Bnbaire/wiki/Frontend-Routes)
 * [Redux Store State Shape](https://github.com/c-rose-g/Bnbaire/wiki/Redux-Store-State-Shape)
 ## Built With
 - [React](React-url)
