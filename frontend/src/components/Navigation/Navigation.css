@@ -2,10 +2,12 @@
 .navLinks {
   display:grid;
   width: 100%;
+  /* height: 300px; */
   justify-content: center;
   grid-auto-flow:column;
-  /* margin-top: 22px; */
-  padding-bottom: 22px;
+  margin-top: -10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   position:fixed;
   z-index: 1000;
   border-bottom: 1px solid black;
@@ -91,5 +93,5 @@
 
 }
 .navsignup-button{
-  
+
 }
