@@ -31,9 +31,6 @@ Bnbaire
 </h1>
 
 
-[Bnbaire live link](https://github.com/c-rose-g/Bnbaire)
-</div>
-
 ![Screen Shot 2022-10-24 at 2 42 01 AM](https://user-images.githubusercontent.com/97000116/197504902-88d14d53-0cf1-47ac-910b-a420ad348d26.png)
 
 # About BnbAire
