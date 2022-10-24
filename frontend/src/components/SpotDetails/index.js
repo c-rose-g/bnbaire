@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import { deleteSpot, thunkLoadSingleSpot } from '../../store/allSpots';
+import { deleteSpot, thunkLoadSingleSpot, thunkLoadSpots } from '../../store/allSpots';
 import { loadReviewsBySpotThunk } from '../../store/reviews';
 import { deleteReview } from '../../store/reviews';
 import './SpotDetails.css';
@@ -38,6 +38,7 @@ function SingleSpot() {
 		// e.preventDefault();
 		console.log('dispatch delete spot');
 		dispatch(deleteSpot(spotId));
+		dispatch(thunkLoadSpots())
 		// might have to delete history
 		history.push('/');
 	};

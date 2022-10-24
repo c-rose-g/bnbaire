@@ -88,9 +88,7 @@ function CreateSpot() {
 			errors.push('description cannot be an image.');
 		}
 
-		if (description.length > 255) {
-			errors.push('description must be less than 255 characters.');
-		}
+
 		if (price < 10) {
 			errors.push('price cannot be less than 10.');
 		}
@@ -178,9 +176,7 @@ function CreateSpot() {
 			errors.push('description cannot be an image.');
 		}
 
-		if (description.length > 255) {
-			errors.push('description must be less than 255 characters.');
-		}
+
 		if (price < 10) {
 			errors.push('price cannot be less than 10.');
 		}
