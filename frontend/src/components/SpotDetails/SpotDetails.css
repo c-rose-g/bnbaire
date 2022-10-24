@@ -4,7 +4,7 @@
   justify-content: center;
   grid-template-columns: repeat(2, 300px);
   grid-gap: 50px;
-  grid-gap: 100px;
+
   padding-top: 80px;
 }
 .img-card img{
@@ -25,17 +25,85 @@
 .details-review-title{
   font-weight: bold;
   padding: 6px;
+  text-align: center;
+
   font-size: large;
   color: #484848;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }
-.side-panel{
+.details-no-reviews{
+  padding-top: 5px;
+  font-size: 30px;
+  text-align: center;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+fieldset.side-panel{
+  width:329px;
   border:none;
-  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+  box-shadow: rgb(0 0 0 / 30%) 0px 6px 16px;
+  resize: none;
+  overflow: hidden;
+}
+fieldset.side-panel input{
+  resize: none;
 
 }
 .spot-card{
   /* box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px; */
+}
+
+.sp-toptext{
+  text-align: left;
+  font-size: 20px;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+.sp-subtext{
+  text-align: left;
+  font-size: 15px;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+.sp-text{
+  text-align: center;
+  /* padding: 5px; */
+  font-size: 20px;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+.sp-boldtext{
+  color: #484848;
+  font-size: 18px;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  font-weight: bold;
+  text-align: left;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.sp-smallboldtext{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color:#aaaaaa;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  font-weight:normal;
+  font-size: 15px;
+  text-align: left;
+}
+.sp-subtext{
+  text-align: center;
+  font-size: medium;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+.sp-bottomtext{
+  resize: none;
+
+  padding-top: 5px;
+  text-align: left;
+  font-size: 18px;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }
 /* .page-container{
 
@@ -43,11 +111,11 @@
   flex-direction: row;
 } */
 
-.review-card{
+/* .review-card{
 
   color:#484848;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
-}
+} */
 
 /* .review-user-stars {
   display: flex;

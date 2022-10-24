@@ -80,8 +80,9 @@ function CreateSpot() {
 		if (description.length < 10) {
 			errors.push('description cannot be less than 10 characters');
 		}
-		if (description.length > 255) {
-			errors.push('description must be less than 255 characters.');
+
+		if (description.length > 40) {
+			errors.push('description must be less than 40 characters.');
 		}
 		if (description.endsWith('png') || description.endsWith('jpg')) {
 			errors.push('description cannot be an image.');
@@ -170,8 +171,8 @@ function CreateSpot() {
 		if (description.length < 10) {
 			errors.push('description cannot be less than 10 characters');
 		}
-		if (description.length > 255) {
-			errors.push('description must be less than 255 characters.');
+		if (description.length > 40) {
+			errors.push('description must be less than 40 characters.');
 		}
 		if (description.endsWith('png') || description.endsWith('jpg')) {
 			errors.push('description cannot be an image.');

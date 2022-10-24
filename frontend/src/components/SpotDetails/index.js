@@ -132,11 +132,11 @@ function SingleSpot() {
 					<hr className="subline" />
 					<div className="subtext">
 						★
-						{spot.avgStarRating == '0'
+						{spot.avgStarRating == '0 '
 							? 'new'
 							: Math.trunc(spot.avgStarRating * 10) / 10}{' '}
-						• {spot.numReviews}
-						{reviewsWord(numReviews)} • {spot.city}, {spot.state}
+						• {spot.numReviews} {reviewsWord(numReviews)} • {spot.city},{' '}
+						{spot.state}
 					</div>
 					<div className="spot-card">
 						<div className="img-card">
@@ -179,15 +179,12 @@ function SingleSpot() {
 															</button>
 														) : null}
 													</div>
-													{/* <hr className="subline" /> */}
 												</div>
 											);
 									  })
-									: 'this place has no reviews.'}
-								{/* } */}
+									: <div className='details-no-reviews'>this place has no reviews.</div>}
 							</div>
 						</div>
-						{/* {spotUpdateButton} <span>{spotDeleteButton}</span> */}
 					</div>
 				</div>
 			</div>
@@ -195,16 +192,20 @@ function SingleSpot() {
 				<div className="spot-text">
 					<p />
 					{/* <div className="top-spot-text"> */}
-					<div className="text">
+					<div className="sp-text">
 						<b>${spot.price}</b>
-						<span className="subtext">night</span>
+						<span className="sp-subtext"> night</span>
 						<p />
 					</div>
-					<div className="subtext">
+					<div className="sp-bottomtext">
 						{/* <h2> */}
 						{spot.city}, {spot.state}
 						<p />
 						{/* </h2> */}
+					</div>
+					<div>
+					<div className='sp-boldtext'>Self check-in</div><div className='sp-smallboldtext'>Check yourself in with the keypad.</div><div className='sp-boldtext'>Great location</div>
+<div className='sp-smallboldtext'>100% of recent guests gave the location a 5-star rating.</div><div className='sp-boldtext'>Free cancellation for 48 hours.</div>
 					</div>
 					<div>
 						<span className="subtext">
@@ -218,9 +219,12 @@ function SingleSpot() {
 						<p />
 					</div>
 					{/* </div> */}
-					<div className="spot-text">What this place offers:</div>
-					<p />
-					<div className="subtext">{spot.description}</div>
+					<div className="sp-boldtext">What this place offers:</div>
+
+					<div className="sp-bottomtext"><span>
+					{spot.description}
+					</span>
+					</div>
 					<div className="details-update-spot-div">{spotUpdateButton}</div>
 					<div className="details-delete-spot-div">{spotDeleteButton}</div>
 					<div className="submit-review-div">{spotSubmitReviewButton}</div>
