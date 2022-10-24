@@ -5,7 +5,7 @@
   grid-template-columns: repeat(2, 300px);
   grid-gap: 50px;
   grid-gap: 100px;
-  padding-top: 50px;
+  padding-top: 80px;
 }
 .img-card img{
   border-radius: 15px;
@@ -49,10 +49,10 @@
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }
 
-.review-user-stars {
+/* .review-user-stars {
   display: flex;
-
-}
+  border: 1px solid blue;
+} */
 .submit-review-div{
   /* border: 1px solid blue; */
   display: flex;
