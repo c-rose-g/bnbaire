@@ -5,4 +5,92 @@
   justify-content: center;
   padding-top: 25%;
 }
+.userspots-container{
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(3, 300px);
+  grid-template-rows: auto;
+  grid-gap: 20px;
+  gap: 50px;
+  padding-top:50px ;
+}
+.userspots-card-container{
+  display: grid;
+  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+  border-radius: 15px;
 
+}
+
+.upper-half-spot-card {
+  height: 300px;
+  /* border: 1px solid pink; */
+  display: grid;
+}
+
+.lower-half-spot-card {
+  border-radius: 15px;
+  /* border: 1px solid green; */
+  display: grid;
+  /* justify-items: auto; */
+  /* padding-left: 10px; */
+  grid-template-columns: 120px 75px;
+  grid-template-areas:
+    "location location stars"
+    "description description description "
+    "price price price";
+    padding-bottom: 10px;
+  align-items: end;
+  padding-left: 10px;
+  padding-right: 10px;
+  /* justify-content: flex-start */
+}
+.allspots-location {
+  padding-top: 5px;
+  grid-area: location;
+  font-size: medium;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* border: 1px solid pink; */
+  font-weight: bold;
+  display: flex;
+  /* justify-content: center; */
+}
+.allspots-stars {
+  padding-top: 5px;
+  /* padding-right: 5px; */
+  grid-area: stars;
+  font-size: medium;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  font-variant: common-ligatures tabular-nums;
+  font-variant: common-ligatures tabular-nums;
+  font-weight: bold;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.allspots-description {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  grid-area: description;
+  font-size: medium;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.allspots-price {
+  padding-top: 5px;
+  grid-area: price;
+  font-size: medium;
+  color: #484848;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  font-variant: common-ligatures tabular-nums;
+  font-variant: common-ligatures tabular-nums;
+  font-weight: bold;
+}

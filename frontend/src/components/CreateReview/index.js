@@ -56,7 +56,7 @@ function CreateReview(){
         const data = await res.json();
         if (data && data.errors) setValidateErrors(data.errors);
       });
-      console.log('this wold send')
+      dispatch()
       history.push(`/spots/${spotId}`)
     }
 

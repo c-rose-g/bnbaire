@@ -6,6 +6,7 @@
   grid-template-rows: auto;
   grid-gap: 20px;
   gap: 50px;
+  padding-top: 50px;
   /* border: 1px dashed black; */
 }
 

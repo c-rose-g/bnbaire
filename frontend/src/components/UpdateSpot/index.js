@@ -101,9 +101,7 @@ function UpdateSpot() {
 		if (price < 10) {
 			errors.push('price cannot be less than 10.');
 		}
-		if(price.includes('$')){
-			errors.push('please use numbers without the dollar sign.')
-		}
+
 		if (isNaN(price)) {
 			errors.push('price must be a number.');
 		}
@@ -182,9 +180,7 @@ function UpdateSpot() {
 		if (price < 10) {
 			errors.push('price cannot be less than 10.');
 		}
-		if(price.includes('$')){
-			errors.push('please use numbers without the dollar sign.')
-		}
+		
 		if (isNaN(price)) {
 			errors.push('price must be a number.');
 		}

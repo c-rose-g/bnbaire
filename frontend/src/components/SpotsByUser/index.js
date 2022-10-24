@@ -23,51 +23,47 @@ function SpotsByUser() {
 		dispatch(thunkLoadSpotsByUser());
 	}, [dispatch]);
 
-	if(!user){
-		return(
-			<Redirect to='/' />
-		)
+	if (!user) {
+		return <Redirect to="/" />;
 	}
 	// if(!spots?.id){
 	//   return null;
 	// }
-	if(spots.length < 1){
-		return(
+	if (spots.length < 1) {
+		return (
 			<>
-				<h1 className='no-spots-message'>you have no spots</h1>
+				<h1 className="no-spots-message">you have no spots</h1>
 			</>
-		)
+		);
 	}
 	return (
-		<>
-
-		<div className='spots-container'>
-			<h1> {spots.name}</h1>
+		<div className="userspots-container">
 			{spots.map((spot) => {
 				return (
-					<NavLink key={spot.name} to={`/spots/${spot.id}`}>
-						<div id="user-spot-card">
-							<div className="img-card">
-								<img src={spot?.previewImage} alt="spot image"></img>
-							</div>
-							<div className="spot-text">
-							{spot.description}
-								<div id="user-top-spot-text">
-									<h2>
-										{spot.city}, {spot.state}
-									</h2>
-									<h2>★{spot.avgRating}</h2>
+					<div className="userspots-card-container" key={spot.name}>
+						<NavLink to={`/spots/${spot.id}`}>
+							<div className="upper-half-spot-card">
+								<div className="img-card">
+									<img src={spot?.previewImage} alt="spot image"></img>
 								</div>
-								<h2>${spot.price} </h2>
-
 							</div>
-						</div>
-
-					</NavLink>
+							<div className="lower-half-spot-card">
+								<div className="allspots-location">
+											{spot.city}, {spot.state}
+								</div>
+								<div className="allspots-stars">
+								★ {Math.trunc(spot.avgRating * 10) / 10}
+								</div>
+								<div className="allspots-description">
+									{spot.description}
+								</div>
+								<div className="allspots-price">${spot.price} night</div>
+							</div>
+						</NavLink>
+					</div>
 				);
 			})}
 		</div>
-		</>
 	);
 }
 

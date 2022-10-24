@@ -5,7 +5,7 @@ module.exports = {
 		return queryInterface.bulkInsert('Spots', [
 			{
 				ownerId: 1,
-				address: '2256 Avalon Street',
+				address: '123 Flower st',
 				city: 'Nashville',
 				state: 'TN',
 				country: 'United States of America',
@@ -17,7 +17,7 @@ module.exports = {
 			},
 			{
 				ownerId: 2,
-				address: '2262 Avalon Street',
+				address: '44 Main lane',
 				city: 'Scottsdale',
 				state: 'AZ',
 				country: 'United States of America',
@@ -29,7 +29,7 @@ module.exports = {
 			},
 			{
 				ownerId: 3,
-				address: '2263 Avalon Street',
+				address: '564 Upland Street',
 				city: 'Buffalo',
 				state: 'NY',
 				country: 'United States of America',
@@ -41,7 +41,7 @@ module.exports = {
 			},
 			{
 				ownerId: 4,
-				address: '2257 Avalon Street',
+				address: '1000 Hollywood blvd',
 				city: 'Hollywood',
 				state: 'CA',
 				country: 'United States of America',
@@ -53,7 +53,7 @@ module.exports = {
 			},
 			{
 				ownerId: 5,
-				address: '2253 Avalon Street',
+				address: '15 Ranch dr',
 				city: 'Dallas',
 				state: 'TX',
 				country: 'United States of America',
