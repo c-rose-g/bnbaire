@@ -50,7 +50,7 @@ button {
 a {
   text-decoration: none;
   font-size: 11px;
-  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+  /* box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px; */
 }
 
 label {
@@ -76,6 +76,7 @@ label {
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
   display: flex;
   justify-content: center;
+  /* border-bottom: 1px solid black; */
 }
 
 /* .top-spot-text {

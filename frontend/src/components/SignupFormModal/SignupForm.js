@@ -40,15 +40,14 @@ function SignupForm() {
 	};
 
 	return (
-		<div id="signup-modal">
+		<div className="modal-content-signup">
 			<form onSubmit={handleSubmit}>
 				<div className="modal-title">
-					<label className="text">Sign up!</label>
+					<label>Sign up!</label>
 				</div>
 			<div className="errors">
 			<ul>
 					{errors.map((error, idx) => (
-
 						<div key={idx}> <li>{error} </li></div>
 					))}
 			</ul>
@@ -127,8 +126,8 @@ function SignupForm() {
 						/>
 					</label>
 				</div>
-				<div className='signup-modal-button'>
-					<button type="submit">Sign Up</button>
+				<div className='signup-modal-button-div'>
+					<button className='signup-modal-button' type="submit">Sign Up</button>
 				</div>
 			</form>
 

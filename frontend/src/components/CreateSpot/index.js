@@ -30,7 +30,7 @@ function CreateSpot() {
 	useEffect(() => {
 		const errors = [];
 		if (name.length < 4) {
-			errors.push('please provide a name for the spot.');
+			errors.push('name must be between 4 and 50 characters.');
 		}
 		if (name.length > 50) {
 			errors.push('spot name must 50 characters max.');
@@ -116,7 +116,7 @@ function CreateSpot() {
 		e.preventDefault();
 		const errors = [];
 		if (name.length < 4) {
-			errors.push('please provide a name for the spot.');
+			errors.push('name must be between 4 and 50 characters.');
 		}
 		if (name.length > 50) {
 			errors.push('spot name must 50 characters max.');

@@ -85,11 +85,11 @@ function LoginForm() {
 					</label>
 				</div>
 				<div className="submit-button">
-					<div>
-						<button type="submit">Log In</button>
+					<div className='modal-login-button-div'>
+						<button className='modal-login-button' type="submit">Log In</button>
 					</div>
-					<div>
-						<button type="submit" onClick={demoUser}>
+					<div className='demouser-button-div'>
+						<button className='demouser-button' type="submit" onClick={demoUser}>
 							Demo User Login
 						</button>
 					</div>

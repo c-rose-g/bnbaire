@@ -5,27 +5,31 @@ import './UpdateSpot.css';
 import {
 	thunkUpdateSingleSpot,
 	thunkLoadSpotsByUser,
+	thunkLoadSingleSpot
 } from '../../store/allSpots';
 function UpdateSpot() {
-	const { spotId } = useParams();
-	console.log(spotId)
-
+	let { spotId } = useParams();
+	spotId = parseInt(spotId)
+	// console.log(spotId)
+	// console.log('2',2)
 	const userSelector = useSelector((state) => state.session.user);
 	let spot = useSelector(state => Object.values(state.spots.allSpots))
-	spot = spot[0]
-	console.log('spot       ', spot.address)
+	if(spot){
+		spot = spot[0]
+	}
+	// console.log('spot       ', spot.address)
 	// findAddy = spot.find(key => key.id)
 	// console.log('user selector id', userSelector)
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const [address, setAddress] = useState(spot.address);
-	const [city, setCity] = useState(spot.city);
-	const [state, setState] = useState(spot.state);
-	const [country, setCountry] = useState(spot.country);
-	const [name, setName] = useState(spot.name);
-	const [description, setDescription] = useState(spot.description);
-	const [price, setPrice] = useState(spot.price);
-
+	const [address, setAddress] = useState(spot?.address);
+	const [city, setCity] = useState(spot?.city);
+	const [state, setState] = useState(spot?.state);
+	const [country, setCountry] = useState(spot?.country);
+	const [name, setName] = useState(spot?.name);
+	const [description, setDescription] = useState(spot?.description);
+	const [price, setPrice] = useState(spot?.price);
+	const [isLoaded, setIsLoaded] = useState(false)
 	const [validateErrors, setValidateErrors] = useState([]);
 	const [frontEndErrors, setFrontEndErrors] = useState([]);
 
@@ -36,6 +40,12 @@ function UpdateSpot() {
 	const updateCountry = (e) => setCountry(e.target.value);
 	const updateDescription = (e) => setDescription(e.target.value);
 	const updatePrice = (e) => setPrice(e.target.value);
+
+	useEffect(()=>{
+
+		dispatch(thunkLoadSingleSpot(spotId))
+		setIsLoaded(true)
+	},[dispatch])
 
 	useEffect(() => {
 		const errors = [];
@@ -180,7 +190,7 @@ function UpdateSpot() {
 		if (price < 10) {
 			errors.push('price cannot be less than 10.');
 		}
-		
+
 		if (isNaN(price)) {
 			errors.push('price must be a number.');
 		}
@@ -211,6 +221,9 @@ function UpdateSpot() {
 			history.push(`/spots/${spotId}`);
 		}
 	};
+	if(!isLoaded){
+		return null;
+	}
 	return (
 		<div className="update-spot-form-container">
 			<div className="update-spot-card">
