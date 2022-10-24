@@ -93,9 +93,7 @@ function CreateSpot() {
 		if (price < 10) {
 			errors.push('price cannot be less than 10.');
 		}
-		if(price.includes('$')){
-			errors.push('please use numbers without the dollar sign.')
-		}
+
 		if (isNaN(price)) {
 			errors.push('price must be a number.');
 		}
@@ -108,9 +106,15 @@ function CreateSpot() {
 		}
 
 		setFrontEndErrors(errors);
-	}, [address, city, url, state, country, description, name]);
+	}, [address, city, url, state, country, description, name, price]);
+
+	useEffect(()=>{
+
+		console.log(frontEndErrors)
+	}, [frontEndErrors])
 
 	if (!userSelector) return <Redirect to="/" />;
+
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -179,9 +183,7 @@ function CreateSpot() {
 		if (price < 10) {
 			errors.push('price cannot be less than 10.');
 		}
-		if(price.includes('$')){
-			errors.push('please use numbers without the dollar sign.')
-		}
+
 		if (isNaN(price)) {
 			errors.push('price must be a number.');
 		}
@@ -250,7 +252,7 @@ function CreateSpot() {
 						<div className="newspot-input-names">Price</div>
 						<input
 							className="newspot-input"
-							type="text"
+							type="number"
 							placeholder="Price"
 							value={price}
 							onChange={updatePrice}

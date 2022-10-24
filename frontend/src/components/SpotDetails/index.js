@@ -29,9 +29,10 @@ function SingleSpot() {
 	numReviews = parseInt(numReviews);
 	const user = useSelector((state) => state.session.user);
 	const reviews = useSelector((state) => Object.values(state.reviews.spot));
+	console.log('numreview >>>', reviews);
 
 	const userReview = user ? reviews.find((id) => id.userId === user.id) : null;
-	// console.log('this is the userReview in SPOT DETAILS', userReview)
+	console.log('this is the userReview in SPOT DETAILS', userReview);
 
 	const handlDeleteCurrentSpot = () => {
 		// e.preventDefault();
@@ -44,6 +45,8 @@ function SingleSpot() {
 		// e.preventDefault()
 
 		await dispatch(deleteReview(userReview.id));
+		dispatch(thunkLoadSingleSpot(spotId));
+		// dispatch(SingleSpot(spotId))
 		// .then(() => setIsLoaded(true))
 		// history.push(`/spots/${spotId}`)
 	};
@@ -82,8 +85,8 @@ function SingleSpot() {
 			</>
 		);
 	}
-
-	if (user && user.id !== spot.ownerId) {
+	// user && user.id !== spot.ownerId &&
+	if (user && user.id !== spot.ownerId && !userReview) {
 		spotSubmitReviewButton = (
 			<>
 				<button className="submit-review-button" onClick={handleReview}>
@@ -128,7 +131,12 @@ function SingleSpot() {
 					<div className="details-spot-card-title">{spot.name}</div>
 					<hr className="subline" />
 					<div className="subtext">
-						★{Math.trunc(spot.avgStarRating * 10) / 10} • {spot.numReviews}{reviewsWord(numReviews)} • {spot.city}, {spot.state}
+						★
+						{spot.avgStarRating == '0'
+							? 'new'
+							: Math.trunc(spot.avgStarRating * 10) / 10}{' '}
+						• {spot.numReviews}
+						{reviewsWord(numReviews)} • {spot.city}, {spot.state}
 					</div>
 					<div className="spot-card">
 						<div className="img-card">
@@ -148,40 +156,35 @@ function SingleSpot() {
 								<div className="details-review-title">
 									Reviews for {spot.name}
 								</div>
-								{reviews.map((review) => {
-									return (
-										<div className="review-card" key={review.id}>
-											<div>
-												<hr className="subline" />
-												<div className="review-user-stars">
-													<b>{review.User.firstName} says: </b>{' '}
-													<span>{review.stars} stars</span>
+								{spot.numReviews > 0
+									? reviews.map((review) => {
+											return (
+												<div className="review-card" key={review.id}>
+													<div>
+														<hr className="subline" />
+														<div className="review-user-stars">
+															<b>{review.User.firstName} says: </b>{' '}
+															<span>{review.stars} stars</span>
+														</div>
+													</div>
+													<p />
+													<div>"{review.review}"</div>
+													<div className="delete-review-div">
+														{user && +user.id === +review.User.id ? (
+															<button
+																className="delete-review-button"
+																onClick={handleDeleteCurrentReview}
+															>
+																Delete your review
+															</button>
+														) : null}
+													</div>
+													{/* <hr className="subline" /> */}
 												</div>
-											</div>
-											<p />
-											<div>
-												{/* '{review.length === 0 && ('this place has no reviews')}' */}
-												"{review.review}"
-											</div>
-											<div className="delete-review-div">
-												{user && +user.id === +review.User.id ? (
-													<button
-														className="delete-review-button"
-														onClick={handleDeleteCurrentReview}
-													>
-														Delete your review
-													</button>
-												) : null}
-											</div>
-											{/* <hr className="subline" /> */}
-										</div>
-									);
-								})}
+											);
+									  })
+									: 'this place has no reviews.'}
 								{/* } */}
-								<div className="review-container">
-									{/* {spotSubmitReviewButton} */}
-									{/* <button onClick={handleReview}> submit review</button> */}
-								</div>
 							</div>
 						</div>
 						{/* {spotUpdateButton} <span>{spotDeleteButton}</span> */}

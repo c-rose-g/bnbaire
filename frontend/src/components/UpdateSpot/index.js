@@ -5,7 +5,8 @@ import './UpdateSpot.css';
 import {
 	thunkUpdateSingleSpot,
 	thunkLoadSpotsByUser,
-	thunkLoadSingleSpot
+	thunkLoadSingleSpot,
+	thunkLoadSpots
 } from '../../store/allSpots';
 function UpdateSpot() {
 	let { spotId } = useParams();
@@ -13,22 +14,22 @@ function UpdateSpot() {
 	// console.log(spotId)
 	// console.log('2',2)
 	const userSelector = useSelector((state) => state.session.user);
-	let spot = useSelector(state => Object.values(state.spots.allSpots))
-	if(spot){
-		spot = spot[0]
-	}
+	let spot = useSelector(state => state.spots.allSpots[spotId])
+	// if(spot){
+	// 	spot = spot[0]
+	// }
 	// console.log('spot       ', spot.address)
 	// findAddy = spot.find(key => key.id)
 	// console.log('user selector id', userSelector)
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const [address, setAddress] = useState(spot?.address);
-	const [city, setCity] = useState(spot?.city);
-	const [state, setState] = useState(spot?.state);
-	const [country, setCountry] = useState(spot?.country);
-	const [name, setName] = useState(spot?.name);
-	const [description, setDescription] = useState(spot?.description);
-	const [price, setPrice] = useState(spot?.price);
+	const [address, setAddress] = useState(spot?.address || '');
+	const [city, setCity] = useState(spot?.city || '');
+	const [state, setState] = useState(spot?.state || '');
+	const [country, setCountry] = useState(spot?.country || "");
+	const [name, setName] = useState(spot?.name || '');
+	const [description, setDescription] = useState(spot?.description || '');
+	const [price, setPrice] = useState(spot?.price || '');
 	const [isLoaded, setIsLoaded] = useState(false)
 	const [validateErrors, setValidateErrors] = useState([]);
 	const [frontEndErrors, setFrontEndErrors] = useState([]);
@@ -123,9 +124,12 @@ function UpdateSpot() {
 
 	useEffect(() => {
 		dispatch(thunkLoadSpotsByUser());
+		dispatch(thunkLoadSpots())
 	}, [dispatch]);
+
 	// prevents a non user from updating the spot
 	if (!userSelector) return <Redirect to="/" />;
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const errors = [];
@@ -251,7 +255,7 @@ function UpdateSpot() {
 						<label>
 						Price
 							<input className='update-spot-input'
-								type="text"
+								type="number"
 								placeholder="Price"
 								value={price}
 								onChange={updatePrice}
@@ -295,7 +299,7 @@ function UpdateSpot() {
 						</label>
 						<label>
 						Description
-							<input className='update-spot-descrip-input'
+							<textarea className='update-spot-descrip-input'
 								type="text"
 								placeholder="Please write your spot's description here"
 								value={description}
