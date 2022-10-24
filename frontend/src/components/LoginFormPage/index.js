@@ -12,7 +12,7 @@ function LoginFormPage() {
   const [password, setPassword] = useState('');
   const [validationErrors, setValidationErrors] = useState([]);
   const [frontEndErrors, setFrontEndErrors] = useState([])
- 
+
   if (sessionUser) return (
     <Redirect to="/" />
   );
@@ -52,7 +52,9 @@ function LoginFormPage() {
           required
         />
       </label>
-      <button type="submit">Log In</button>
+      <div className='login-button-div'>
+      <button className='login-button' type="submit">Log In</button>
+      </div>
     </form>
   );
 }

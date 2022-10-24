@@ -64,11 +64,11 @@
   background: rgb(205, 52, 99);
   background: linear-gradient(90deg, rgba(205, 52, 99, 1) 25%, rgba(244, 91, 106, 1) 50%, rgba(205, 52, 99, 1) 75%);
   box-shadow: rgb(0 0 0 / 30%) 0px 6px 16px;
-  width: 305px;
   height: 35px;
   border-radius: 50px;
   font-size: large;
   font-weight: bold;
+  width: 305px;
 }
 .delete-review-div{
   /* border: 1px solid pink; */

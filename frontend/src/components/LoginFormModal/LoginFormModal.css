@@ -1,13 +1,12 @@
 
 .modal-content-login {
-  height: 300px;
+  height: 367px;
   width: 300px;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-
   border-radius: 5%;
 }
 
@@ -22,7 +21,6 @@
   box-sizing: border-box;
 }
 .submit-button{
-
   /* box-sizing: border-box;*/
   display: flex;
   flex-direction: column;
@@ -36,4 +34,23 @@
 
 form {
 
+}
+
+.modal-login-button-div{
+  /* border: 1px solid blue; */
+  width:145px;
+  display: flex;
+  padding-bottom: 5px;
+
+}
+.modal-login-button{
+  width:145px;
+  box-shadow: rgb(0 0 0 / 20%) 0px 6px 16px;
+}
+.demouser-button-div{
+width: 145px;
+}
+.demouser-button{
+  width: 145px;
+  box-shadow: rgb(0 0 0 / 20%) 0px 6px 16px;
 }
