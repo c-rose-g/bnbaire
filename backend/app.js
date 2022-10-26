@@ -49,6 +49,7 @@ app.use(async (req, res, next) => {
       ip: req.ip,
       ips: req.ips,
     });
+    console.log('testing ')
     next();
   } catch (err) {
     console.error("\n\n Caught Error: ", err, "\n\n");
