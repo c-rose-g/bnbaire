@@ -70,16 +70,16 @@ function CreateReview() {
 				firstName: user.firstName,
 				lastName: user.lastName,
 			};
-			const newReview = await dispatch(
-				createReviewBySpotId(reviewForm, spotId, userObj)
-			).catch(async (res) => {
-				const data = await res.json();
-				if (data && data.errors) setValidateErrors(data.errors);
-			});
-			// // dispatch()
-			history.push(`/spots/${spotId}`);
-			// alert('your post is under review.')
-			// history.push('/')
+			// const newReview = await dispatch(
+			// 	createReviewBySpotId(reviewForm, spotId, userObj)
+			// ).catch(async (res) => {
+			// 	const data = await res.json();
+			// 	if (data && data.errors) setValidateErrors(data.errors);
+			// });
+			// // // dispatch()
+			// history.push(`/spots/${spotId}`);
+			alert("you're so cute, thanks for visiting my site :)")
+			history.push('/')
 		}
 	};
 

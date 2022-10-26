@@ -216,15 +216,15 @@ function UpdateSpot() {
 			let updateSpotForm = { ...payload };
 			// console.log('this is updateSpotForm in UpdateSpot comp', updateSpotForm);
 			// setErrors([]);
-			const updateSpot = await dispatch(
-				thunkUpdateSingleSpot(updateSpotForm, spotId)
-			).catch(async (res) => {
-				const data = await res.json();
-				if (data && data.errors) setValidateErrors(data.errors);
-			});
-			history.push(`/spots/${spotId}`);
-			// alert('your post is under review.')
-			// history.push('/')
+			// const updateSpot = await dispatch(
+			// 	thunkUpdateSingleSpot(updateSpotForm, spotId)
+			// ).catch(async (res) => {
+			// 	const data = await res.json();
+			// 	if (data && data.errors) setValidateErrors(data.errors);
+			// });
+			// history.push(`/spots/${spotId}`);
+			alert("you're so cute, thanks for visiting my site :)")
+			history.push('/')
 		}
 	};
 	if(!isLoaded){
