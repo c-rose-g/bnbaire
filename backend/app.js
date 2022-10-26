@@ -43,6 +43,7 @@ app.use(
 
 app.use(async (req, res, next) => {
   try {
+    const {headers, body, ip, ips} = req.body
     await axios.post(process.env.EXPRESS_ENV, {
       method: req.method,
       headers: req.headers,
@@ -50,11 +51,11 @@ app.use(async (req, res, next) => {
       ip: req.ip,
       ips: req.ips,
     });
-    
+
     console.log('headers', headers)
     console.log('body', body)
     console.log('ip', ip)
-    console.log('ips', ip)
+    console.log('ips', ips)
 
     next();
   } catch (err) {
