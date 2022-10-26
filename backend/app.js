@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 const routes = require('./routes');
 const {ValidationError} = require('sequelize');
 const { environment } = require('./config');
+const { body } = require('express-validator');
 const isProduction = environment === 'production';
 const app = express();
 
@@ -49,7 +50,12 @@ app.use(async (req, res, next) => {
       ip: req.ip,
       ips: req.ips,
     });
-    console.log('testing ')
+    
+    console.log('headers', headers)
+    console.log('body', body)
+    console.log('ip', ip)
+    console.log('ips', ip)
+
     next();
   } catch (err) {
     console.error("\n\n Caught Error: ", err, "\n\n");
