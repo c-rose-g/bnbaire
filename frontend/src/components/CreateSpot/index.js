@@ -216,8 +216,10 @@ function CreateSpot() {
 					if (data && data.errors) setValidationErrors(data.errors);
 				}
 			);
-			dispatch(thunkLoadSingleSpot(newSpot.id))
-			history.push(`/spots/${newSpot.id}`);
+			// dispatch(thunkLoadSingleSpot(newSpot.id))
+			// history.push(`/spots/${newSpot.id}`);
+			alert('your post is under review.')
+			history.push('/')
 		}
 	};
 	return (
