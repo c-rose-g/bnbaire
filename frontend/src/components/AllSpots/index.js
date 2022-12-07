@@ -8,7 +8,8 @@ function AllSpots() {
 	const spotsSelector = useSelector((state) =>
 		Object.values(state.spots.allSpots)
 	);
-	console.log(spotsSelector)
+
+	// console.log(spotsSelector)
 	// const [pagenotfound, setpagenotfound] = useState({})
 	// const imageSelector = useSelector(state => Object.values(state.spots.allSpots.SpotImages))
 	// console.log('this is image selector',imageSelector)

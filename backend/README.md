@@ -81,7 +81,7 @@ information.
 
 * Require Authentication: false
 * Request
-  * Method: GET
+  * Method: POST
   * URL: /login
   * Headers:
     * Content-Type: application/json

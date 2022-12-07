@@ -172,10 +172,7 @@ function SingleSpot() {
 													<div>"{review.review}"</div>
 													<div className="delete-review-div">
 														{user && +user.id === +review.User.id ? (
-															<button
-																className="delete-review-button"
-																onClick={handleDeleteCurrentReview}
-															>
+															<button className="delete-review-button" onClick={handleDeleteCurrentReview}>
 																Delete your review
 															</button>
 														) : null}
