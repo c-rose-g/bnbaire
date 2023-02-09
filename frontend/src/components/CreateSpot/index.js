@@ -208,18 +208,18 @@ function CreateSpot() {
 
 			let spotForm = { ...payload };
 
-			// const newSpot = await dispatch(createSingleSpot(spotForm)).catch(
-			// 	async (res) => {
-			// 		const data = await res.json();
-			// 		console.log('this is data in single spot', data);
+			const newSpot = await dispatch(createSingleSpot(spotForm)).catch(
+				async (res) => {
+					const data = await res.json();
+					console.log('this is data in single spot', data);
 
-			// 		if (data && data.errors) setValidationErrors(data.errors);
-			// 	}
-			// );
-			// dispatch(thunkLoadSingleSpot(newSpot.id))
-			// history.push(`/spots/${newSpot.id}`);
-			alert("you're so cute, thanks for visiting my site :)")
-			history.push('/')
+					if (data && data.errors) setValidationErrors(data.errors);
+				}
+			);
+			dispatch(thunkLoadSingleSpot(newSpot.id))
+			history.push(`/spots/${newSpot.id}`);
+			// alert("you're so cute, thanks for visiting my site :)")
+			// history.push('/')
 		}
 	};
 	return (
